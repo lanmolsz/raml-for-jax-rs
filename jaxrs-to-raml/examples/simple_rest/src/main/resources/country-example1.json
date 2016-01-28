@@ -1,0 +1,24 @@
+{
+  "id" : 100 ,
+  "states" : {
+    "@uri" : "http://www.google.com" ,
+    "state" : [
+      {
+        "@link" : "http://map.google.com" ,
+        "@uri" : "http://map.google.com/shanghai" ,
+        "id" : 99 ,
+        "name" : "Google地图" ,
+        "population" : 1000000000
+      } , {
+        "@link" : "http://map.baidu.com" ,
+        "@uri" : "http://map.baidu.com/beijing",
+        "id" : 98 ,
+        "name" : "百度地图" ,
+        "population" : 500000000
+      }
+    ]
+  } ,
+  "@uri" : "http://www.earth.org" ,
+  "name" : "地球" ,
+  "population" : 7000000000
+}
