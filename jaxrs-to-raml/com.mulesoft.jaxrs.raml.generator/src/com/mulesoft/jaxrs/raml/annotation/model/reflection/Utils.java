@@ -122,6 +122,7 @@ public class Utils {
 	
 	
 	public static String extractMethodJavadoc(String javadocComment) {
+		
 		String str = javadocComment;
 		if(str==null){
 			return null;

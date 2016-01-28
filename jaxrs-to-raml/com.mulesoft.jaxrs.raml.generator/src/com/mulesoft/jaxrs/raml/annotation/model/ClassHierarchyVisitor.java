@@ -50,7 +50,7 @@ public abstract class ClassHierarchyVisitor {
 		IParameterModel[] methodParams = method.getParameters();
 		int paramsCount = methodParams.length;
 		for(IMethodModel m : methods){
-			if(m.getName()==methodName){
+			if(m.getName().equals(methodName)){
 				IParameterModel[] params = m.getParameters();
 				if(params.length==paramsCount){
 					boolean match = true;
@@ -84,6 +84,6 @@ public abstract class ClassHierarchyVisitor {
 		return true;
 	}
 
-	abstract boolean checkMethod(IMethodModel m);
+	protected abstract boolean checkMethod(IMethodModel m);
 
 }

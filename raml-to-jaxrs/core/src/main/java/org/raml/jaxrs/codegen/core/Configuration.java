@@ -25,7 +25,6 @@ import org.jsonschema2pojo.AnnotationStyle;
 import org.jsonschema2pojo.DefaultGenerationConfig;
 import org.jsonschema2pojo.GenerationConfig;
 import org.jsonschema2pojo.NoopAnnotator;
-import org.raml.jaxrs.codegen.core.ext.AbstractGeneratorExtension;
 import org.raml.jaxrs.codegen.core.ext.GeneratorExtension;
 
 /**
@@ -63,7 +62,7 @@ public class Configuration
             throw new IllegalArgumentException(alias + " is not a supported JAX-RS version ("
                                                + StringUtils.join(supportedAliases, ',') + ")");
         }
-    };
+    }
 
     private File outputDirectory;
     private JaxrsVersion jaxrsVersion = JaxrsVersion.JAXRS_1_1;

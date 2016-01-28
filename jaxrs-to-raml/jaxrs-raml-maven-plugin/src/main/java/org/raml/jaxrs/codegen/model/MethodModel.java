@@ -21,7 +21,6 @@ import com.mulesoft.jaxrs.raml.annotation.model.IDocInfo;
 import com.mulesoft.jaxrs.raml.annotation.model.IMethodModel;
 import com.mulesoft.jaxrs.raml.annotation.model.IParameterModel;
 import com.mulesoft.jaxrs.raml.annotation.model.ITypeModel;
-import com.mulesoft.jaxrs.raml.annotation.model.reflection.Utils;
 
 /**
  * <p>MethodModel class.</p>
@@ -72,21 +71,7 @@ public class MethodModel extends GenericElementModel implements IMethodModel {
 	 * @return a {@link com.mulesoft.jaxrs.raml.annotation.model.IDocInfo} object.
 	 */
 	public IDocInfo getBasicDocInfo() {
-		return new IDocInfo() {
-			
-			public String getReturnInfo() {
-				return Utils.extractReturnJavadoc(MethodModel.this.getDocumentation());
-			}
-			
-			
-			public String getDocumentation(String pName) {
-				return Utils.extractParamJavadoc(MethodModel.this.getDocumentation(), pName);
-			}
-			
-			public String getDocumentation() {
-				return Utils.extractMethodJavadoc(MethodModel.this.getDocumentation());
-			}
-		};
+		return MethodDocInfo.create(this.getDocumentation());
 	}
 	
 	/**

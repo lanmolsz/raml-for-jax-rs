@@ -28,7 +28,7 @@ import javax.ws.rs.core.Context;
 public interface HelloWorldRest {
 
 	/**
-	 * default method
+	 * default method 呵呵哒
 	 */
 	@Path("/")
 	@GET
@@ -129,11 +129,19 @@ public interface HelloWorldRest {
 			@PathParam("countryId") int countryId,
 			@PathParam("stateId") int stateId);
 
+	/**
+	 * 修改国家的一个状态.
+	 * 这个方法用来修改指定国家的指定状态，一般用于XX场景
+	 * @param uriContext uri上下文
+	 * @param countryId 国家id
+	 * @param stateId   状态id
+	 * @throws IllegalArgumentException 当参数不合法将抛出异常
+	 */
 	@Path("countries/{countryId}/states/{stateId}")
 	@DELETE
 	public void deleteStateForCountry(@Context UriContext uriContext,
 			@PathParam("countryId") int countryId,
-			@PathParam("stateId") int stateId);
+			@PathParam("stateId") int stateId) throws IllegalArgumentException;
 
 	@Path("run-countries-report")
 	@POST

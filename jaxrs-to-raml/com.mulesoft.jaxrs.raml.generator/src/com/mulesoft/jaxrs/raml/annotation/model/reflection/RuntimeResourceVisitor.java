@@ -1,25 +1,16 @@
 
 package com.mulesoft.jaxrs.raml.annotation.model.reflection;
 
-import java.io.File;
-
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
-import org.raml.schema.model.ISchemaType;
-
 import com.mulesoft.jaxrs.raml.annotation.model.IRamlConfig;
 import com.mulesoft.jaxrs.raml.annotation.model.ITypeModel;
 import com.mulesoft.jaxrs.raml.annotation.model.ResourceVisitor;
 import com.mulesoft.jaxrs.raml.annotation.model.StructureType;
-import com.mulesoft.jaxrs.raml.jaxb.JAXBRegistry;
-import com.mulesoft.jaxrs.raml.jaxb.JAXBType;
-import com.mulesoft.jaxrs.raml.jaxb.SchemaModelBuilder;
-import com.mulesoft.jaxrs.raml.jaxb.XMLModelSerializer;
 import com.mulesoft.jaxrs.raml.jsonschema.JsonFormatter;
-import com.mulesoft.jaxrs.raml.jsonschema.JsonModelSerializer;
-import com.mulesoft.jaxrs.raml.jsonschema.JsonSchemaModelSerializer;
 import com.mulesoft.jaxrs.raml.jsonschema.JsonUtil;
-import com.mulesoft.jaxrs.raml.jsonschema.SchemaGenerator;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
+import java.io.File;
 
 /**
  * <p>RuntimeResourceVisitor class.</p>
@@ -84,7 +75,6 @@ public class RuntimeResourceVisitor extends ResourceVisitor {
 		Class<?> element = null;
 		if (t instanceof ReflectionType) {
 			element = ((ReflectionType) t).getElement();
-			
 		}
 		else if (t.getFullyQualifiedName() != null && classLoader != null) {
 			try {

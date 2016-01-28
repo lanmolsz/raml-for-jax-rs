@@ -22,17 +22,11 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 
-/**
- * @author <a href="mailto:obrand@yahoo.com">Olivier Brand</a>
- * Jun 28, 2008
- * 
- */
+
 @XmlRootElement(name = "contact")
 @Entity
 @Table(name = "Contact")
-@Path("/")
-public class Contact
-{
+public class Contact {
     private Long id;
     private String name;
     private String email;
@@ -41,88 +35,77 @@ public class Contact
     private Set<Contact> contactChildren;
 
     public Contact() {
-
-	this.contactChildren = new LinkedHashSet<Contact>();
+        this.contactChildren = new LinkedHashSet<Contact>();
     }
 
-    @GET
-    @Produces("application/xml")
-    @Transient
-    public Contact get()
-    {
-	return this;
-    }
-    
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @XmlAttribute(name = "contactId")
-    public Long getId()
-    {
-	return id;
+    public Long getId() {
+        return id;
     }
 
-    public void setId(Long id)
-    {
-	this.id = id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Column(name = "name")
-    public String getName()
-    {
-	return name;
+    public String getName() {
+        return name;
     }
 
-    public void setName(String name)
-    {
-	this.name = name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Column(name = "phone")
-    public String getTelephone()
-    {
-	return telephone;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setTelephone(String telephone)
-    {
-	this.telephone = telephone;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     @Column(name = "email")
-    public String getEmail()
-    {
-	return email;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmail(String email)
-    {
-	this.email = email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    @ManyToMany(cascade = { CascadeType.ALL },fetch=FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "ContactToContactJoinTable", joinColumns = @JoinColumn(name = "parentContactId"), inverseJoinColumns = @JoinColumn(name = "childContactId"))
     @XmlTransient
-    public Set<Contact> getContactChildren()
-    {
-	return contactChildren;
+    public Set<Contact> getContactChildren() {
+        return contactChildren;
     }
-    
-    public void setContactChildren(Set<Contact> contactChildren)
-    {
-	this.contactChildren = contactChildren;
+
+    public void setContactChildren(Set<Contact> contactChildren) {
+        this.contactChildren = contactChildren;
     }
-    
-    @GET
+
+
+//    @GET
+    @Produces("application/xml")
+    @Transient
+    public Contact get() {
+        return this;
+    }
+
+//    @GET
     @Path("/contacts")
     @Produces("application/xml")
     @XmlTransient
     @Transient
-    public Contacts getContacts()
-    {
-	Contacts contacts = new Contacts();
-	contacts.setContacts(getContactChildren());
-	return contacts;
+    public Contacts getContacts() {
+        Contacts contacts = new Contacts();
+        contacts.setContacts(getContactChildren());
+        return contacts;
     }
 
 }

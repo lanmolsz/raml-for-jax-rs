@@ -26,9 +26,11 @@ public class SchemaModelBuilder {
 	public SchemaModelBuilder(JAXBRegistry registry,IRamlConfig config) {
 		super();
 		this.registry = registry;
-		for(IResourceVisitorExtension ext : config.getExtensions()){
-			if(ext instanceof ISchemaModelBuilderExtension){
-				this.extensions.add((ISchemaModelBuilderExtension)ext);
+		if(config != null) {
+			for(IResourceVisitorExtension ext : config.getExtensions()){
+				if(ext instanceof ISchemaModelBuilderExtension){
+					this.extensions.add((ISchemaModelBuilderExtension)ext);
+				}
 			}
 		}
 	}
@@ -109,20 +111,26 @@ public class SchemaModelBuilder {
 		else if (p instanceof JAXBElementProperty){
 			JAXBElementProperty el=(JAXBElementProperty) p;
 			List<JAXBType> jaxbTypes = p.isGeneric() ? null : el.getJAXBTypes();
-			if (jaxbTypes!=null&&!jaxbTypes.isEmpty()){
+			if (jaxbTypes!=null && !jaxbTypes.isEmpty()){
 				if(st==StructureType.MAP){
 					ArrayList<ISchemaType> list = new ArrayList<ISchemaType>();
 					for(JAXBType t : jaxbTypes){
 						list.add(generateType(t, StructureType.COMMON));
 					}
 					prop = new MapPropertyImpl(name, list, p.required, false, namespace, p.getAnnotations());
-				}
-				else{
+				} else if (p.asJavaType().isArray()) {
+					Class<?> elementType = p.asJavaType().getComponentType();
+					ISchemaType propertyType = generateType(registry.getJAXBModel(new ReflectionType(elementType)),st);
+					prop = new PropertyModelImpl(name, propertyType, p.required, false, StructureType.COLLECTION, namespace, p.getAnnotations());
+				} else {
 					ISchemaType propertyType = generateType(jaxbTypes.get(0),st);
 					prop = new PropertyModelImpl(name, propertyType, p.required, false, st,namespace, p.getAnnotations());
 				}
-			}
-			else{
+			} else if (p.asJavaType().isArray()) {
+				Class<?> elementType = p.asJavaType().getComponentType();
+				ISchemaType propertyType = generateType(registry.getJAXBModel(new ReflectionType(elementType)),st);
+				prop = new PropertyModelImpl(name, propertyType, p.required, false, StructureType.COLLECTION,namespace, p.getAnnotations());
+			} else {
 				prop = new PropertyModelImpl(name, getType(p), p.required, false, st,namespace, p.getAnnotations());
 			}
 		}

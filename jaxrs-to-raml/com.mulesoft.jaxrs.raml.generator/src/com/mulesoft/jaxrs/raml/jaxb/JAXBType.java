@@ -171,7 +171,7 @@ public class JAXBType extends JAXBModelElement {
 	private JAXBProperty createProperty(String string, IMember m, IMethodModel setter, ITypeModel ownerType) {
 		boolean isElement = m.hasAnnotation(XmlElement.class.getSimpleName());
 		boolean isAttribute = m.hasAnnotation(XmlAttribute.class.getSimpleName())
-				|| m.hasAnnotation(XmlAnyAttribute.class.getSimpleName());;
+				|| m.hasAnnotation(XmlAnyAttribute.class.getSimpleName());
 		boolean isValue = m
 				.hasAnnotation(javax.xml.bind.annotation.XmlValue.class
 						.getSimpleName());
