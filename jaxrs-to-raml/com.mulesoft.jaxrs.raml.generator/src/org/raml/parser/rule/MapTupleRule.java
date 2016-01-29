@@ -34,8 +34,7 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class MapTupleRule extends DefaultTupleRule<ScalarNode, MappingNode>
-{
+public class MapTupleRule extends DefaultTupleRule<ScalarNode, MappingNode> {
 
     private Class valueType;
     private String fieldName;
@@ -47,8 +46,7 @@ public class MapTupleRule extends DefaultTupleRule<ScalarNode, MappingNode>
      * @param fieldName a {@link java.lang.String} object.
      * @param valueType a {@link java.lang.Class} object.
      */
-    public MapTupleRule(String fieldName, Class valueType)
-    {
+    public MapTupleRule(String fieldName, Class valueType) {
         super(fieldName, new DefaultScalarTupleHandler(fieldName));
         this.valueType = valueType;
 
@@ -57,27 +55,23 @@ public class MapTupleRule extends DefaultTupleRule<ScalarNode, MappingNode>
     /**
      * <p>Constructor for MapTupleRule.</p>
      *
-     * @param valueType a {@link java.lang.Class} object.
+     * @param valueType       a {@link java.lang.Class} object.
      * @param nodeRuleFactory a {@link org.raml.parser.rule.NodeRuleFactory} object.
      */
-    public MapTupleRule(Class<?> valueType, NodeRuleFactory nodeRuleFactory)
-    {
+    public MapTupleRule(Class<?> valueType, NodeRuleFactory nodeRuleFactory) {
         this(null, valueType);
         setNodeRuleFactory(nodeRuleFactory);
     }
 
 
-    
-    /** {@inheritDoc} */
-    public TupleRule<?, ?> getRuleForTuple(NodeTuple nodeTuple)
-    {
+    /**
+     * {@inheritDoc}
+     */
+    public TupleRule<?, ?> getRuleForTuple(NodeTuple nodeTuple) {
         TupleRule<?, ?> tupleRule;
-        if (ReflectionUtils.isPojo(valueType))
-        {
+        if (ReflectionUtils.isPojo(valueType)) {
             tupleRule = new PojoTupleRule(fieldName, valueType, getNodeRuleFactory());
-        }
-        else
-        {
+        } else {
             tupleRule = getScalarRule();
         }
 
@@ -90,8 +84,7 @@ public class MapTupleRule extends DefaultTupleRule<ScalarNode, MappingNode>
      *
      * @return a {@link org.raml.parser.rule.DefaultTupleRule} object.
      */
-    protected DefaultTupleRule getScalarRule()
-    {
+    protected DefaultTupleRule getScalarRule() {
         return new SimpleRule(getFieldName(), getValueType());
     }
 
@@ -100,8 +93,7 @@ public class MapTupleRule extends DefaultTupleRule<ScalarNode, MappingNode>
      *
      * @return a {@link java.lang.Class} object.
      */
-    protected Class getValueType()
-    {
+    protected Class getValueType() {
         return valueType;
     }
 
@@ -110,27 +102,26 @@ public class MapTupleRule extends DefaultTupleRule<ScalarNode, MappingNode>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getFieldName()
-    {
+    public String getFieldName() {
         return fieldName;
     }
 
-    
-    /** {@inheritDoc} */
-    public void setValueType(Type valueType)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setValueType(Type valueType) {
         this.valueType = (Class) valueType;
     }
 
-    
+
     /**
      * <p>validateKey.</p>
      *
      * @param key a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> validateKey(ScalarNode key)
-    {
+    public List<ValidationResult> validateKey(ScalarNode key) {
         fieldName = key.getValue();
         return super.validateKey(key);
     }
@@ -138,17 +129,13 @@ public class MapTupleRule extends DefaultTupleRule<ScalarNode, MappingNode>
     /**
      * <p>checkDuplicate.</p>
      *
-     * @param key a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
+     * @param key               a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      * @param validationResults a {@link java.util.List} object.
      */
-    public void checkDuplicate(ScalarNode key, List<ValidationResult> validationResults)
-    {
-        if (keys.contains(key.getValue()))
-        {
+    public void checkDuplicate(ScalarNode key, List<ValidationResult> validationResults) {
+        if (keys.contains(key.getValue())) {
             validationResults.add(ValidationResult.createErrorResult(getDuplicateRuleMessage(getName()), key));
-        }
-        else
-        {
+        } else {
             keys.add(key.getValue());
         }
     }

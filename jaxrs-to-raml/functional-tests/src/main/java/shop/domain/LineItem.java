@@ -9,51 +9,43 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @version $Revision: 1 $
  */
 @XmlRootElement(name = "line-item")
-public class LineItem
-{
-   protected int id;
-   protected Product product;
-   protected int quantity;
+public class LineItem {
+    protected int id;
+    protected Product product;
+    protected int quantity;
 
-   @XmlAttribute
-   public int getId()
-   {
-      return id;
-   }
+    @XmlAttribute
+    public int getId() {
+        return id;
+    }
 
-   public void setId(int id)
-   {
-      this.id = id;
-   }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-   @XmlElementRef
-   public Product getProduct()
-   {
-      return product;
-   }
+    @XmlElementRef
+    public Product getProduct() {
+        return product;
+    }
 
-   public void setProduct(Product product)
-   {
-      this.product = product;
-   }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
-   public int getQuantity()
-   {
-      return quantity;
-   }
+    public int getQuantity() {
+        return quantity;
+    }
 
-   public void setQuantity(int quantity)
-   {
-      this.quantity = quantity;
-   }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
-   @Override
-   public String toString()
-   {
-      return "LineItem{" +
-              "id=" + id +
-              ", product=" + product +
-              ", quantity=" + quantity +
-              '}';
-   }
+    @Override
+    public String toString() {
+        return "LineItem{" +
+                "id=" + id +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

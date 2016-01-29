@@ -8,83 +8,83 @@ import com.mulesoft.jaxrs.raml.annotation.model.IAnnotationModel;
 import com.mulesoft.jaxrs.raml.annotation.model.StructureType;
 
 public enum SimpleType implements ISchemaType {
-	
-	INTEGER  ("Integer"),
-	LONG     ("Long"),
-	SHORT    ("Short"),
-	BYTE     ("Byte"),
-	DOUBLE   ("Double"),
-	FLOAT    ("Float"),
-	BOOLEAN  ("Boolean"),
-	CHARACTER("Character"),
-	STRING   ("String");
 
-	private SimpleType(String name) {
-		this.name = name;
-	}
-	
-	final private String name;
+    INTEGER("Integer"),
+    LONG("Long"),
+    SHORT("Short"),
+    BYTE("Byte"),
+    DOUBLE("Double"),
+    FLOAT("Float"),
+    BOOLEAN("Boolean"),
+    CHARACTER("Character"),
+    STRING("String");
 
-	@Override
-	public boolean isSimple() {
-		return true;
-	}
+    private SimpleType(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public boolean isComplex() {
-		return false;
-	}
+    final private String name;
 
-	@Override
-	public List<ISchemaProperty> getProperties() {
-		return null;
-	}
+    @Override
+    public boolean isSimple() {
+        return true;
+    }
 
-	@Override
-	public String getName() {
-		return this.name;
-	}
+    @Override
+    public boolean isComplex() {
+        return false;
+    }
 
-	@Override
-	public Map<String, String> getNamespaces() {
-		return null;
-	}
+    @Override
+    public List<ISchemaProperty> getProperties() {
+        return null;
+    }
 
-	@Override
-	public String getQualifiedPropertyName(ISchemaProperty prop) {
-		return prop.getName();
-	}
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-	@Override
-	public String getClassName() {
-		return this.name;
-	}
+    @Override
+    public Map<String, String> getNamespaces() {
+        return null;
+    }
 
-	@Override
-	public String getClassQualifiedName() {
-		return this.name;
-	}
+    @Override
+    public String getQualifiedPropertyName(ISchemaProperty prop) {
+        return prop.getName();
+    }
 
-	@Override
-	public StructureType getParentStructureType() {
-		return StructureType.COMMON;
-	}
+    @Override
+    public String getClassName() {
+        return this.name;
+    }
 
-	@Override
-	public JAXBClassMapping getMapping() {
-		return null;
-	}
+    @Override
+    public String getClassQualifiedName() {
+        return this.name;
+    }
 
-	@Override
-	public List<IAnnotationModel> getAnnotations() {
-		return new ArrayList<IAnnotationModel>();
-	}
-	
-	@Override
-	public IAnnotationModel getAnnotation(String name) {
-		return null;
-	}
+    @Override
+    public StructureType getParentStructureType() {
+        return StructureType.COMMON;
+    }
 
-	public void addProperty(ISchemaProperty property) {
-	}
+    @Override
+    public JAXBClassMapping getMapping() {
+        return null;
+    }
+
+    @Override
+    public List<IAnnotationModel> getAnnotations() {
+        return new ArrayList<IAnnotationModel>();
+    }
+
+    @Override
+    public IAnnotationModel getAnnotation(String name) {
+        return null;
+    }
+
+    public void addProperty(ISchemaProperty property) {
+    }
 }

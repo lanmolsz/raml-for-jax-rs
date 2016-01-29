@@ -29,43 +29,36 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class GlobalSchemasRule extends SequenceTupleRule
-{
+public class GlobalSchemasRule extends SequenceTupleRule {
 
     private Map<String, ScalarNode> schemas = new HashMap<String, ScalarNode>();
 
     /**
      * <p>Constructor for GlobalSchemasRule.</p>
      */
-    public GlobalSchemasRule()
-    {
+    public GlobalSchemasRule() {
         super("schemas", null);
     }
 
-    
+
     /**
      * <p>getItemRule.</p>
      *
      * @return a {@link org.raml.parser.rule.NodeRule} object.
      */
-    public NodeRule<?> getItemRule()
-    {
+    public NodeRule<?> getItemRule() {
         return new GlobalSchemaTupleRule(String.class, getNodeRuleFactory());
     }
 
-    private class GlobalSchemaTupleRule extends MapTupleRule
-    {
+    private class GlobalSchemaTupleRule extends MapTupleRule {
 
-        public GlobalSchemaTupleRule(Class<String> valueType, NodeRuleFactory nodeRuleFactory)
-        {
+        public GlobalSchemaTupleRule(Class<String> valueType, NodeRuleFactory nodeRuleFactory) {
             super(valueType, nodeRuleFactory);
         }
 
-        
-        public TupleRule<?, ?> getRuleForTuple(NodeTuple nodeTuple)
-        {
-            if (nodeTuple.getKeyNode().getNodeId() == scalar && nodeTuple.getValueNode().getNodeId() == scalar)
-            {
+
+        public TupleRule<?, ?> getRuleForTuple(NodeTuple nodeTuple) {
+            if (nodeTuple.getKeyNode().getNodeId() == scalar && nodeTuple.getValueNode().getNodeId() == scalar) {
                 String schemaKey = ((ScalarNode) nodeTuple.getKeyNode()).getValue();
                 ScalarNode valueNode = (ScalarNode) nodeTuple.getValueNode();
                 schemas.put(schemaKey, valueNode);
@@ -80,8 +73,7 @@ public class GlobalSchemasRule extends SequenceTupleRule
      * @param key a {@link java.lang.String} object.
      * @return a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      */
-    public ScalarNode getSchema(String key)
-    {
+    public ScalarNode getSchema(String key) {
         return schemas.get(key);
     }
 

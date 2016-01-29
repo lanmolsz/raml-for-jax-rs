@@ -60,8 +60,7 @@ import org.yaml.snakeyaml.serializer.Serializer;
  * @author kor
  * @version $Id: $Id
  */
-public class YamlDocumentBuilder<T> implements NodeHandler
-{
+public class YamlDocumentBuilder<T> implements NodeHandler {
 
     private Class<T> documentClass;
     private T documentObject;
@@ -74,12 +73,11 @@ public class YamlDocumentBuilder<T> implements NodeHandler
     /**
      * <p>Constructor for YamlDocumentBuilder.</p>
      *
-     * @param documentClass a {@link java.lang.Class} object.
+     * @param documentClass  a {@link java.lang.Class} object.
      * @param resourceLoader a {@link org.raml.parser.loader.ResourceLoader} object.
-     * @param tagResolvers a {@link org.raml.parser.tagresolver.TagResolver} object.
+     * @param tagResolvers   a {@link org.raml.parser.tagresolver.TagResolver} object.
      */
-    public YamlDocumentBuilder(Class<T> documentClass, ResourceLoader resourceLoader, TagResolver... tagResolvers)
-    {
+    public YamlDocumentBuilder(Class<T> documentClass, ResourceLoader resourceLoader, TagResolver... tagResolvers) {
         this.documentClass = documentClass;
         this.resourceLoader = resourceLoader;
         this.tagResolvers = tagResolvers;
@@ -91,8 +89,7 @@ public class YamlDocumentBuilder<T> implements NodeHandler
      * @param content a {@link java.io.Reader} object.
      * @return a T object.
      */
-    public T build(Reader content)
-    {
+    public T build(Reader content) {
         Yaml yamlParser = new Yaml();
         NodeVisitor nodeVisitor = new NodeVisitor(this, resourceLoader, tagResolvers);
         rootNode = (MappingNode) yamlParser.compose(content);
@@ -101,17 +98,16 @@ public class YamlDocumentBuilder<T> implements NodeHandler
         postBuildProcess();
         return documentObject;
     }
-    
+
     /**
      * <p>build.</p>
      *
      * @param content a {@link org.yaml.snakeyaml.nodes.MappingNode} object.
      * @return a T object.
      */
-    public T build(MappingNode content)
-    {
+    public T build(MappingNode content) {
         NodeVisitor nodeVisitor = new NodeVisitor(this, resourceLoader, tagResolvers);
-        rootNode =content;
+        rootNode = content;
         preBuildProcess();
         nodeVisitor.visitDocument(rootNode);
         postBuildProcess();
@@ -123,8 +119,7 @@ public class YamlDocumentBuilder<T> implements NodeHandler
      *
      * @return a T object.
      */
-    protected T getDocumentObject()
-    {
+    protected T getDocumentObject() {
         return documentObject;
     }
 
@@ -133,8 +128,7 @@ public class YamlDocumentBuilder<T> implements NodeHandler
      *
      * @return a {@link java.util.Stack} object.
      */
-    protected Stack<NodeBuilder<?>> getBuilderContext()
-    {
+    protected Stack<NodeBuilder<?>> getBuilderContext() {
         return builderContext;
     }
 
@@ -143,8 +137,7 @@ public class YamlDocumentBuilder<T> implements NodeHandler
      *
      * @return a {@link java.util.Stack} object.
      */
-    protected Stack<Object> getDocumentContext()
-    {
+    protected Stack<Object> getDocumentContext() {
         return documentContext;
     }
 
@@ -153,23 +146,20 @@ public class YamlDocumentBuilder<T> implements NodeHandler
      *
      * @return a {@link org.raml.parser.loader.ResourceLoader} object.
      */
-    protected ResourceLoader getResourceLoader()
-    {
+    protected ResourceLoader getResourceLoader() {
         return resourceLoader;
     }
 
     /**
      * <p>preBuildProcess.</p>
      */
-    protected void preBuildProcess()
-    {
+    protected void preBuildProcess() {
     }
 
     /**
      * <p>postBuildProcess.</p>
      */
-    protected void postBuildProcess()
-    {
+    protected void postBuildProcess() {
     }
 
     /**
@@ -178,8 +168,7 @@ public class YamlDocumentBuilder<T> implements NodeHandler
      * @param content a {@link java.io.InputStream} object.
      * @return a T object.
      */
-    public T build(InputStream content)
-    {
+    public T build(InputStream content) {
         return build(new InputStreamReader(content));
     }
 
@@ -189,8 +178,7 @@ public class YamlDocumentBuilder<T> implements NodeHandler
      * @param content a {@link java.lang.String} object.
      * @return a T object.
      */
-    public T build(String content)
-    {
+    public T build(String content) {
         return build(new StringReader(content));
     }
 
@@ -199,51 +187,48 @@ public class YamlDocumentBuilder<T> implements NodeHandler
      *
      * @return a {@link org.yaml.snakeyaml.nodes.MappingNode} object.
      */
-    public MappingNode getRootNode()
-    {
+    public MappingNode getRootNode() {
         return rootNode;
     }
 
-    
-    /** {@inheritDoc} */
-    public void onMappingNodeStart(MappingNode mappingNode, TupleType tupleType)
-    {
-        if (tupleType == KEY)
-        {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onMappingNodeStart(MappingNode mappingNode, TupleType tupleType) {
+        if (tupleType == KEY) {
             throw new YAMLException(NON_SCALAR_KEY_MESSAGE + ": " + mappingNode.getStartMark());
         }
         NodeBuilder<?> currentBuilder = builderContext.peek();
         Object parentObject = documentContext.peek();
-        if (!(currentBuilder instanceof ScalarTupleBuilder)){
-        	Object object = ((TupleBuilder<?, MappingNode>) currentBuilder).buildValue(parentObject, mappingNode);
-        	documentContext.push(object);
+        if (!(currentBuilder instanceof ScalarTupleBuilder)) {
+            Object object = ((TupleBuilder<?, MappingNode>) currentBuilder).buildValue(parentObject, mappingNode);
+            documentContext.push(object);
+        } else {
+            documentContext.push(null);
         }
-        else{ 
-        	documentContext.push(null);
-        }
-        
-        
-        
+
+
     }
 
-    
-    /** {@inheritDoc} */
-    public void onMappingNodeEnd(MappingNode mappingNode, TupleType tupleType)
-    {
-        if (tupleType == KEY)
-        {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onMappingNodeEnd(MappingNode mappingNode, TupleType tupleType) {
+        if (tupleType == KEY) {
             throw new YAMLException(NON_SCALAR_KEY_MESSAGE + ": " + mappingNode.getStartMark());
         }
         documentContext.pop();
     }
 
-    
-    /** {@inheritDoc} */
+
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unchecked")
-    public void onSequenceStart(SequenceNode node, TupleType tupleType)
-    {
-        if (tupleType == KEY)
-        {
+    public void onSequenceStart(SequenceNode node, TupleType tupleType) {
+        if (tupleType == KEY) {
             throw new YAMLException(NON_SCALAR_KEY_MESSAGE + ": " + node.getStartMark());
         }
         SequenceBuilder currentBuilder = (SequenceBuilder) builderContext.peek();
@@ -253,141 +238,137 @@ public class YamlDocumentBuilder<T> implements NodeHandler
         documentContext.push(object);
     }
 
-    
-    /** {@inheritDoc} */
-    public void onSequenceEnd(SequenceNode node, TupleType tupleType)
-    {
-        if (tupleType == KEY)
-        {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onSequenceEnd(SequenceNode node, TupleType tupleType) {
+        if (tupleType == KEY) {
             throw new YAMLException(NON_SCALAR_KEY_MESSAGE + ": " + node.getStartMark());
         }
         documentContext.pop();
         builderContext.pop();
     }
 
-    
-    /** {@inheritDoc} */
+
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unchecked")
-    public void onScalar(ScalarNode node, TupleType tupleType)
-    {
+    public void onScalar(ScalarNode node, TupleType tupleType) {
 
         NodeBuilder<?> currentBuilder = builderContext.peek();
         Object parentObject = documentContext.peek();
 
-        if (tupleType == VALUE)
-        {
-        	if (currentBuilder instanceof SequenceTupleBuilder){
-        		if (node.getValue().length()==0){
-        			return;
-        		}
-        	}
+        if (tupleType == VALUE) {
+            if (currentBuilder instanceof SequenceTupleBuilder) {
+                if (node.getValue().length() == 0) {
+                    return;
+                }
+            }
             ((NodeBuilder<ScalarNode>) currentBuilder).buildValue(parentObject, node);
-        }
-        else
-        {
+        } else {
             ((TupleBuilder<ScalarNode, ?>) currentBuilder).buildKey(parentObject, node);
         }
 
     }
 
 
-    
-    /** {@inheritDoc} */
-    public void onDocumentStart(MappingNode node)
-    {
-        try
-        {
+    /**
+     * {@inheritDoc}
+     */
+    public void onDocumentStart(MappingNode node) {
+        try {
             documentObject = documentClass.newInstance();
             documentContext.push(documentObject);
             builderContext.push(buildDocumentBuilder());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private TupleBuilder<?, ?> buildDocumentBuilder()
-    {
+    private TupleBuilder<?, ?> buildDocumentBuilder() {
         DefaultTupleBuilder<Node, MappingNode> documentBuilder = new DefaultTupleBuilder<Node, MappingNode>(new DefaultTupleHandler());
         documentBuilder.addBuildersFor(documentClass);
         return documentBuilder;
     }
 
 
-    
-    /** {@inheritDoc} */
-    public void onDocumentEnd(MappingNode node)
-    {
-        if (documentObject != documentContext.pop())
-        {
+    /**
+     * {@inheritDoc}
+     */
+    public void onDocumentEnd(MappingNode node) {
+        if (documentObject != documentContext.pop()) {
             throw new IllegalStateException("more zombies?!");
         }
     }
 
-    
-    /** {@inheritDoc} */
-    public void onTupleEnd(NodeTuple nodeTuple)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onTupleEnd(NodeTuple nodeTuple) {
         builderContext.pop();
 
     }
 
-    
-    /** {@inheritDoc} */
-    public void onTupleStart(NodeTuple nodeTuple)
-    {
-    	if (nodeTuple.getKeyNode() instanceof ScalarNode){
-    		if (documentContext.peek() instanceof Resource){
-    			String c=((ScalarNode) nodeTuple.getKeyNode()).getValue();
-    			if (c.equals("type")){
-    				new TypeExtraHandler().handle(documentContext.peek(),new SequenceNode(Tag.BOOL, Collections.singletonList(nodeTuple.getValueNode()), true));
-    			}
-    		}
-    	}
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onTupleStart(NodeTuple nodeTuple) {
+        if (nodeTuple.getKeyNode() instanceof ScalarNode) {
+            if (documentContext.peek() instanceof Resource) {
+                String c = ((ScalarNode) nodeTuple.getKeyNode()).getValue();
+                if (c.equals("type")) {
+                    new TypeExtraHandler().handle(documentContext.peek(), new SequenceNode(Tag.BOOL, Collections.singletonList(nodeTuple.getValueNode()), true));
+                }
+            }
+        }
         TupleBuilder<?, ?> currentBuilder = (TupleBuilder<?, ?>) builderContext.peek();
-        if (currentBuilder != null)
-        {
+        if (currentBuilder != null) {
             NodeBuilder<?> builder = currentBuilder.getBuilderForTuple(nodeTuple);
             builderContext.push(builder);
-        }
-        else
-        {
+        } else {
             throw new IllegalStateException("Unexpected builderContext state");
         }
 
     }
 
-    
-    /** {@inheritDoc} */
-    public void onSequenceElementStart(Node sequenceNode)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onSequenceElementStart(Node sequenceNode) {
     }
 
-    
-    /** {@inheritDoc} */
-    public void onSequenceElementEnd(Node sequenceNode)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onSequenceElementEnd(Node sequenceNode) {
     }
 
-    
-    /** {@inheritDoc} */
-    public void onCustomTagStart(Tag tag, Node originalValueNode, Node node)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onCustomTagStart(Tag tag, Node originalValueNode, Node node) {
     }
 
-    
-    /** {@inheritDoc} */
-    public void onCustomTagEnd(Tag tag, Node originalValueNode, Node node)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onCustomTagEnd(Tag tag, Node originalValueNode, Node node) {
     }
 
-    
-    /** {@inheritDoc} */
-    public void onCustomTagError(Tag tag, Node node, String message)
-    {
-        if (IncludeResolver.INCLUDE_TAG.equals(tag))
-        {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onCustomTagError(Tag tag, Node node, String message) {
+        if (IncludeResolver.INCLUDE_TAG.equals(tag)) {
             throw new RuntimeException("resource not found: " + ((ScalarNode) node).getValue());
         }
     }
@@ -398,8 +379,7 @@ public class YamlDocumentBuilder<T> implements NodeHandler
      * @param rootNode a {@link org.yaml.snakeyaml.nodes.Node} object.
      * @return a {@link java.lang.String} object.
      */
-    public static String dumpFromAst(Node rootNode)
-    {
+    public static String dumpFromAst(Node rootNode) {
         Writer writer = new StringWriter();
         dumpFromAst(rootNode, writer);
         return writer.toString();
@@ -409,26 +389,21 @@ public class YamlDocumentBuilder<T> implements NodeHandler
      * <p>dumpFromAst.</p>
      *
      * @param rootNode a {@link org.yaml.snakeyaml.nodes.Node} object.
-     * @param output a {@link java.io.Writer} object.
+     * @param output   a {@link java.io.Writer} object.
      */
-    public static void dumpFromAst(Node rootNode, Writer output)
-    {
-        if (rootNode == null)
-        {
+    public static void dumpFromAst(Node rootNode, Writer output) {
+        if (rootNode == null) {
             throw new IllegalArgumentException("rootNode is null");
         }
         DumperOptions dumperOptions = new DumperOptions();
         Tag rootTag = dumperOptions.getExplicitRoot();
         Serializer serializer = new Serializer(new Emitter(output, dumperOptions), new Resolver(),
-                                               dumperOptions, rootTag);
-        try
-        {
+                dumperOptions, rootTag);
+        try {
             serializer.open();
             serializer.serialize(rootNode);
             serializer.close();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new YAMLException(e);
         }
     }

@@ -6,13 +6,13 @@ package org.raml.parser.builder;
  * @author kor
  * @version $Id: $Id
  */
-public class TraitsExtraHandler extends TemplatesExtraHandler{
+public class TraitsExtraHandler extends TemplatesExtraHandler {
 
-	/**
-	 * <p>Constructor for TraitsExtraHandler.</p>
-	 */
-	public TraitsExtraHandler() {
-		super("isModel");
-	}
+    /**
+     * <p>Constructor for TraitsExtraHandler.</p>
+     */
+    public TraitsExtraHandler() {
+        super("isModel");
+    }
 
 }

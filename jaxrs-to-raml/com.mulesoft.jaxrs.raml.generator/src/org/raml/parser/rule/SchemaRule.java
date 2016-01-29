@@ -43,71 +43,54 @@ import org.yaml.snakeyaml.nodes.Tag;
  * @author kor
  * @version $Id: $Id
  */
-public class SchemaRule extends SimpleRule
-{
+public class SchemaRule extends SimpleRule {
 
     /**
      * <p>Constructor for SchemaRule.</p>
      */
-    public SchemaRule()
-    {
+    public SchemaRule() {
         super("schema", String.class);
     }
 
-    
-    /** {@inheritDoc} */
-    public List<ValidationResult> doValidateValue(ScalarNode node)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<ValidationResult> doValidateValue(ScalarNode node) {
         String value = node.getValue();
         List<ValidationResult> validationResults = super.doValidateValue(node);
 
         IncludeInfo globaSchemaIncludeInfo = null;
         ScalarNode schemaNode = getGlobalSchemaNode(value);
-        if (schemaNode == null)
-        {
+        if (schemaNode == null) {
             schemaNode = node;
-        }
-        else
-        {
+        } else {
             value = schemaNode.getValue();
-            if (schemaNode.getTag().startsWith(INCLUDE_APPLIED_TAG))
-            {
+            if (schemaNode.getTag().startsWith(INCLUDE_APPLIED_TAG)) {
                 globaSchemaIncludeInfo = new IncludeInfo(schemaNode.getTag());
             }
         }
-        if (value == null || isCustomTag(schemaNode.getTag()))
-        {
+        if (value == null || isCustomTag(schemaNode.getTag())) {
             return validationResults;
         }
 
         String mimeType = ((ScalarNode) getParentTupleRule().getKey()).getValue();
-        if (mimeType.contains("json"))
-        {
-            try
-            {
-               // JsonLoader.fromString(value);
-            }
-            catch (Exception jpe)
-            {
+        if (mimeType.contains("json")) {
+            try {
+                // JsonLoader.fromString(value);
+            } catch (Exception jpe) {
                 //String msg = "invalid JSON schema" + getSourceErrorDetail(node) + jpe.getOriginalMessage();
-              //  JsonLocation loc = jpe.getLocation();
+                //  JsonLocation loc = jpe.getLocation();
                 //validationResults.add(getErrorResult(msg, getLineOffset(schemaNode) + loc.getLineNr(), globaSchemaIncludeInfo));
             }
-        }
-        else if (mimeType.contains("xml"))
-        {
+        } else if (mimeType.contains("xml")) {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            try
-            {
+            try {
                 factory.newSchema(new StreamSource(new StringReader(value)));
-            }
-            catch (SAXParseException e)
-            {
+            } catch (SAXParseException e) {
                 String msg = "invalid XML schema" + getSourceErrorDetail(node) + e.getMessage();
                 validationResults.add(getErrorResult(msg, getLineOffset(schemaNode) + e.getLineNumber(), globaSchemaIncludeInfo));
-            }
-            catch (SAXException e)
-            {
+            } catch (SAXException e) {
                 String msg = "invalid XML schema" + getSourceErrorDetail(node);
                 validationResults.add(getErrorResult(msg, getLineOffset(schemaNode), globaSchemaIncludeInfo));
             }
@@ -115,44 +98,35 @@ public class SchemaRule extends SimpleRule
         return validationResults;
     }
 
-    private ValidationResult getErrorResult(String msg, int line, IncludeInfo globaSchemaIncludeInfo)
-    {
+    private ValidationResult getErrorResult(String msg, int line, IncludeInfo globaSchemaIncludeInfo) {
         ValidationResult errorResult = createErrorResult(msg, line, UNKNOWN, UNKNOWN);
-        if (globaSchemaIncludeInfo != null)
-        {
+        if (globaSchemaIncludeInfo != null) {
             errorResult.getIncludeContext().push(globaSchemaIncludeInfo);
         }
         return errorResult;
     }
 
-    private int getLineOffset(ScalarNode schemaNode)
-    {
+    private int getLineOffset(ScalarNode schemaNode) {
         boolean isInclude = schemaNode.getTag().startsWith(INCLUDE_APPLIED_TAG);
         return isInclude ? -1 : schemaNode.getStartMark().getLine();
     }
 
-    private String getSourceErrorDetail(ScalarNode node)
-    {
+    private String getSourceErrorDetail(ScalarNode node) {
         String msg = "";
-        if (node instanceof IncludeScalarNode)
-        {
+        if (node instanceof IncludeScalarNode) {
             msg = " (" + ((IncludeScalarNode) node).getIncludeName() + ")";
-        }
-        else if (node.getValue().matches("\\w.*"))
-        {
+        } else if (node.getValue().matches("\\w.*")) {
             msg = " (" + node.getValue() + ")";
         }
         return msg + ": ";
     }
 
-    private ScalarNode getGlobalSchemaNode(String key)
-    {
+    private ScalarNode getGlobalSchemaNode(String key) {
         GlobalSchemasRule schemasRule = (GlobalSchemasRule) getRootTupleRule().getRuleByFieldName("schemas");
         return schemasRule.getSchema(key);
     }
 
-    private boolean isCustomTag(Tag tag)
-    {
+    private boolean isCustomTag(Tag tag) {
         return tag != null && !STR.equals(tag) && !tag.startsWith(INCLUDE_APPLIED_TAG);
     }
 

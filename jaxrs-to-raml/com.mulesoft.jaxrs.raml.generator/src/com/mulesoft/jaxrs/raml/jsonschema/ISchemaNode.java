@@ -9,12 +9,12 @@ import java.util.Collection;
  * @version $Id: $Id
  */
 public interface ISchemaNode {
-	
-	/**
-	 * <p>getChildren.</p>
-	 *
-	 * @return a {@link java.util.Collection} object.
-	 */
-	Collection<? extends ISchemaNode> getChildren();
+
+    /**
+     * <p>getChildren.</p>
+     *
+     * @return a {@link java.util.Collection} object.
+     */
+    Collection<? extends ISchemaNode> getChildren();
 
 }

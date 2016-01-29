@@ -6,20 +6,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class LocationRef {
 
-	public LocationRef() {
-	}
-	
-	
-	@XmlAttribute
-	protected String locationName;
-	
-	public LocationRef(String locationName, String locationId) {
-		super();
-		this.locationName = locationName;
-		this.locationId = locationId;
-	}
+    public LocationRef() {
+    }
 
 
-	@XmlAttribute
-	protected String locationId;
+    @XmlAttribute
+    protected String locationName;
+
+    public LocationRef(String locationName, String locationId) {
+        super();
+        this.locationName = locationName;
+        this.locationId = locationId;
+    }
+
+
+    @XmlAttribute
+    protected String locationId;
 }

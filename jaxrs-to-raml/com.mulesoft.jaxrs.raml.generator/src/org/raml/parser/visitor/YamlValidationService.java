@@ -41,8 +41,7 @@ import org.yaml.snakeyaml.nodes.Node;
  * @author kor
  * @version $Id: $Id
  */
-public class YamlValidationService
-{
+public class YamlValidationService {
 
     //protected final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -55,11 +54,10 @@ public class YamlValidationService
      * <p>Constructor for YamlValidationService.</p>
      *
      * @param resourceLoader a {@link org.raml.parser.loader.ResourceLoader} object.
-     * @param yamlValidator a {@link org.raml.parser.visitor.YamlValidator} object.
-     * @param tagResolvers an array of {@link org.raml.parser.tagresolver.TagResolver} objects.
+     * @param yamlValidator  a {@link org.raml.parser.visitor.YamlValidator} object.
+     * @param tagResolvers   an array of {@link org.raml.parser.tagresolver.TagResolver} objects.
      */
-    protected YamlValidationService(ResourceLoader resourceLoader, YamlValidator yamlValidator, TagResolver[] tagResolvers)
-    {
+    protected YamlValidationService(ResourceLoader resourceLoader, YamlValidator yamlValidator, TagResolver[] tagResolvers) {
         this.resourceLoader = resourceLoader;
         this.yamlValidator = yamlValidator;
         this.errorMessage = new ArrayList<ValidationResult>();
@@ -72,8 +70,7 @@ public class YamlValidationService
      * @param root a {@link org.yaml.snakeyaml.nodes.MappingNode} object.
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> validate(MappingNode root)
-    {
+    public List<ValidationResult> validate(MappingNode root) {
         NodeVisitor nodeVisitor = new NodeVisitor(yamlValidator, resourceLoader, tagResolvers);
         errorMessage.addAll(preValidation(root));
         nodeVisitor.visitDocument(root);
@@ -86,8 +83,7 @@ public class YamlValidationService
      * @param content a {@link java.io.InputStream} object.
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> validate(InputStream content)
-    {
+    public List<ValidationResult> validate(InputStream content) {
         return validate(new InputStreamReader(content));
     }
 
@@ -97,8 +93,7 @@ public class YamlValidationService
      * @param content a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> validate(String content)
-    {
+    public List<ValidationResult> validate(String content) {
         return validate(new StringReader(content));
     }
 
@@ -108,30 +103,21 @@ public class YamlValidationService
      * @param content a {@link java.io.Reader} object.
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> validate(Reader content)
-    {
+    public List<ValidationResult> validate(Reader content) {
         long startTime = currentTimeMillis();
 
         Yaml yamlParser = new Yaml();
 
-        try
-        {
+        try {
             Node root = yamlParser.compose(content);
-            if (root != null && root.getNodeId() == mapping)
-            {
+            if (root != null && root.getNodeId() == mapping) {
                 validate((MappingNode) root);
-            }
-            else
-            {
+            } else {
                 errorMessage.add(createErrorResult("Invalid RAML"));
             }
-        }
-        catch (MarkedYAMLException mye)
-        {
+        } catch (MarkedYAMLException mye) {
             errorMessage.add(createErrorResult(mye.getProblem(), mye.getProblemMark(), mye.getProblemMark()));
-        }
-        catch (YAMLException ex)
-        {
+        } catch (YAMLException ex) {
             errorMessage.add(createErrorResult(ex.getMessage()));
         }
 
@@ -151,8 +137,7 @@ public class YamlValidationService
      * @param root a {@link org.yaml.snakeyaml.nodes.MappingNode} object.
      * @return a {@link java.util.List} object.
      */
-    protected List<ValidationResult> preValidation(MappingNode root)
-    {
+    protected List<ValidationResult> preValidation(MappingNode root) {
         //template method
         return new ArrayList<ValidationResult>();
     }

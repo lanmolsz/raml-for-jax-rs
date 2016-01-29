@@ -25,27 +25,22 @@ import org.yaml.snakeyaml.nodes.Node;
  * @author kor
  * @version $Id: $Id
  */
-public class AbastractFactory
-{
+public class AbastractFactory {
 
     /**
      * <p>createHandler.</p>
      *
-     * @param handler a {@link java.lang.Class} object.
-     * @param alias a {@link java.lang.String} object.
+     * @param handler   a {@link java.lang.Class} object.
+     * @param alias     a {@link java.lang.String} object.
      * @param nodeClass a {@link java.lang.Class} object.
      * @return a {@link org.raml.parser.resolver.TupleHandler} object.
      */
     protected TupleHandler createHandler(Class<? extends TupleHandler> handler, String alias,
-                                         Class<? extends Node> nodeClass)
-    {
+                                         Class<? extends Node> nodeClass) {
         TupleHandler tupleHandler = null;
-        if (handler != TupleHandler.class)
-        {
+        if (handler != TupleHandler.class) {
             tupleHandler = createInstanceOf(handler);
-        }
-        else if (!alias.isEmpty())
-        {
+        } else if (!alias.isEmpty()) {
             tupleHandler = new DefaultScalarTupleHandler(alias);
         }
         return tupleHandler;
@@ -55,21 +50,15 @@ public class AbastractFactory
      * <p>createInstanceOf.</p>
      *
      * @param handler a {@link java.lang.Class} object.
-     * @param <T> a T object.
+     * @param <T>     a T object.
      * @return a T object.
      */
-    protected <T> T createInstanceOf(Class<? extends T> handler)
-    {
-        try
-        {
+    protected <T> T createInstanceOf(Class<? extends T> handler) {
+        try {
             return handler.newInstance();
-        }
-        catch (InstantiationException e)
-        {
+        } catch (InstantiationException e) {
             throw new RuntimeException(e);
-        }
-        catch (IllegalAccessException e)
-        {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }

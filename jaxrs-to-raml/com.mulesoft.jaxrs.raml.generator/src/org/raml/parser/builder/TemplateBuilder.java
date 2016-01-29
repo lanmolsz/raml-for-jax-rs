@@ -37,8 +37,7 @@ import org.yaml.snakeyaml.nodes.Tag;
  * @author kor
  * @version $Id: $Id
  */
-public class TemplateBuilder extends SequenceTupleBuilder
-{
+public class TemplateBuilder extends SequenceTupleBuilder {
 
     //protected final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -47,56 +46,47 @@ public class TemplateBuilder extends SequenceTupleBuilder
      *
      * @param fieldName a {@link java.lang.String} object.
      */
-    public TemplateBuilder(String fieldName)
-    {
-        super(fieldName, new ParameterizedType()
-        {
-            
-            public Type[] getActualTypeArguments()
-            {
-                return new Type[] {String.class, Template.class};
+    public TemplateBuilder(String fieldName) {
+        super(fieldName, new ParameterizedType() {
+
+            public Type[] getActualTypeArguments() {
+                return new Type[]{String.class, Template.class};
             }
 
-            
-            public Type getRawType()
-            {
+
+            public Type getRawType() {
                 return Map.class;
             }
 
-            
-            public Type getOwnerType()
-            {
+
+            public Type getOwnerType() {
                 return null;
             }
         }, null);
     }
 
-    
+
     /**
      * <p>buildValue.</p>
      *
-     * @param parent a {@link java.lang.Object} object.
+     * @param parent       a {@link java.lang.Object} object.
      * @param sequenceNode a {@link org.yaml.snakeyaml.nodes.SequenceNode} object.
      * @return a {@link java.lang.Object} object.
      */
-    public Object buildValue(Object parent, SequenceNode sequenceNode)
-    {
+    public Object buildValue(Object parent, SequenceNode sequenceNode) {
         List<?> list = new ArrayList();
         ReflectionUtils.setProperty(parent, getFieldName(), list);
         int initialSize = sequenceNode.getValue().size();
-        for (int i = 0; i < initialSize; i++)
-        {
+        for (int i = 0; i < initialSize; i++) {
             MappingNode mapping = (MappingNode) sequenceNode.getValue().remove(0);
-            for (NodeTuple tuple : mapping.getValue())
-            {
+            for (NodeTuple tuple : mapping.getValue()) {
                 sequenceNode.getValue().add(getFakeTemplateNode(tuple.getKeyNode()));
             }
         }
         return list;
     }
 
-    private Node getFakeTemplateNode(Node keyNode)
-    {
+    private Node getFakeTemplateNode(Node keyNode) {
         List<NodeTuple> innerTuples = new ArrayList<NodeTuple>();
         innerTuples.add(new NodeTuple(new ScalarNode(Tag.STR, "description", null, null, null), keyNode));
         MappingNode innerNode = new MappingNode(Tag.MAP, innerTuples, false);
@@ -105,14 +95,13 @@ public class TemplateBuilder extends SequenceTupleBuilder
         return new MappingNode(Tag.MAP, outerTuples, false);
     }
 
-    
+
     /**
      * <p>getItemBuilder.</p>
      *
      * @return a {@link org.raml.parser.builder.NodeBuilder} object.
      */
-    public NodeBuilder getItemBuilder()
-    {
+    public NodeBuilder getItemBuilder() {
         return super.getItemBuilder();
     }
 

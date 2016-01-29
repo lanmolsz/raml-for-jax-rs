@@ -1,9 +1,9 @@
 {
-  "countries" : {
-    "country" : {
-      "@href" : "" ,
-      "name" : "" ,
-      "population" : ""
+  "countries": {
+    "country": {
+      "@href": "",
+      "name": "",
+      "population": ""
     }
   }
 }

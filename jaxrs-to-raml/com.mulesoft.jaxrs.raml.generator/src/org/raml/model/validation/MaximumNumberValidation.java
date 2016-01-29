@@ -21,8 +21,7 @@ package org.raml.model.validation;
  * @author kor
  * @version $Id: $Id
  */
-public class MaximumNumberValidation implements Validation
-{
+public class MaximumNumberValidation implements Validation {
 
     private Double maximum;
 
@@ -31,8 +30,7 @@ public class MaximumNumberValidation implements Validation
      *
      * @param maximum a {@link java.lang.String} object.
      */
-    public MaximumNumberValidation(String maximum)
-    {
+    public MaximumNumberValidation(String maximum) {
         this.maximum = parse(maximum);
     }
 
@@ -42,22 +40,19 @@ public class MaximumNumberValidation implements Validation
      * @param value a {@link java.lang.String} object.
      * @return a {@link java.lang.Double} object.
      */
-    public Double parse(String value)
-    {
-        try
-        {
+    public Double parse(String value) {
+        try {
             return Double.parseDouble(value);
-        }
-        catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Cannot parse number: " + value);
         }
     }
 
-    
-    /** {@inheritDoc} */
-    public boolean check(String input)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean check(String input) {
         return maximum.compareTo(parse(input)) >= 0;
     }
 }

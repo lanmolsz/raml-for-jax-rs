@@ -93,7 +93,7 @@ publishing {
         }
         maven {
             name 'localrepo'
-            url localRepoUrl				// Use -PlocalRepoUrl command line property.
+            url localRepoUrl                // Use -PlocalRepoUrl command line property.
             credentials {
                 // Use -PrepoUsername and -PrepoPassword command line properties
                 username = repoUsername

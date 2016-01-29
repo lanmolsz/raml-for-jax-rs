@@ -21,17 +21,15 @@ package org.raml.parser.rule;
  * @author kor
  * @version $Id: $Id
  */
-public class SequenceTupleNullsAllowedRule extends SequenceTupleRule
-{
+public class SequenceTupleNullsAllowedRule extends SequenceTupleRule {
 
-    
+
     /**
      * <p>getScalarRule.</p>
      *
      * @return a {@link org.raml.parser.rule.DefaultTupleRule} object.
      */
-    protected DefaultTupleRule getScalarRule()
-    {
+    protected DefaultTupleRule getScalarRule() {
         return new SimpleNullAllowedRule(getName(), (Class<?>) getItemType());
     }
 }

@@ -28,8 +28,7 @@ import org.raml.parser.annotation.Mapping;
  * @author kor
  * @version $Id: $Id
  */
-public class SecuritySchemeDescriptor
-{
+public class SecuritySchemeDescriptor {
 
     @Mapping
     private Map<String, Header> headers = new HashMap<String, Header>();
@@ -45,8 +44,7 @@ public class SecuritySchemeDescriptor
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, Header> getHeaders()
-    {
+    public Map<String, Header> getHeaders() {
         return headers;
     }
 
@@ -55,8 +53,7 @@ public class SecuritySchemeDescriptor
      *
      * @param headers a {@link java.util.Map} object.
      */
-    public void setHeaders(Map<String, Header> headers)
-    {
+    public void setHeaders(Map<String, Header> headers) {
         this.headers = headers;
     }
 
@@ -65,8 +62,7 @@ public class SecuritySchemeDescriptor
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, QueryParameter> getQueryParameters()
-    {
+    public Map<String, QueryParameter> getQueryParameters() {
         return queryParameters;
     }
 
@@ -75,8 +71,7 @@ public class SecuritySchemeDescriptor
      *
      * @param queryParameters a {@link java.util.Map} object.
      */
-    public void setQueryParameters(Map<String, QueryParameter> queryParameters)
-    {
+    public void setQueryParameters(Map<String, QueryParameter> queryParameters) {
         this.queryParameters = queryParameters;
     }
 
@@ -85,8 +80,7 @@ public class SecuritySchemeDescriptor
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, Response> getResponses()
-    {
+    public Map<String, Response> getResponses() {
         return responses;
     }
 
@@ -95,8 +89,7 @@ public class SecuritySchemeDescriptor
      *
      * @param responses a {@link java.util.Map} object.
      */
-    public void setResponses(Map<String, Response> responses)
-    {
+    public void setResponses(Map<String, Response> responses) {
         this.responses = responses;
     }
 }

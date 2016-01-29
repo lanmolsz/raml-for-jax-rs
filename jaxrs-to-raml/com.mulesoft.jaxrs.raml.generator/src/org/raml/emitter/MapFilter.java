@@ -12,5 +12,5 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MapFilter {
 
-	Class<? extends IFilter<?>>value();
+    Class<? extends IFilter<?>> value();
 }

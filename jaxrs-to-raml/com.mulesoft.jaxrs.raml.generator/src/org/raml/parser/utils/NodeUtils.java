@@ -34,11 +34,10 @@ import org.yaml.snakeyaml.nodes.Tag;
  * @author kor
  * @version $Id: $Id
  */
-public class NodeUtils
-{
+public class NodeUtils {
 
     private static Set STANDARD_TAGS = new HashSet(
-            Arrays.asList(new Tag[] {
+            Arrays.asList(new Tag[]{
                     Tag.YAML,
                     Tag.VALUE,
                     Tag.MERGE,
@@ -62,26 +61,18 @@ public class NodeUtils
      * @param node a {@link org.yaml.snakeyaml.nodes.Node} object.
      * @return a {@link java.lang.Object} object.
      */
-    public static Object getNodeValue(Node node)
-    {
+    public static Object getNodeValue(Node node) {
         Object value = null;
-        if (node instanceof ScalarNode)
-        {
+        if (node instanceof ScalarNode) {
             value = ((ScalarNode) node).getValue();
-        }
-        else if (node instanceof MappingNode)
-        {
+        } else if (node instanceof MappingNode) {
             List<NodeTuple> nodeTuples = ((MappingNode) node).getValue();
-            if (!nodeTuples.isEmpty())
-            {
+            if (!nodeTuples.isEmpty()) {
                 value = getNodeValue(nodeTuples.get(0).getKeyNode());
             }
-        }
-        else if (node instanceof SequenceNode)
-        {
+        } else if (node instanceof SequenceNode) {
             List<Node> nodeList = ((SequenceNode) node).getValue();
-            if (!nodeList.isEmpty())
-            {
+            if (!nodeList.isEmpty()) {
                 value = getNodeValue(nodeList.get(0));
             }
         }
@@ -94,8 +85,7 @@ public class NodeUtils
      * @param tag a {@link org.yaml.snakeyaml.nodes.Tag} object.
      * @return a boolean.
      */
-    public static boolean isStandardTag(Tag tag)
-    {
+    public static boolean isStandardTag(Tag tag) {
         return STANDARD_TAGS.contains(tag);
     }
 }

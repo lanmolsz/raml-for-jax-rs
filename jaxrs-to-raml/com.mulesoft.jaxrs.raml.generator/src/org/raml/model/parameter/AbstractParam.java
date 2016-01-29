@@ -31,8 +31,7 @@ import org.raml.parser.rule.SequenceTupleNullsAllowedRule;
  * @author kor
  * @version $Id: $Id
  */
-public class AbstractParam implements Cloneable
-{
+public class AbstractParam implements Cloneable {
 
     @Scalar
     private String displayName;
@@ -73,8 +72,7 @@ public class AbstractParam implements Cloneable
     /**
      * <p>Constructor for AbstractParam.</p>
      */
-    public AbstractParam()
-    {
+    public AbstractParam() {
         this.type = STRING;
     }
 
@@ -82,11 +80,10 @@ public class AbstractParam implements Cloneable
      * <p>Constructor for AbstractParam.</p>
      *
      * @param displayName a {@link java.lang.String} object.
-     * @param type a {@link org.raml.model.ParamType} object.
-     * @param required a boolean.
+     * @param type        a {@link org.raml.model.ParamType} object.
+     * @param required    a boolean.
      */
-    public AbstractParam(String displayName, ParamType type, boolean required)
-    {
+    public AbstractParam(String displayName, ParamType type, boolean required) {
         this.displayName = displayName;
         this.type = type;
         this.required = required;
@@ -97,8 +94,7 @@ public class AbstractParam implements Cloneable
      *
      * @param displayName a {@link java.lang.String} object.
      */
-    public void setDisplayName(String displayName)
-    {
+    public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
 
@@ -107,8 +103,7 @@ public class AbstractParam implements Cloneable
      *
      * @param description a {@link java.lang.String} object.
      */
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -117,8 +112,7 @@ public class AbstractParam implements Cloneable
      *
      * @param type a {@link org.raml.model.ParamType} object.
      */
-    public void setType(ParamType type)
-    {
+    public void setType(ParamType type) {
         this.type = type;
     }
 
@@ -127,8 +121,7 @@ public class AbstractParam implements Cloneable
      *
      * @param required a boolean.
      */
-    public void setRequired(boolean required)
-    {
+    public void setRequired(boolean required) {
         this.required = required;
     }
 
@@ -137,8 +130,7 @@ public class AbstractParam implements Cloneable
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDisplayName()
-    {
+    public String getDisplayName() {
         return displayName;
     }
 
@@ -147,8 +139,7 @@ public class AbstractParam implements Cloneable
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
@@ -157,8 +148,7 @@ public class AbstractParam implements Cloneable
      *
      * @return a {@link org.raml.model.ParamType} object.
      */
-    public ParamType getType()
-    {
+    public ParamType getType() {
         return type;
     }
 
@@ -167,8 +157,7 @@ public class AbstractParam implements Cloneable
      *
      * @return a boolean.
      */
-    public boolean isRequired()
-    {
+    public boolean isRequired() {
         return required;
     }
 
@@ -177,8 +166,7 @@ public class AbstractParam implements Cloneable
      *
      * @return a boolean.
      */
-    public boolean isRepeat()
-    {
+    public boolean isRepeat() {
         return repeat;
     }
 
@@ -187,8 +175,7 @@ public class AbstractParam implements Cloneable
      *
      * @param repeat a boolean.
      */
-    public void setRepeat(boolean repeat)
-    {
+    public void setRepeat(boolean repeat) {
         this.repeat = repeat;
     }
 
@@ -197,8 +184,7 @@ public class AbstractParam implements Cloneable
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDefaultValue()
-    {
+    public String getDefaultValue() {
         return defaultValue;
     }
 
@@ -207,8 +193,7 @@ public class AbstractParam implements Cloneable
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getExample()
-    {
+    public String getExample() {
         return example;
     }
 
@@ -217,8 +202,7 @@ public class AbstractParam implements Cloneable
      *
      * @return a {@link java.util.List} object.
      */
-    public List<String> getEnumeration()
-    {
+    public List<String> getEnumeration() {
         return enumeration;
     }
 
@@ -227,8 +211,7 @@ public class AbstractParam implements Cloneable
      *
      * @param enumeration a {@link java.util.List} object.
      */
-    public void setEnumeration(List<String> enumeration)
-    {
+    public void setEnumeration(List<String> enumeration) {
         this.enumeration = enumeration;
     }
 
@@ -237,8 +220,7 @@ public class AbstractParam implements Cloneable
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getPattern()
-    {
+    public String getPattern() {
         return pattern;
     }
 
@@ -247,8 +229,7 @@ public class AbstractParam implements Cloneable
      *
      * @param pattern a {@link java.lang.String} object.
      */
-    public void setPattern(String pattern)
-    {
+    public void setPattern(String pattern) {
         this.pattern = pattern;
     }
 
@@ -257,8 +238,7 @@ public class AbstractParam implements Cloneable
      *
      * @return a {@link java.lang.Integer} object.
      */
-    public Integer getMinLength()
-    {
+    public Integer getMinLength() {
         return minLength;
     }
 
@@ -267,8 +247,7 @@ public class AbstractParam implements Cloneable
      *
      * @param minLength a {@link java.lang.Integer} object.
      */
-    public void setMinLength(Integer minLength)
-    {
+    public void setMinLength(Integer minLength) {
         this.minLength = minLength;
     }
 
@@ -277,8 +256,7 @@ public class AbstractParam implements Cloneable
      *
      * @return a {@link java.lang.Integer} object.
      */
-    public Integer getMaxLength()
-    {
+    public Integer getMaxLength() {
         return maxLength;
     }
 
@@ -287,8 +265,7 @@ public class AbstractParam implements Cloneable
      *
      * @param maxLength a {@link java.lang.Integer} object.
      */
-    public void setMaxLength(Integer maxLength)
-    {
+    public void setMaxLength(Integer maxLength) {
         this.maxLength = maxLength;
     }
 
@@ -297,8 +274,7 @@ public class AbstractParam implements Cloneable
      *
      * @return a {@link java.math.BigDecimal} object.
      */
-    public BigDecimal getMinimum()
-    {
+    public BigDecimal getMinimum() {
         return minimum;
     }
 
@@ -307,8 +283,7 @@ public class AbstractParam implements Cloneable
      *
      * @param minimum a {@link java.math.BigDecimal} object.
      */
-    public void setMinimum(BigDecimal minimum)
-    {
+    public void setMinimum(BigDecimal minimum) {
         this.minimum = minimum;
     }
 
@@ -317,8 +292,7 @@ public class AbstractParam implements Cloneable
      *
      * @return a {@link java.math.BigDecimal} object.
      */
-    public BigDecimal getMaximum()
-    {
+    public BigDecimal getMaximum() {
         return maximum;
     }
 
@@ -327,8 +301,7 @@ public class AbstractParam implements Cloneable
      *
      * @param maximum a {@link java.math.BigDecimal} object.
      */
-    public void setMaximum(BigDecimal maximum)
-    {
+    public void setMaximum(BigDecimal maximum) {
         this.maximum = maximum;
     }
 
@@ -337,8 +310,7 @@ public class AbstractParam implements Cloneable
      *
      * @param defaultValue a {@link java.lang.String} object.
      */
-    public void setDefaultValue(String defaultValue)
-    {
+    public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
     }
 
@@ -347,8 +319,7 @@ public class AbstractParam implements Cloneable
      *
      * @param example a {@link java.lang.String} object.
      */
-    public void setExample(String example)
-    {
+    public void setExample(String example) {
         this.example = example;
     }
 
@@ -358,10 +329,8 @@ public class AbstractParam implements Cloneable
      * @param value a {@link java.lang.String} object.
      * @return a boolean.
      */
-    public boolean validate(String value)
-    {
-        if (type == null)
-        {
+    public boolean validate(String value) {
+        if (type == null) {
             type = STRING;
         }
         return type.validate(this, value);

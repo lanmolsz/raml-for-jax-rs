@@ -23,8 +23,7 @@ import org.raml.parser.annotation.Scalar;
  * @author kor
  * @version $Id: $Id
  */
-public class Template
-{
+public class Template {
 
     @Scalar
     private String displayName;
@@ -34,8 +33,7 @@ public class Template
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDisplayName()
-    {
+    public String getDisplayName() {
         return displayName;
     }
 
@@ -44,8 +42,7 @@ public class Template
      *
      * @param displayName a {@link java.lang.String} object.
      */
-    public void setDisplayName(String displayName)
-    {
+    public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
 }

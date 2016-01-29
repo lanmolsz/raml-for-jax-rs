@@ -21,8 +21,7 @@ package org.raml.model.validation;
  * @author kor
  * @version $Id: $Id
  */
-public class MinimumNumberValidation implements Validation
-{
+public class MinimumNumberValidation implements Validation {
 
     private Double minimum;
 
@@ -31,8 +30,7 @@ public class MinimumNumberValidation implements Validation
      *
      * @param minimum a {@link java.lang.String} object.
      */
-    public MinimumNumberValidation(String minimum)
-    {
+    public MinimumNumberValidation(String minimum) {
         this.minimum = parse(minimum);
     }
 
@@ -42,22 +40,19 @@ public class MinimumNumberValidation implements Validation
      * @param value a {@link java.lang.String} object.
      * @return a {@link java.lang.Double} object.
      */
-    public Double parse(String value)
-    {
-        try
-        {
+    public Double parse(String value) {
+        try {
             return Double.parseDouble(value);
-        }
-        catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Cannot parse number: " + value);
         }
     }
 
-    
-    /** {@inheritDoc} */
-    public boolean check(String input)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean check(String input) {
         return minimum.compareTo(parse(input)) <= 0;
     }
 }

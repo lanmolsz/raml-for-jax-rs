@@ -21,21 +21,20 @@ import shop.domain.Products;
  * @version $Revision: 1 $
  */
 @Path("/products")
-public interface ProductResource
-{
-   @POST
-   @Consumes("application/xml")
-   Response createProduct(Product customer, @Context UriInfo uriInfo);
+public interface ProductResource {
+    @POST
+    @Consumes("application/xml")
+    Response createProduct(Product customer, @Context UriInfo uriInfo);
 
-   @GET
-   @Produces("application/xml")
-   Products getProducts(@QueryParam("start") int start,
-                        @QueryParam("size") @DefaultValue("2") int size,
-                        @QueryParam("name") String name,
-                        @Context UriInfo uriInfo);
+    @GET
+    @Produces("application/xml")
+    Products getProducts(@QueryParam("start") int start,
+                         @QueryParam("size") @DefaultValue("2") int size,
+                         @QueryParam("name") String name,
+                         @Context UriInfo uriInfo);
 
-   @GET
-   @Path("{id}")
-   @Produces("application/xml")
-   Product getProduct(@PathParam("id") int id);
+    @GET
+    @Path("{id}")
+    @Produces("application/xml")
+    Product getProduct(@PathParam("id") int id);
 }

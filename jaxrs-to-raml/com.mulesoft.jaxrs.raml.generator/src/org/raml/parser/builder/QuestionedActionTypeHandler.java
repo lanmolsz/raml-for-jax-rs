@@ -10,15 +10,17 @@ import org.raml.parser.resolver.ITransformHandler;
  * @author kor
  * @version $Id: $Id
  */
-public class QuestionedActionTypeHandler implements ITransformHandler{
+public class QuestionedActionTypeHandler implements ITransformHandler {
 
-	/** {@inheritDoc} */
-	public Object handle(Object value,Object parent){
-		if (value.toString().endsWith("?")){
-		Action c=(Action) parent;
-		c.setQuestioned(true);
-		return ActionType.valueOf(value.toString().substring(0,value.toString().length()-1).toUpperCase());
-		}
-		return value;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public Object handle(Object value, Object parent) {
+        if (value.toString().endsWith("?")) {
+            Action c = (Action) parent;
+            c.setQuestioned(true);
+            return ActionType.valueOf(value.toString().substring(0, value.toString().length() - 1).toUpperCase());
+        }
+        return value;
+    }
 }

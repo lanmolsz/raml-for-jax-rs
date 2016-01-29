@@ -32,58 +32,47 @@ import org.yaml.snakeyaml.nodes.SequenceNode;
  * @author kor
  * @version $Id: $Id
  */
-public class MapWithListValueTupleBuilder extends MapTupleBuilder
-{
+public class MapWithListValueTupleBuilder extends MapTupleBuilder {
 
 
     /**
      * <p>Constructor for MapWithListValueTupleBuilder.</p>
      *
-     * @param fieldName a {@link java.lang.String} object.
+     * @param fieldName  a {@link java.lang.String} object.
      * @param valueClass a {@link java.lang.Class} object.
      */
-    public MapWithListValueTupleBuilder(String fieldName, Class<?> valueClass)
-    {
+    public MapWithListValueTupleBuilder(String fieldName, Class<?> valueClass) {
         super(fieldName, valueClass);
     }
 
-    
-    /** {@inheritDoc} */
-    public TupleBuilder getBuilderForTuple(NodeTuple tuple)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public TupleBuilder getBuilderForTuple(NodeTuple tuple) {
         final String fieldName = ((ScalarNode) tuple.getKeyNode()).getValue();
-        if (tuple.getValueNode() instanceof SequenceNode)
-        {
+        if (tuple.getValueNode() instanceof SequenceNode) {
 
             return new SequenceTupleBuilder(fieldName, getValueClass(), null);
-        }
-        else
-        {
+        } else {
             return new ListOfPojoTupleBuilder(fieldName, getValueClass());
         }
     }
 
     //make non sequence mapping node act as sequence
-    private static class ListOfPojoTupleBuilder extends PojoTupleBuilder
-    {
+    private static class ListOfPojoTupleBuilder extends PojoTupleBuilder {
 
-        public ListOfPojoTupleBuilder(String fieldName, Class<?> pojoClass)
-        {
+        public ListOfPojoTupleBuilder(String fieldName, Class<?> pojoClass) {
             super(fieldName, pojoClass);
         }
 
-        
-        public Object buildValue(Object parent, Node node)
-        {
-            try
-            {
+
+        public Object buildValue(Object parent, Node node) {
+            try {
                 Object newValue;
-                if (isPojo(getPojoClass()))
-                {
+                if (isPojo(getPojoClass())) {
                     newValue = getPojoClass().newInstance();
-                }
-                else
-                {
+                } else {
                     newValue = getNodeValue(node);
                 }
                 ArrayList<Object> objects = new ArrayList<Object>();
@@ -91,13 +80,9 @@ public class MapWithListValueTupleBuilder extends MapTupleBuilder
                 ReflectionUtils.setProperty(parent, getFieldName(), objects);
                 processPojoAnnotations(newValue, getFieldName(), parent);
                 return newValue;
-            }
-            catch (InstantiationException e)
-            {
+            } catch (InstantiationException e) {
                 throw new RuntimeException(e);
-            }
-            catch (IllegalAccessException e)
-            {
+            } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
         }

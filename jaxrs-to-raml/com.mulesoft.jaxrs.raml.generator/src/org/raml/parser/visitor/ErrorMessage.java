@@ -23,8 +23,7 @@ import org.yaml.snakeyaml.nodes.Node;
  * @author kor
  * @version $Id: $Id
  */
-public class ErrorMessage
-{
+public class ErrorMessage {
 
     private String errorMessage;
     private Node node;
@@ -33,10 +32,9 @@ public class ErrorMessage
      * <p>Constructor for ErrorMessage.</p>
      *
      * @param errorMessage a {@link java.lang.String} object.
-     * @param node a {@link org.yaml.snakeyaml.nodes.Node} object.
+     * @param node         a {@link org.yaml.snakeyaml.nodes.Node} object.
      */
-    public ErrorMessage(String errorMessage, Node node)
-    {
+    public ErrorMessage(String errorMessage, Node node) {
         super();
         this.errorMessage = errorMessage;
         this.node = node;
@@ -47,8 +45,7 @@ public class ErrorMessage
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getErrorMessage()
-    {
+    public String getErrorMessage() {
         return errorMessage;
     }
 
@@ -57,8 +54,7 @@ public class ErrorMessage
      *
      * @return a {@link org.yaml.snakeyaml.nodes.Node} object.
      */
-    public Node getNode()
-    {
+    public Node getNode() {
         return node;
     }
 

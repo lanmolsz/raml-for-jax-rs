@@ -21,14 +21,12 @@ package org.raml.parser.builder;
  * @author kor
  * @version $Id: $Id
  */
-public class ResourceTypeBuilder extends TemplateBuilder
-{
+public class ResourceTypeBuilder extends TemplateBuilder {
 
     /**
      * <p>Constructor for ResourceTypeBuilder.</p>
      */
-    public ResourceTypeBuilder()
-    {
+    public ResourceTypeBuilder() {
         super("resourceTypes");
     }
 }

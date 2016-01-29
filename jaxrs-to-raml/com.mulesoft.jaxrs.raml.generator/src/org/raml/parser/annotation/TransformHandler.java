@@ -13,5 +13,5 @@ import org.raml.parser.resolver.ITransformHandler;
  */
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface TransformHandler {
-	Class<? extends ITransformHandler>value();
+    Class<? extends ITransformHandler> value();
 }

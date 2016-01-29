@@ -28,8 +28,7 @@ import org.raml.parser.annotation.Scalar;
  * @author kor
  * @version $Id: $Id
  */
-public class Response
-{
+public class Response {
 
     @Scalar
     private String description;
@@ -45,8 +44,7 @@ public class Response
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, Header> getHeaders()
-    {
+    public Map<String, Header> getHeaders() {
         return headers;
     }
 
@@ -55,8 +53,7 @@ public class Response
      *
      * @param headers a {@link java.util.Map} object.
      */
-    public void setHeaders(Map<String, Header> headers)
-    {
+    public void setHeaders(Map<String, Header> headers) {
         this.headers = headers;
     }
 
@@ -65,8 +62,7 @@ public class Response
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
@@ -75,8 +71,7 @@ public class Response
      *
      * @param description a {@link java.lang.String} object.
      */
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -85,8 +80,7 @@ public class Response
      *
      * @param body a {@link java.util.Map} object.
      */
-    public void setBody(Map<String, MimeType> body)
-    {
+    public void setBody(Map<String, MimeType> body) {
         this.body = body;
     }
 
@@ -95,8 +89,7 @@ public class Response
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, MimeType> getBody()
-    {
+    public Map<String, MimeType> getBody() {
         return body;
     }
 }

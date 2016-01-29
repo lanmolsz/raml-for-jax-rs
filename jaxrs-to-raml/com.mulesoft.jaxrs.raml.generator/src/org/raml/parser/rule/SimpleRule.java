@@ -34,8 +34,7 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class SimpleRule extends DefaultTupleRule<ScalarNode, ScalarNode>
-{
+public class SimpleRule extends DefaultTupleRule<ScalarNode, ScalarNode> {
 
     private ScalarNode keyNode;
     private ScalarNode valueNode;
@@ -44,27 +43,24 @@ public class SimpleRule extends DefaultTupleRule<ScalarNode, ScalarNode>
     /**
      * <p>Constructor for SimpleRule.</p>
      *
-     * @param fieldName a {@link java.lang.String} object.
+     * @param fieldName  a {@link java.lang.String} object.
      * @param fieldClass a {@link java.lang.Class} object.
      */
-    public SimpleRule(String fieldName, Class<?> fieldClass)
-    {
+    public SimpleRule(String fieldName, Class<?> fieldClass) {
         super(fieldName, new DefaultScalarTupleHandler(fieldName));
         this.setFieldClass(fieldClass);
     }
 
-    
+
     /**
      * <p>validateKey.</p>
      *
      * @param key a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> validateKey(ScalarNode key)
-    {
+    public List<ValidationResult> validateKey(ScalarNode key) {
         List<ValidationResult> validationResults = super.validateKey(key);
-        if (wasAlreadyDefined())
-        {
+        if (wasAlreadyDefined()) {
             validationResults.add(ValidationResult.createErrorResult(getDuplicateRuleMessage(getName()), key));
         }
         setKeyNode(key);
@@ -72,38 +68,34 @@ public class SimpleRule extends DefaultTupleRule<ScalarNode, ScalarNode>
         return validationResults;
     }
 
-    
+
     /**
      * <p>doValidateValue.</p>
      *
      * @param node a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> doValidateValue(ScalarNode node)
-    {
+    public List<ValidationResult> doValidateValue(ScalarNode node) {
         String value = node.getValue();
         List<ValidationResult> validationResults = new ArrayList<ValidationResult>();
-        if (StringUtils.isEmpty(value))
-        {
+        if (StringUtils.isEmpty(value)) {
             validationResults.add(ValidationResult.createErrorResult(getRuleEmptyMessage(getName()), keyNode != null ? keyNode : node));
         }
-        if (!ConvertUtils.canBeConverted(value, getFieldClass()))
-        {
+        if (!ConvertUtils.canBeConverted(value, getFieldClass())) {
             validationResults.add(ValidationResult.createErrorResult(getRuleTypeMisMatch(getName(), getFieldClass().getSimpleName()), node));
         }
         setValueNode(node);
         return validationResults;
     }
 
-    
+
     /**
      * <p>getValueNodeType.</p>
      *
      * @return an array of {@link java.lang.Class} objects.
      */
-    public Class<?>[] getValueNodeType()
-    {
-        return new Class[] {ScalarNode.class};
+    public Class<?>[] getValueNodeType() {
+        return new Class[]{ScalarNode.class};
     }
 
     /**
@@ -111,8 +103,7 @@ public class SimpleRule extends DefaultTupleRule<ScalarNode, ScalarNode>
      *
      * @return a boolean.
      */
-    public boolean wasAlreadyDefined()
-    {
+    public boolean wasAlreadyDefined() {
         return keyNode != null;
     }
 
@@ -121,8 +112,7 @@ public class SimpleRule extends DefaultTupleRule<ScalarNode, ScalarNode>
      *
      * @param rulePresent a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      */
-    public void setKeyNode(ScalarNode rulePresent)
-    {
+    public void setKeyNode(ScalarNode rulePresent) {
         this.keyNode = rulePresent;
     }
 
@@ -131,8 +121,7 @@ public class SimpleRule extends DefaultTupleRule<ScalarNode, ScalarNode>
      *
      * @return a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      */
-    public ScalarNode getKeyNode()
-    {
+    public ScalarNode getKeyNode() {
         return keyNode;
     }
 
@@ -141,8 +130,7 @@ public class SimpleRule extends DefaultTupleRule<ScalarNode, ScalarNode>
      *
      * @return a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      */
-    public ScalarNode getValueNode()
-    {
+    public ScalarNode getValueNode() {
         return valueNode;
     }
 
@@ -151,8 +139,7 @@ public class SimpleRule extends DefaultTupleRule<ScalarNode, ScalarNode>
      *
      * @param valueNode a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      */
-    public void setValueNode(ScalarNode valueNode)
-    {
+    public void setValueNode(ScalarNode valueNode) {
         this.valueNode = valueNode;
     }
 
@@ -161,8 +148,7 @@ public class SimpleRule extends DefaultTupleRule<ScalarNode, ScalarNode>
      *
      * @return a {@link java.lang.Class} object.
      */
-    public Class<?> getFieldClass()
-    {
+    public Class<?> getFieldClass() {
         return fieldClass;
     }
 
@@ -171,8 +157,7 @@ public class SimpleRule extends DefaultTupleRule<ScalarNode, ScalarNode>
      *
      * @param fieldClass a {@link java.lang.Class} object.
      */
-    public void setFieldClass(Class<?> fieldClass)
-    {
+    public void setFieldClass(Class<?> fieldClass) {
         this.fieldClass = fieldClass;
     }
 }

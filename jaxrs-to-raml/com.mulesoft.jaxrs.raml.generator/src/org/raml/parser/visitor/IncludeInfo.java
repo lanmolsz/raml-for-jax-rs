@@ -28,8 +28,7 @@ import org.yaml.snakeyaml.nodes.Tag;
  * @author kor
  * @version $Id: $Id
  */
-public class IncludeInfo
-{
+public class IncludeInfo {
 
     private int line;
     private int startColumn;
@@ -39,13 +38,12 @@ public class IncludeInfo
     /**
      * <p>Constructor for IncludeInfo.</p>
      *
-     * @param line a int.
+     * @param line        a int.
      * @param startColumn a int.
-     * @param endColumn a int.
+     * @param endColumn   a int.
      * @param includeName a {@link java.lang.String} object.
      */
-    public IncludeInfo(int line, int startColumn, int endColumn, String includeName)
-    {
+    public IncludeInfo(int line, int startColumn, int endColumn, String includeName) {
         this.line = line;
         this.startColumn = startColumn;
         this.endColumn = endColumn;
@@ -55,12 +53,11 @@ public class IncludeInfo
     /**
      * <p>Constructor for IncludeInfo.</p>
      *
-     * @param startMark a {@link org.yaml.snakeyaml.error.Mark} object.
-     * @param endMark a {@link org.yaml.snakeyaml.error.Mark} object.
+     * @param startMark   a {@link org.yaml.snakeyaml.error.Mark} object.
+     * @param endMark     a {@link org.yaml.snakeyaml.error.Mark} object.
      * @param includeName a {@link java.lang.String} object.
      */
-    public IncludeInfo(Mark startMark, Mark endMark, String includeName)
-    {
+    public IncludeInfo(Mark startMark, Mark endMark, String includeName) {
         this(startMark.getLine(), startMark.getColumn(), endMark.getColumn(), includeName);
     }
 
@@ -69,8 +66,7 @@ public class IncludeInfo
      *
      * @param node a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      */
-    public IncludeInfo(ScalarNode node)
-    {
+    public IncludeInfo(ScalarNode node) {
         this(node.getStartMark(), node.getEndMark(), node.getValue());
     }
 
@@ -79,8 +75,7 @@ public class IncludeInfo
      *
      * @param tag a {@link org.yaml.snakeyaml.nodes.Tag} object.
      */
-    public IncludeInfo(Tag tag)
-    {
+    public IncludeInfo(Tag tag) {
         StringBuilder encodedInclude = new StringBuilder(tag.getValue());
         endColumn = popTrailingNumber(encodedInclude);
         startColumn = popTrailingNumber(encodedInclude);
@@ -88,8 +83,7 @@ public class IncludeInfo
         includeName = encodedInclude.substring(IncludeResolver.INCLUDE_APPLIED_TAG.length());
     }
 
-    private int popTrailingNumber(StringBuilder encodedInclude)
-    {
+    private int popTrailingNumber(StringBuilder encodedInclude) {
         int idx = encodedInclude.lastIndexOf(SEPARATOR);
         int result = Integer.parseInt(encodedInclude.substring(idx + 1));
         encodedInclude.delete(idx, encodedInclude.length());
@@ -101,8 +95,7 @@ public class IncludeInfo
      *
      * @return a int.
      */
-    public int getLine()
-    {
+    public int getLine() {
         return line;
     }
 
@@ -111,8 +104,7 @@ public class IncludeInfo
      *
      * @return a int.
      */
-    public int getStartColumn()
-    {
+    public int getStartColumn() {
         return startColumn;
     }
 
@@ -121,8 +113,7 @@ public class IncludeInfo
      *
      * @return a int.
      */
-    public int getEndColumn()
-    {
+    public int getEndColumn() {
         return endColumn;
     }
 
@@ -131,8 +122,7 @@ public class IncludeInfo
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getIncludeName()
-    {
+    public String getIncludeName() {
         return includeName;
     }
 }

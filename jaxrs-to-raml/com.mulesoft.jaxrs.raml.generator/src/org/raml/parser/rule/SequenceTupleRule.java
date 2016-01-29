@@ -30,66 +30,57 @@ import org.yaml.snakeyaml.nodes.SequenceNode;
  * @author kor
  * @version $Id: $Id
  */
-public class SequenceTupleRule extends DefaultTupleRule<ScalarNode, SequenceNode> implements SequenceRule
-{
+public class SequenceTupleRule extends DefaultTupleRule<ScalarNode, SequenceNode> implements SequenceRule {
 
     private Type itemType;
 
     /**
      * <p>Constructor for SequenceTupleRule.</p>
      */
-    public SequenceTupleRule()
-    {
+    public SequenceTupleRule() {
     }
 
     /**
      * <p>Constructor for SequenceTupleRule.</p>
      *
      * @param fieldName a {@link java.lang.String} object.
-     * @param itemType a {@link java.lang.reflect.Type} object.
+     * @param itemType  a {@link java.lang.reflect.Type} object.
      */
-    public SequenceTupleRule(String fieldName, Type itemType)
-    {
+    public SequenceTupleRule(String fieldName, Type itemType) {
         this(fieldName, itemType, null);
     }
 
     /**
      * <p>Constructor for SequenceTupleRule.</p>
      *
-     * @param fieldName a {@link java.lang.String} object.
-     * @param itemType a {@link java.lang.reflect.Type} object.
+     * @param fieldName       a {@link java.lang.String} object.
+     * @param itemType        a {@link java.lang.reflect.Type} object.
      * @param nodeRuleFactory a {@link org.raml.parser.rule.NodeRuleFactory} object.
      */
-    public SequenceTupleRule(String fieldName, Type itemType, NodeRuleFactory nodeRuleFactory)
-    {
+    public SequenceTupleRule(String fieldName, Type itemType, NodeRuleFactory nodeRuleFactory) {
         super(fieldName, new DefaultScalarTupleHandler(fieldName), nodeRuleFactory);
         this.itemType = itemType;
 
     }
 
-    
+
     /**
      * <p>getItemRule.</p>
      *
      * @return a {@link org.raml.parser.rule.NodeRule} object.
      */
-    public NodeRule<?> getItemRule()
-    {
-        if (itemType instanceof Class<?>)
-        {
+    public NodeRule<?> getItemRule() {
+        if (itemType instanceof Class<?>) {
             //TODO add it to a list to invoke onRuleEnd on all the rules created
-            if (!ReflectionUtils.isPojo((Class) itemType))
-            {
+            if (!ReflectionUtils.isPojo((Class) itemType)) {
                 return getScalarRule();
             }
             return new PojoTupleRule("", (Class<?>) itemType, getNodeRuleFactory());
         }
 
-        if (itemType instanceof ParameterizedType)
-        {
+        if (itemType instanceof ParameterizedType) {
             ParameterizedType pItemType = (ParameterizedType) itemType;
-            if (Map.class.isAssignableFrom((Class<?>) pItemType.getRawType()))
-            {
+            if (Map.class.isAssignableFrom((Class<?>) pItemType.getRawType())) {
                 //sequence of maps
                 return new MapTupleRule((Class<?>) pItemType.getActualTypeArguments()[1], getNodeRuleFactory());
             }
@@ -102,15 +93,15 @@ public class SequenceTupleRule extends DefaultTupleRule<ScalarNode, SequenceNode
      *
      * @return a {@link org.raml.parser.rule.DefaultTupleRule} object.
      */
-    protected DefaultTupleRule getScalarRule()
-    {
+    protected DefaultTupleRule getScalarRule() {
         return new SimpleRule(getName(), (Class<?>) itemType);
     }
 
-    
-    /** {@inheritDoc} */
-    public void setValueType(Type valueType)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setValueType(Type valueType) {
         itemType = valueType;
     }
 
@@ -119,8 +110,7 @@ public class SequenceTupleRule extends DefaultTupleRule<ScalarNode, SequenceNode
      *
      * @return a {@link java.lang.reflect.Type} object.
      */
-    protected Type getItemType()
-    {
+    protected Type getItemType() {
         return itemType;
     }
 }

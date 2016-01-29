@@ -8,12 +8,12 @@ package org.raml.parser.resolver;
  */
 public interface ITransformHandler {
 
-	/**
-	 * <p>handle.</p>
-	 *
-	 * @param value a {@link java.lang.Object} object.
-	 * @param parent a {@link java.lang.Object} object.
-	 * @return a {@link java.lang.Object} object.
-	 */
-	public Object handle(Object value,Object parent);	
+    /**
+     * <p>handle.</p>
+     *
+     * @param value  a {@link java.lang.Object} object.
+     * @param parent a {@link java.lang.Object} object.
+     * @return a {@link java.lang.Object} object.
+     */
+    public Object handle(Object value, Object parent);
 }

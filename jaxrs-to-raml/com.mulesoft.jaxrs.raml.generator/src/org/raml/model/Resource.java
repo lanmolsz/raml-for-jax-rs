@@ -42,14 +42,12 @@ import org.raml.parser.rule.SecurityReferenceSequenceRule;
  * @author kor
  * @version $Id: $Id
  */
-public class Resource
-{
+public class Resource {
 
-	
-	
+
     @Scalar
     private String displayName;
-    
+
     @Sequence(rule = SecurityReferenceSequenceRule.class)
     private List<SecurityReference> securedBy = new ArrayList<SecurityReference>();
 
@@ -57,10 +55,10 @@ public class Resource
     @Dumper(TypeDumper.class)
     private String type;
 
-    @Sequence(extraHandler=TraitsExtraHandler.class)
+    @Sequence(extraHandler = TraitsExtraHandler.class)
     @Dumper(TraitsDumper.class)
     private List<String> is = new ArrayList<String>();
-    
+
     @Scalar
     private String description;
 
@@ -75,10 +73,9 @@ public class Resource
     private Map<String, UriParameter> uriParameters = new LinkedHashMap<String, UriParameter>();
 
 
-    
-    private List<TemplateUse>isModel=new ArrayList<TemplateUse>();
-    
-    private List<TemplateUse>typeModel=new ArrayList<TemplateUse>();
+    private List<TemplateUse> isModel = new ArrayList<TemplateUse>();
+
+    private List<TemplateUse> typeModel = new ArrayList<TemplateUse>();
 
     /**
      * <p>Getter for the field <code>isModel</code>.</p>
@@ -86,19 +83,18 @@ public class Resource
      * @return a {@link java.util.List} object.
      */
     public List<TemplateUse> getIsModel() {
-		return isModel;
-	}
+        return isModel;
+    }
 
-	/**
-	 * <p>Setter for the field <code>isModel</code>.</p>
-	 *
-	 * @param isModel a {@link java.util.List} object.
-	 */
-	public void setIsModel(List<TemplateUse> isModel) {
-		this.isModel = isModel;
-	}
+    /**
+     * <p>Setter for the field <code>isModel</code>.</p>
+     *
+     * @param isModel a {@link java.util.List} object.
+     */
+    public void setIsModel(List<TemplateUse> isModel) {
+        this.isModel = isModel;
+    }
 
-	
 
     @Mapping(rule = org.raml.parser.rule.UriParametersRule.class)
     private Map<String, List<UriParameter>> baseUriParameters = new LinkedHashMap<String, List<UriParameter>>();
@@ -112,8 +108,7 @@ public class Resource
     /**
      * <p>Constructor for Resource.</p>
      */
-    public Resource()
-    {
+    public Resource() {
     }
 
     /**
@@ -121,9 +116,8 @@ public class Resource
      *
      * @param relativeUri a {@link java.lang.String} object.
      */
-    public void setRelativeUri(String relativeUri)
-    {    	
-    	this.relativeUri = relativeUri;
+    public void setRelativeUri(String relativeUri) {
+        this.relativeUri = relativeUri;
     }
 
     /**
@@ -131,8 +125,7 @@ public class Resource
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getParentUri()
-    {
+    public String getParentUri() {
         return parentUri;
     }
 
@@ -141,8 +134,7 @@ public class Resource
      *
      * @param parentUri a {@link java.lang.String} object.
      */
-    public void setParentUri(String parentUri)
-    {
+    public void setParentUri(String parentUri) {
         this.parentUri = parentUri;
     }
 
@@ -151,8 +143,7 @@ public class Resource
      *
      * @param uriParameters a {@link java.util.Map} object.
      */
-    public void setUriParameters(Map<String, UriParameter> uriParameters)
-    {
+    public void setUriParameters(Map<String, UriParameter> uriParameters) {
         this.uriParameters = uriParameters;
     }
 
@@ -161,8 +152,7 @@ public class Resource
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<ActionType, Action> getActions()
-    {
+    public Map<ActionType, Action> getActions() {
         return actions;
     }
 
@@ -171,8 +161,7 @@ public class Resource
      *
      * @param actions a {@link java.util.Map} object.
      */
-    public void setActions(Map<ActionType, Action> actions)
-    {
+    public void setActions(Map<ActionType, Action> actions) {
         this.actions = actions;
     }
 
@@ -181,8 +170,7 @@ public class Resource
      *
      * @param displayName a {@link java.lang.String} object.
      */
-    public void setDisplayName(String displayName)
-    {
+    public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
 
@@ -191,8 +179,7 @@ public class Resource
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDisplayName()
-    {
+    public String getDisplayName() {
         return displayName;
     }
 
@@ -201,8 +188,7 @@ public class Resource
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
@@ -211,8 +197,7 @@ public class Resource
      *
      * @param description a {@link java.lang.String} object.
      */
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -221,8 +206,7 @@ public class Resource
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getRelativeUri()
-    {
+    public String getRelativeUri() {
         return relativeUri;
     }
 
@@ -231,8 +215,7 @@ public class Resource
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getUri()
-    {
+    public String getUri() {
         return parentUri + relativeUri;
     }
 
@@ -242,8 +225,7 @@ public class Resource
      * @param name a {@link org.raml.model.ActionType} object.
      * @return a {@link org.raml.model.Action} object.
      */
-    public Action getAction(ActionType name)
-    {
+    public Action getAction(ActionType name) {
         return actions.get(name);
     }
 
@@ -253,8 +235,7 @@ public class Resource
      * @param name a {@link java.lang.String} object.
      * @return a {@link org.raml.model.Action} object.
      */
-    public Action getAction(String name)
-    {
+    public Action getAction(String name) {
         return actions.get(ActionType.valueOf(name.toUpperCase()));
     }
 
@@ -263,8 +244,7 @@ public class Resource
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, Resource> getResources()
-    {
+    public Map<String, Resource> getResources() {
         return resources;
     }
 
@@ -273,8 +253,7 @@ public class Resource
      *
      * @param resources a {@link java.util.Map} object.
      */
-    public void setResources(Map<String, Resource> resources)
-    {
+    public void setResources(Map<String, Resource> resources) {
         this.resources = resources;
     }
 
@@ -283,8 +262,7 @@ public class Resource
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, UriParameter> getUriParameters()
-    {
+    public Map<String, UriParameter> getUriParameters() {
         return uriParameters;
     }
 
@@ -293,8 +271,7 @@ public class Resource
      *
      * @return a {@link java.util.List} object.
      */
-    public List<String> getIs()
-    {
+    public List<String> getIs() {
         return is;
     }
 
@@ -303,8 +280,7 @@ public class Resource
      *
      * @param is a {@link java.util.List} object.
      */
-    public void setIs(List<String> is)
-    {
+    public void setIs(List<String> is) {
         this.is = is;
     }
 
@@ -313,47 +289,47 @@ public class Resource
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getType()
-    {
-    	return type;
+    public String getType() {
+        return type;
     }
+
     /**
      * <p>getTypeModelT.</p>
      *
      * @return a {@link org.raml.model.TemplateUse} object.
      */
-    public TemplateUse getTypeModelT(){
-    	if (typeModel.isEmpty()){
-    		return null;
-    	}
+    public TemplateUse getTypeModelT() {
+        if (typeModel.isEmpty()) {
+            return null;
+        }
         return typeModel.iterator().next();
     }
-    
+
     /**
      * <p>Getter for the field <code>typeModel</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<TemplateUse> getTypeModel() {
-		return typeModel;
-	}
+        return typeModel;
+    }
 
-	/**
-	 * <p>Setter for the field <code>typeModel</code>.</p>
-	 *
-	 * @param typeModel a {@link java.util.List} object.
-	 */
-	public void setTypeModel(List<TemplateUse> typeModel) {
-		this.typeModel = typeModel;
-	}
+    /**
+     * <p>Setter for the field <code>typeModel</code>.</p>
+     *
+     * @param typeModel a {@link java.util.List} object.
+     */
+    public void setTypeModel(List<TemplateUse> typeModel) {
+        this.typeModel = typeModel;
+    }
 
-	/**
-	 * <p>Setter for the field <code>type</code>.</p>
-	 *
-	 * @param type a {@link java.lang.String} object.
-	 */
-	public void setType(String type){
-    	this.type=type;
+    /**
+     * <p>Setter for the field <code>type</code>.</p>
+     *
+     * @param type a {@link java.lang.String} object.
+     */
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
@@ -361,22 +337,20 @@ public class Resource
      *
      * @param type a {@link org.raml.model.TemplateUse} object.
      */
-    public void setTypeModelT(TemplateUse type)
-    {
-    	typeModel.clear();
-    	if (type!=null){
-    		typeModel.add(type);
-    	}
+    public void setTypeModelT(TemplateUse type) {
+        typeModel.clear();
+        if (type != null) {
+            typeModel.add(type);
+        }
     }
-    
+
 
     /**
      * <p>Getter for the field <code>securedBy</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
-    public List<SecurityReference> getSecuredBy()
-    {
+    public List<SecurityReference> getSecuredBy() {
         return securedBy;
     }
 
@@ -385,8 +359,7 @@ public class Resource
      *
      * @param securedBy a {@link java.util.List} object.
      */
-    public void setSecuredBy(List<SecurityReference> securedBy)
-    {
+    public void setSecuredBy(List<SecurityReference> securedBy) {
         this.securedBy = securedBy;
     }
 
@@ -395,8 +368,7 @@ public class Resource
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, List<UriParameter>> getBaseUriParameters()
-    {
+    public Map<String, List<UriParameter>> getBaseUriParameters() {
         return baseUriParameters;
     }
 
@@ -405,40 +377,38 @@ public class Resource
      *
      * @param baseUriParameters a {@link java.util.Map} object.
      */
-    public void setBaseUriParameters(Map<String, List<UriParameter>> baseUriParameters)
-    {
+    public void setBaseUriParameters(Map<String, List<UriParameter>> baseUriParameters) {
         this.baseUriParameters = baseUriParameters;
     }
 
-    
-    /** {@inheritDoc} */
-    public boolean equals(Object o)
-    {
-       return super.equals(o);
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean equals(Object o) {
+        return super.equals(o);
 
     }
 
-    
+
     /**
      * <p>hashCode.</p>
      *
      * @return a int.
      */
-    public int hashCode()
-    {
+    public int hashCode() {
         return super.hashCode();
     }
 
-    
+
     /**
      * <p>toString.</p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String toString()
-    {
+    public String toString() {
         return "Resource{displayName='" + displayName + '\'' +
-               ", uri='" + (parentUri != null ? getUri() : "-" + '\'') + '}';
+                ", uri='" + (parentUri != null ? getUri() : "-" + '\'') + '}';
     }
 
     /**
@@ -447,23 +417,18 @@ public class Resource
      * @param path a {@link java.lang.String} object.
      * @return a {@link org.raml.model.Resource} object.
      */
-    public Resource getResource(String path)
-    {
-        for (Resource resource : resources.values())
-        {
-            if (path.startsWith(resource.getRelativeUri()))
-            {
-                if (path.length() == resource.getRelativeUri().length())
-                {
+    public Resource getResource(String path) {
+        for (Resource resource : resources.values()) {
+            if (path.startsWith(resource.getRelativeUri())) {
+                if (path.length() == resource.getRelativeUri().length()) {
                     return resource;
                 }
-                if (path.charAt(resource.getRelativeUri().length()) == '/')
-                {
+                if (path.charAt(resource.getRelativeUri().length()) == '/') {
                     return resource.getResource(path.substring(resource.getRelativeUri().length()));
                 }
             }
         }
         return null;
     }
-	
+
 }

@@ -6,11 +6,10 @@ import java.util.Collection;
 import java.util.Map;
 
 @XmlRootElement(name = "CollectionEntity")
-public class CollectionEntity
-{
+public class CollectionEntity {
     private Collection<String> collection;
     private String[] array;
-    private Map<String,String> map;
+    private Map<String, String> map;
 
     public Collection<String> getCollection() {
         return collection;

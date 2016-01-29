@@ -43,10 +43,11 @@ import org.yaml.snakeyaml.nodes.Tag;
  * @author kor
  * @version $Id: $Id
  */
-public class NodeVisitor
-{
+public class NodeVisitor {
 
-    /** Constant <code>LOOP_TAG</code> */
+    /**
+     * Constant <code>LOOP_TAG</code>
+     */
     public static final Tag LOOP_TAG = new Tag("!loop");
     private NodeHandler nodeHandler;
     private ResourceLoader resourceLoader;
@@ -57,12 +58,11 @@ public class NodeVisitor
     /**
      * <p>Constructor for NodeVisitor.</p>
      *
-     * @param nodeHandler a {@link org.raml.parser.visitor.NodeHandler} object.
+     * @param nodeHandler    a {@link org.raml.parser.visitor.NodeHandler} object.
      * @param resourceLoader a {@link org.raml.parser.loader.ResourceLoader} object.
-     * @param tagResolvers a {@link org.raml.parser.tagresolver.TagResolver} object.
+     * @param tagResolvers   a {@link org.raml.parser.tagresolver.TagResolver} object.
      */
-    public NodeVisitor(NodeHandler nodeHandler, ResourceLoader resourceLoader, TagResolver... tagResolvers)
-    {
+    public NodeVisitor(NodeHandler nodeHandler, ResourceLoader resourceLoader, TagResolver... tagResolvers) {
         super();
         this.nodeHandler = nodeHandler;
         this.resourceLoader = resourceLoader;
@@ -70,21 +70,17 @@ public class NodeVisitor
         this.includeStack.push("root");
     }
 
-    private void visitMappingNode(MappingNode mappingNode, TupleType tupleType)
-    {
-        if (checkLoop(mappingNode))
-        {
+    private void visitMappingNode(MappingNode mappingNode, TupleType tupleType) {
+        if (checkLoop(mappingNode)) {
             nodeHandler.onCustomTagError(LOOP_TAG, mappingNode, "Circular reference detected");
             return;
         }
         nodeHandler.onMappingNodeStart(mappingNode, tupleType);
-        if (tupleType == VALUE)
-        {
+        if (tupleType == VALUE) {
             doVisitMappingNode(mappingNode);
         }
         nodeHandler.onMappingNodeEnd(mappingNode, tupleType);
-        if (mappingNode.getStartMark() != null)
-        {
+        if (mappingNode.getStartMark() != null) {
             loopDetector.pop();
         }
     }
@@ -93,48 +89,39 @@ public class NodeVisitor
      * @return true if two mapping nodes in the same file
      * have the same start mark index
      */
-    private boolean checkLoop(Node node)
-    {
-        if (node.getStartMark() == null)
-        {
+    private boolean checkLoop(Node node) {
+        if (node.getStartMark() == null) {
             return false;
         }
 
         String index = includeStack.peek() + node.getStartMark().getIndex();
-        if (loopDetector.contains(index))
-        {
+        if (loopDetector.contains(index)) {
             return true;
         }
         loopDetector.push(index);
         return false;
     }
 
-    private static class MappingNodeMerger extends SafeConstructor
-    {
+    private static class MappingNodeMerger extends SafeConstructor {
 
-        void merge(MappingNode mappingNode)
-        {
+        void merge(MappingNode mappingNode) {
             flattenMapping(mappingNode);
         }
     }
 
-    private void doVisitMappingNode(MappingNode mappingNode)
-    {
-        if (mappingNode.isMerged())
-        {
+    private void doVisitMappingNode(MappingNode mappingNode) {
+        if (mappingNode.isMerged()) {
             new MappingNodeMerger().merge(mappingNode);
         }
         List<NodeTuple> tuples = mappingNode.getValue();
         List<NodeTuple> updatedTuples = new ArrayList<NodeTuple>();
-        for (NodeTuple nodeTuple : tuples)
-        {
+        for (NodeTuple nodeTuple : tuples) {
             Node keyNode = nodeTuple.getKeyNode();
             Node originalValueNode = nodeTuple.getValueNode();
 
             Tag tag = originalValueNode.getTag();
             Node resolvedNode = resolveTag(tag, originalValueNode);
-            if (originalValueNode != resolvedNode)
-            {
+            if (originalValueNode != resolvedNode) {
                 nodeTuple = new NodeTuple(keyNode, resolvedNode);
             }
             updatedTuples.add(nodeTuple);
@@ -147,73 +134,55 @@ public class NodeVisitor
         mappingNode.setValue(updatedTuples);
     }
 
-    private Node resolveTag(Tag tag, Node valueNode)
-    {
+    private Node resolveTag(Tag tag, Node valueNode) {
         TagResolver tagResolver = getTagResolver(tag);
-        if (tagResolver != null)
-        {
+        if (tagResolver != null) {
             valueNode = tagResolver.resolve(valueNode, resourceLoader, nodeHandler);
-        }
-        else if (!isStandardTag(tag))
-        {
+        } else if (!isStandardTag(tag)) {
             nodeHandler.onCustomTagError(tag, valueNode, "Unknown tag " + tag);
         }
         return valueNode;
     }
 
-    private void visitResolvedNode(Node originalValueNode, Node resolvedNode)
-    {
+    private void visitResolvedNode(Node originalValueNode, Node resolvedNode) {
         Tag tag = originalValueNode.getTag();
         boolean tagResolved = !isStandardTag(tag);
-        if (tagResolved)
-        {
+        if (tagResolved) {
             nodeHandler.onCustomTagStart(tag, originalValueNode, resolvedNode);
             pushIncludeIfNeeded(tag, originalValueNode);
         }
         visit(resolvedNode, VALUE);
-        if (tagResolved)
-        {
+        if (tagResolved) {
             nodeHandler.onCustomTagEnd(tag, originalValueNode, resolvedNode);
             popIncludeIfNeeded(tag);
         }
     }
 
-    private void popIncludeIfNeeded(Tag tag)
-    {
-        if (IncludeResolver.INCLUDE_TAG.equals(tag) || tag.startsWith(IncludeResolver.INCLUDE_APPLIED_TAG))
-        {
+    private void popIncludeIfNeeded(Tag tag) {
+        if (IncludeResolver.INCLUDE_TAG.equals(tag) || tag.startsWith(IncludeResolver.INCLUDE_APPLIED_TAG)) {
             includeStack.pop();
         }
     }
 
-    private void pushIncludeIfNeeded(Tag tag, Node node)
-    {
+    private void pushIncludeIfNeeded(Tag tag, Node node) {
         String includeName = null;
-        if (IncludeResolver.INCLUDE_TAG.equals(tag))
-        {
-            if (node.getNodeId() != NodeId.scalar)
-            {
+        if (IncludeResolver.INCLUDE_TAG.equals(tag)) {
+            if (node.getNodeId() != NodeId.scalar) {
                 //invalid include
                 return;
             }
             includeName = ((ScalarNode) node).getValue();
+        } else if (tag.startsWith(IncludeResolver.INCLUDE_APPLIED_TAG)) {
+            includeName = new IncludeInfo(tag).getIncludeName();
         }
-        else if (tag.startsWith(IncludeResolver.INCLUDE_APPLIED_TAG))
-        {
-            includeName =  new IncludeInfo(tag).getIncludeName();
-        }
-        if (includeName != null)
-        {
+        if (includeName != null) {
             includeStack.push(includeName);
         }
     }
 
-    private TagResolver getTagResolver(Tag tag)
-    {
-        for (TagResolver resolver : tagResolvers)
-        {
-            if (resolver.handles(tag))
-            {
+    private TagResolver getTagResolver(Tag tag) {
+        for (TagResolver resolver : tagResolvers) {
+            if (resolver.handles(tag)) {
                 return resolver;
             }
         }
@@ -225,44 +194,32 @@ public class NodeVisitor
      *
      * @param node a {@link org.yaml.snakeyaml.nodes.MappingNode} object.
      */
-    public void visitDocument(MappingNode node)
-    {
+    public void visitDocument(MappingNode node) {
         nodeHandler.onDocumentStart(node);
-        if (node != null)
-        {
+        if (node != null) {
             doVisitMappingNode(node);
         }
         nodeHandler.onDocumentEnd(node);
     }
 
-    private void visit(Node node, TupleType tupleType)
-    {
-        if (node.getNodeId() == NodeId.mapping)
-        {
+    private void visit(Node node, TupleType tupleType) {
+        if (node.getNodeId() == NodeId.mapping) {
             visitMappingNode((MappingNode) node, tupleType);
-        }
-        else if (node.getNodeId() == NodeId.scalar)
-        {
+        } else if (node.getNodeId() == NodeId.scalar) {
             visitScalar((ScalarNode) node, tupleType);
-        }
-        else if (node.getNodeId() == NodeId.sequence)
-        {
+        } else if (node.getNodeId() == NodeId.sequence) {
             visitSequence((SequenceNode) node, tupleType);
         }
     }
 
-    private void visitSequence(SequenceNode node, TupleType tupleType)
-    {
+    private void visitSequence(SequenceNode node, TupleType tupleType) {
         nodeHandler.onSequenceStart(node, tupleType);
-        if (tupleType == VALUE)
-        {
+        if (tupleType == VALUE) {
             List<Node> value = node.getValue();
-            for (int i=0; i<value.size(); i++)
-            {
+            for (int i = 0; i < value.size(); i++) {
                 Node originalNode = value.get(i);
                 Node resolvedNode = resolveTag(originalNode.getTag(), originalNode);
-                if (originalNode != resolvedNode)
-                {
+                if (originalNode != resolvedNode) {
                     node.getValue().remove(i);
                     node.getValue().add(i, resolvedNode);
                 }
@@ -274,15 +231,14 @@ public class NodeVisitor
         nodeHandler.onSequenceEnd(node, tupleType);
     }
 
-    private void visitScalar(ScalarNode node, TupleType tupleType)
-    {
-    	try{
-    		if (node.getValue()!=null){
-    			nodeHandler.onScalar(node, tupleType);
-    		}
-    	}catch (ConversionException e) {
-    		
-		}
+    private void visitScalar(ScalarNode node, TupleType tupleType) {
+        try {
+            if (node.getValue() != null) {
+                nodeHandler.onScalar(node, tupleType);
+            }
+        } catch (ConversionException e) {
+
+        }
     }
 
 

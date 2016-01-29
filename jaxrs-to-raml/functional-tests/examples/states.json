@@ -1,9 +1,9 @@
 {
-  "states" : {
-    "state" : {
-      "@href" : "" ,
-      "name" : "" ,
-      "population" : ""
+  "states": {
+    "state": {
+      "@href": "",
+      "name": "",
+      "population": ""
     }
   }
 }

@@ -23,8 +23,7 @@ import java.io.InputStream;
  * @author kor
  * @version $Id: $Id
  */
-public interface ResourceLoader
-{
+public interface ResourceLoader {
 
     /**
      * <p>fetchResource.</p>

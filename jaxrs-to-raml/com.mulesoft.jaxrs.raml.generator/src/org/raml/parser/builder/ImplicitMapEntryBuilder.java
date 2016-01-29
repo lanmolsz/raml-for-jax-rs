@@ -31,8 +31,7 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class ImplicitMapEntryBuilder extends DefaultTupleBuilder<ScalarNode, Node>
-{
+public class ImplicitMapEntryBuilder extends DefaultTupleBuilder<ScalarNode, Node> {
 
     private String fieldName;
 
@@ -44,83 +43,72 @@ public class ImplicitMapEntryBuilder extends DefaultTupleBuilder<ScalarNode, Nod
     /**
      * <p>Constructor for ImplicitMapEntryBuilder.</p>
      *
-     * @param fieldName a {@link java.lang.String} object.
-     * @param keyClass a {@link java.lang.Class} object.
+     * @param fieldName  a {@link java.lang.String} object.
+     * @param keyClass   a {@link java.lang.Class} object.
      * @param valueClass a {@link java.lang.Class} object.
      */
-    public ImplicitMapEntryBuilder(String fieldName, Class<?> keyClass, Class<?> valueClass)
-    {
+    public ImplicitMapEntryBuilder(String fieldName, Class<?> keyClass, Class<?> valueClass) {
         super(new DefaultScalarTupleHandler(fieldName));
         this.fieldName = fieldName;
         this.keyClass = keyClass;
         this.valueClass = valueClass;
     }
 
-    
-    /** {@inheritDoc} */
-    public NodeBuilder getBuilderForTuple(NodeTuple tuple)
-    {
-        if (builders.isEmpty())
-        {
+
+    /**
+     * {@inheritDoc}
+     */
+    public NodeBuilder getBuilderForTuple(NodeTuple tuple) {
+        if (builders.isEmpty()) {
             addBuildersFor(valueClass);
         }
         return super.getBuilderForTuple(tuple);
     }
 
-    
-    /** {@inheritDoc} */
-    public Object buildValue(Object parent, Node node)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public Object buildValue(Object parent, Node node) {
 
         Map actualParent;
-        try
-        {
+        try {
             actualParent = (Map) new PropertyUtilsBean().getProperty(parent, fieldName);
             Object newValue = valueClass.newInstance();
             Object key = ConvertUtils.convertTo(keyValue, keyClass);
             actualParent.put(key, newValue);
             processPojoAnnotations(newValue, key, parent);
             return newValue;
-        }
-        catch (IllegalAccessException e)
-        {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
-        }
-        catch (InvocationTargetException e)
-        {
+        } catch (InvocationTargetException e) {
             throw new RuntimeException(e);
-        }
-        catch (NoSuchMethodException e)
-        {
+        } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
-        }
-        catch (InstantiationException e)
-        {
+        } catch (InstantiationException e) {
             throw new RuntimeException(e);
         }
 
     }
 
-    
+
     /**
      * <p>buildKey.</p>
      *
      * @param parent a {@link java.lang.Object} object.
-     * @param tuple a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
+     * @param tuple  a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      */
-    public void buildKey(Object parent, ScalarNode tuple)
-    {
+    public void buildKey(Object parent, ScalarNode tuple) {
         keyValue = tuple.getValue();
     }
 
-    
+
     /**
      * <p>toString.</p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String toString()
-    {
+    public String toString() {
         return keyValue;
     }
 }

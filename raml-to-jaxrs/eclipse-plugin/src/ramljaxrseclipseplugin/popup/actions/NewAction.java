@@ -27,37 +27,37 @@ import raml.jaxrs.eclipse.plugin.GenerationHandler;
 
 public class NewAction implements IObjectActionDelegate {
 
-	private Shell shell;
-	
-	/**
-	 * Constructor for Action1.
-	 */
-	public NewAction() {
-		super();
-	}
+    private Shell shell;
 
-	/**
-	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
-	 */
-	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-		shell = targetPart.getSite().getShell();
-	}
+    /**
+     * Constructor for Action1.
+     */
+    public NewAction() {
+        super();
+    }
 
-	/**
-	 * @see IActionDelegate#run(IAction)
-	 */
-	public void run(IAction action) {
-		try {
-			new GenerationHandler().execute(null);
-		} catch (ExecutionException e) {
-			
-		}
-	}
+    /**
+     * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
+     */
+    public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+        shell = targetPart.getSite().getShell();
+    }
 
-	/**
-	 * @see IActionDelegate#selectionChanged(IAction, ISelection)
-	 */
-	public void selectionChanged(IAction action, ISelection selection) {
-	}
+    /**
+     * @see IActionDelegate#run(IAction)
+     */
+    public void run(IAction action) {
+        try {
+            new GenerationHandler().execute(null);
+        } catch (ExecutionException e) {
+
+        }
+    }
+
+    /**
+     * @see IActionDelegate#selectionChanged(IAction, ISelection)
+     */
+    public void selectionChanged(IAction action, ISelection selection) {
+    }
 
 }

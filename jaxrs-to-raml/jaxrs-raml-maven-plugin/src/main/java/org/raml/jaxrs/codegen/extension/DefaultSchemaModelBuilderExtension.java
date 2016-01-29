@@ -31,7 +31,7 @@ public class DefaultSchemaModelBuilderExtension implements ISchemaModelBuilderEx
     private static final DefaultSchemaModelBuilderExtension DEFAULT_EXT = new DefaultSchemaModelBuilderExtension();
 
     public static DefaultSchemaModelBuilderExtension getDefaultExt(){
-        return  DEFAULT_EXT;
+        return DEFAULT_EXT;
     }
     private DefaultSchemaModelBuilderExtension(){
 

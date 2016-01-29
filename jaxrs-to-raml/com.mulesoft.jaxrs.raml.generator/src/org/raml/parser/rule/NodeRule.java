@@ -25,8 +25,7 @@ import org.yaml.snakeyaml.nodes.Node;
  * @author kor
  * @version $Id: $Id
  */
-public interface NodeRule<V extends Node>
-{
+public interface NodeRule<V extends Node> {
 
     /**
      * Validates the given value

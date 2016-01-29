@@ -30,8 +30,7 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class MapWithListValueTupleRule extends DefaultTupleRule<ScalarNode, MappingNode>
-{
+public class MapWithListValueTupleRule extends DefaultTupleRule<ScalarNode, MappingNode> {
 
     private final Class valueType;
     private String fieldName;
@@ -40,45 +39,39 @@ public class MapWithListValueTupleRule extends DefaultTupleRule<ScalarNode, Mapp
     /**
      * <p>Constructor for MapWithListValueTupleRule.</p>
      *
-     * @param fieldName a {@link java.lang.String} object.
-     * @param valueType a {@link java.lang.Class} object.
+     * @param fieldName       a {@link java.lang.String} object.
+     * @param valueType       a {@link java.lang.Class} object.
      * @param nodeRuleFactory a {@link org.raml.parser.rule.NodeRuleFactory} object.
      */
-    public MapWithListValueTupleRule(String fieldName, Class<?> valueType, NodeRuleFactory nodeRuleFactory)
-    {
+    public MapWithListValueTupleRule(String fieldName, Class<?> valueType, NodeRuleFactory nodeRuleFactory) {
         super(fieldName, new DefaultScalarTupleHandler(fieldName), nodeRuleFactory);
         this.valueType = valueType;
     }
 
 
-    
-    /** {@inheritDoc} */
-    public TupleRule<?, ?> getRuleForTuple(NodeTuple nodeTuple)
-    {
-        if (nodeTuple.getValueNode().getNodeId() == NodeId.sequence)
-        {
+    /**
+     * {@inheritDoc}
+     */
+    public TupleRule<?, ?> getRuleForTuple(NodeTuple nodeTuple) {
+        if (nodeTuple.getValueNode().getNodeId() == NodeId.sequence) {
             return new SequenceTupleRule(fieldName, valueType, getNodeRuleFactory());
-        }
-        else
-        {
+        } else {
             //TODO add it to a list to invoke onRuleEnd on all the rules created
-            if (ReflectionUtils.isPojo(valueType))
-            {
+            if (ReflectionUtils.isPojo(valueType)) {
                 return new PojoTupleRule(fieldName, valueType, getNodeRuleFactory());
             }
             return new SimpleRule(fieldName, valueType);
         }
     }
 
-    
+
     /**
      * <p>validateKey.</p>
      *
      * @param key a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> validateKey(ScalarNode key)
-    {
+    public List<ValidationResult> validateKey(ScalarNode key) {
         fieldName = key.getValue();
         return super.validateKey(key);
     }

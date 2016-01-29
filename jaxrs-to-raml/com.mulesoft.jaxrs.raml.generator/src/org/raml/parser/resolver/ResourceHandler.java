@@ -24,20 +24,17 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class ResourceHandler implements TupleHandler
-{
+public class ResourceHandler implements TupleHandler {
 
-    
-    /** {@inheritDoc} */
-    public boolean handles(NodeTuple tuple)
-    {
-        if (tuple.getKeyNode() instanceof ScalarNode)
-        {
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean handles(NodeTuple tuple) {
+        if (tuple.getKeyNode() instanceof ScalarNode) {
             ScalarNode keyNode = (ScalarNode) tuple.getKeyNode();
             return keyNode.getValue().startsWith("/");
-        }
-        else
-        {
+        } else {
             return false;
         }
     }

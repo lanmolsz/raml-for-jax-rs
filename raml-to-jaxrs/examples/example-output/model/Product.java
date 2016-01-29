@@ -4,6 +4,7 @@ package org.raml.jaxrs.example.model;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,30 +14,25 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * A single Product
- * 
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "id",
-    "name",
-    "description",
-    "imageUrl",
-    "region"
+        "id",
+        "name",
+        "description",
+        "imageUrl",
+        "region"
 })
 public class Product {
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("id")
     private String id;
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("name")
     private String name;
@@ -45,18 +41,14 @@ public class Product {
     @JsonProperty("imageUrl")
     private String imageUrl;
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("region")
     private String region;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("id")
     public String getId() {
@@ -64,9 +56,7 @@ public class Product {
     }
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("id")
     public void setId(String id) {
@@ -79,9 +69,7 @@ public class Product {
     }
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("name")
     public String getName() {
@@ -89,9 +77,7 @@ public class Product {
     }
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("name")
     public void setName(String name) {
@@ -134,9 +120,7 @@ public class Product {
     }
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("region")
     public String getRegion() {
@@ -144,9 +128,7 @@ public class Product {
     }
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("region")
     public void setRegion(String region) {

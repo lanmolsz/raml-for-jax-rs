@@ -25,8 +25,7 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class EnumHandler implements TupleHandler
-{
+public class EnumHandler implements TupleHandler {
 
 
     private Class<? extends Enum> enumClass;
@@ -35,26 +34,22 @@ public class EnumHandler implements TupleHandler
      * <p>Constructor for EnumHandler.</p>
      *
      * @param tupleValueType a {@link java.lang.Class} object.
-     * @param enumClass a {@link java.lang.Class} object.
+     * @param enumClass      a {@link java.lang.Class} object.
      */
-    public EnumHandler(Class<? extends Node> tupleValueType, Class<? extends Enum> enumClass)
-    {
+    public EnumHandler(Class<? extends Node> tupleValueType, Class<? extends Enum> enumClass) {
         this.enumClass = enumClass;
     }
 
-    
-    /** {@inheritDoc} */
-    public boolean handles(NodeTuple tuple)
-    {
-        if (tuple.getKeyNode() instanceof ScalarNode)
-        {
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean handles(NodeTuple tuple) {
+        if (tuple.getKeyNode() instanceof ScalarNode) {
             String enumValue = ((ScalarNode) tuple.getKeyNode()).getValue();
-            try
-            {
+            try {
                 Enum.valueOf(enumClass, enumValue.toUpperCase());
-            }
-            catch (IllegalArgumentException e)
-            {
+            } catch (IllegalArgumentException e) {
                 return false;
             }
             return true;

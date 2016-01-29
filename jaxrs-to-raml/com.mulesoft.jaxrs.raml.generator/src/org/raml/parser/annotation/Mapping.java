@@ -29,8 +29,7 @@ import org.raml.parser.rule.TupleRule;
  * @version $Id: $Id
  */
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface Mapping
-{
+public @interface Mapping {
 
     boolean required() default false;
 

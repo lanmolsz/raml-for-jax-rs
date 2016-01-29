@@ -21,37 +21,36 @@ import shop.domain.Order;
  * @version $Revision: 1 $
  */
 @Path("/orders")
-public interface OrderResource
-{
-   @POST
-   @Consumes("application/xml")
-   Response createOrder(Order order, @Context UriInfo uriInfo);
+public interface OrderResource {
+    @POST
+    @Consumes("application/xml")
+    Response createOrder(Order order, @Context UriInfo uriInfo);
 
-   @POST
-   @Path("purge")
-   void purgeOrders();
+    @POST
+    @Path("purge")
+    void purgeOrders();
 
-   @HEAD
-   @Produces("application/xml")
-   Response getOrdersHeaders(@Context UriInfo uriInfo);
+    @HEAD
+    @Produces("application/xml")
+    Response getOrdersHeaders(@Context UriInfo uriInfo);
 
-   @GET
-   @Produces("application/xml")
-   Response getOrders(@QueryParam("start") int start,
-                      @QueryParam("size") @DefaultValue("2") int size,
-                      @Context UriInfo uriInfo);
+    @GET
+    @Produces("application/xml")
+    Response getOrders(@QueryParam("start") int start,
+                       @QueryParam("size") @DefaultValue("2") int size,
+                       @Context UriInfo uriInfo);
 
-   @POST
-   @Path("{id}/cancel")
-   void cancelOrder(@PathParam("id") int id);
+    @POST
+    @Path("{id}/cancel")
+    void cancelOrder(@PathParam("id") int id);
 
-   @GET
-   @Path("{id}")
-   @Produces("application/xml")
-   Response getOrder(@PathParam("id") int id, @Context UriInfo uriInfo);
+    @GET
+    @Path("{id}")
+    @Produces("application/xml")
+    Response getOrder(@PathParam("id") int id, @Context UriInfo uriInfo);
 
-   @HEAD
-   @Path("{id}")
-   @Produces("application/xml")
-   Response getOrderHeaders(@PathParam("id") int id, @Context UriInfo uriInfo);
+    @HEAD
+    @Path("{id}")
+    @Produces("application/xml")
+    Response getOrderHeaders(@PathParam("id") int id, @Context UriInfo uriInfo);
 }

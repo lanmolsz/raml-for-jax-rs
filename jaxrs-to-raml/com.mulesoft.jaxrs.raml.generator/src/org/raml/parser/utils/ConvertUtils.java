@@ -26,8 +26,7 @@ import org.apache.commons.lang.ClassUtils;
  * @author kor
  * @version $Id: $Id
  */
-public class ConvertUtils
-{
+public class ConvertUtils {
 
     private static BooleanConverter booleanConverter = new BooleanConverter();
 
@@ -35,33 +34,26 @@ public class ConvertUtils
      * <p>convertTo.</p>
      *
      * @param value a {@link java.lang.String} object.
-     * @param type a {@link java.lang.Class} object.
-     * @param <T> a T object.
+     * @param type  a {@link java.lang.Class} object.
+     * @param <T>   a T object.
      * @return a T object.
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public static <T> T convertTo(String value, Class<T> type)
-    {
-        if (type.isEnum())
-        {
+    public static <T> T convertTo(String value, Class<T> type) {
+        if (type.isEnum()) {
             return type.cast(Enum.valueOf((Class) type, value.toUpperCase()));
         }
         Class<T> clazz = type;
-        if (type.isPrimitive())
-        {
+        if (type.isPrimitive()) {
             clazz = ClassUtils.primitiveToWrapper(type);
         }
-        if (clazz.getName().equals(Boolean.class.getName()))
-        {
+        if (clazz.getName().equals(Boolean.class.getName())) {
             return clazz.cast(booleanConverter.convert(Boolean.class, value));
         }
-        try
-        {
+        try {
             Constructor constructor = type.getConstructor(String.class);
             return (T) constructor.newInstance(value);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             //ignore;
         }
 
@@ -72,48 +64,35 @@ public class ConvertUtils
      * <p>canBeConverted.</p>
      *
      * @param value a {@link java.lang.String} object.
-     * @param type a {@link java.lang.Class} object.
+     * @param type  a {@link java.lang.Class} object.
      * @return a boolean.
      */
-    public static boolean canBeConverted(String value, Class<?> type)
-    {
-        if (type.isEnum())
-        {
+    public static boolean canBeConverted(String value, Class<?> type) {
+        if (type.isEnum()) {
             Object[] enumConstants = type.getEnumConstants();
-            for (Object enumConstant : enumConstants)
-            {
-                if (enumConstant.toString().equals(value.toUpperCase()))
-                {
+            for (Object enumConstant : enumConstants) {
+                if (enumConstant.toString().equals(value.toUpperCase())) {
                     return true;
                 }
             }
             return false;
         }
-        if (type.isInstance(value))
-        {
+        if (type.isInstance(value)) {
             return true;
         }
-        try
-        {
+        try {
             type.getConstructor(String.class);
             return true;
-        }
-        catch (NoSuchMethodException e)
-        {
+        } catch (NoSuchMethodException e) {
             //ignore
         }
-        try
-        {
+        try {
             Class<?> wrapperClass = ClassUtils.primitiveToWrapper(type);
             convertTo(value, wrapperClass);
             return true;
-        }
-        catch (ClassCastException e)
-        {
+        } catch (ClassCastException e) {
             return false;
-        }
-        catch (ConversionException e)
-        {
+        } catch (ConversionException e) {
             return false;
         }
     }

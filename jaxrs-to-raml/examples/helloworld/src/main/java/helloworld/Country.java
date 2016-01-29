@@ -14,230 +14,228 @@ import org.xml.sax.SAXException;
 /*******************************************************************************
  * FILE NAME: Country.java
  * PURPOSE:   These comments are auto generated
- *
- *
- * Revision History: 
- * DATE:           							  AUTHOR:              CHANGE:  
- * Mon Jun 11 16:57:27 IST 2012               Auto generated       Initial Version  
- * 
- * 
+ * <p>
+ * <p>
+ * Revision History:
+ * DATE:           							  AUTHOR:              CHANGE:
+ * Mon Jun 11 16:57:27 IST 2012               Auto generated       Initial Version
  ******************************************************************************/
 @XmlRootElement(name = "country")
 @XmlAccessorType(XmlAccessType.NONE)
-@XmlType(propOrder = { "id", "name", "population", "states" })
+@XmlType(propOrder = {"id", "name", "population", "states"})
 public class Country {
 
-	@XmlElement(name = "id", required = false, type = Integer.class)
-	private int id;
-	@XmlElement(name = "states", required = false)
-	private States states = null;
-	@XmlAttribute(name = "uri")
-	private String uri = null;
-	@XmlElement(name = "name", required = true)
-	private String name;
-	@XmlElement(name = "population", required = true)
-	private Integer population;
+    @XmlElement(name = "id", required = false, type = Integer.class)
+    private int id;
+    @XmlElement(name = "states", required = false)
+    private States states = null;
+    @XmlAttribute(name = "uri")
+    private String uri = null;
+    @XmlElement(name = "name", required = true)
+    private String name;
+    @XmlElement(name = "population", required = true)
+    private Integer population;
 
-	/**
-	 * @param id
-	 */
-	public void setId(int id) {
-		try {
-			Schema newSchema = SchemaFactory.newInstance("").newSchema();
-			
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.id = id;
-	}
+    /**
+     * @param id
+     */
+    public void setId(int id) {
+        try {
+            Schema newSchema = SchemaFactory.newInstance("").newSchema();
 
-	/**
-	 * @return int
-	 */
-	public int getId() {
-		return id;
-	}
+        } catch (SAXException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        this.id = id;
+    }
 
-	/**
-	 * @param states
-	 */
-	public void setStates(States states) {
-		this.states = states;
-	}
+    /**
+     * @return int
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * @return states
-	 */
-	public States getStates() {
-		return states;
-	}
+    /**
+     * @param states
+     */
+    public void setStates(States states) {
+        this.states = states;
+    }
 
-	/**
-	 * @param uri
-	 */
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
+    /**
+     * @return states
+     */
+    public States getStates() {
+        return states;
+    }
 
-	/**
-	 * @return uri
-	 */
-	public String getUri() {
-		return uri;
-	}
+    /**
+     * @param uri
+     */
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 
-	@XmlRootElement(name = "states")
-	@XmlAccessorType(XmlAccessType.NONE)
-	@XmlType(propOrder = { "states" })
-	public static class States {
+    /**
+     * @return uri
+     */
+    public String getUri() {
+        return uri;
+    }
 
-		@XmlAttribute(name = "uri")
-		private String uri = null;
-		@XmlElement(name = "state", required = false)
-		private java.util.Collection<State> states;
+    @XmlRootElement(name = "states")
+    @XmlAccessorType(XmlAccessType.NONE)
+    @XmlType(propOrder = {"states"})
+    public static class States {
 
-		/**
-		 * @param uri
-		 */
-		public void setUri(String uri) {
-			this.uri = uri;
-		}
+        @XmlAttribute(name = "uri")
+        private String uri = null;
+        @XmlElement(name = "state", required = false)
+        private java.util.Collection<State> states;
 
-		/**
-		 * @return uri
-		 */
-		public String getUri() {
-			return uri;
-		}
+        /**
+         * @param uri
+         */
+        public void setUri(String uri) {
+            this.uri = uri;
+        }
 
-		@XmlRootElement(name = "state")
-		@XmlAccessorType(XmlAccessType.NONE)
-		@XmlType(propOrder = { "id", "name", "population" })
-		public static class State {
+        /**
+         * @return uri
+         */
+        public String getUri() {
+            return uri;
+        }
 
-			@XmlAttribute(name = "href", required = true)
-			private String link = null;
-			@XmlAttribute(name = "uri")
-			private String uri = null;
-			@XmlElement(name = "id", required = false, type = Integer.class)
-			private int id;
-			@XmlElement(name = "name", required = true)
-			private String name;
-			@XmlElement(name = "population", required = true)
-			private Long population;
+        @XmlRootElement(name = "state")
+        @XmlAccessorType(XmlAccessType.NONE)
+        @XmlType(propOrder = {"id", "name", "population"})
+        public static class State {
 
-			/**
-			 * @param link
-			 */
-			public void setLink(String link) {
-				this.link = link;
-			}
+            @XmlAttribute(name = "href", required = true)
+            private String link = null;
+            @XmlAttribute(name = "uri")
+            private String uri = null;
+            @XmlElement(name = "id", required = false, type = Integer.class)
+            private int id;
+            @XmlElement(name = "name", required = true)
+            private String name;
+            @XmlElement(name = "population", required = true)
+            private Long population;
 
-			/**
-			 * @return link
-			 */
-			public String getLink() {
-				return link;
-			}
+            /**
+             * @param link
+             */
+            public void setLink(String link) {
+                this.link = link;
+            }
 
-			/**
-			 * @param uri
-			 */
-			public void setUri(String uri) {
-				this.uri = uri;
-			}
+            /**
+             * @return link
+             */
+            public String getLink() {
+                return link;
+            }
 
-			/**
-			 * @return uri
-			 */
-			public String getUri() {
-				return uri;
-			}
+            /**
+             * @param uri
+             */
+            public void setUri(String uri) {
+                this.uri = uri;
+            }
 
-			/**
-			 * @param id
-			 */
-			public void setId(int id) {
-				this.id = id;
-			}
+            /**
+             * @return uri
+             */
+            public String getUri() {
+                return uri;
+            }
 
-			/**
-			 * @return int
-			 */
-			public int getId() {
-				return id;
-			}
+            /**
+             * @param id
+             */
+            public void setId(int id) {
+                this.id = id;
+            }
 
-			/**
-			 * @param name
-			 */
-			public void setName(String name) {
-				this.name = name;
-			}
+            /**
+             * @return int
+             */
+            public int getId() {
+                return id;
+            }
 
-			/**
-			 * @return String
-			 */
-			public String getName() {
-				return name;
-			}
+            /**
+             * @param name
+             */
+            public void setName(String name) {
+                this.name = name;
+            }
 
-			/**
-			 * @param population
-			 */
-			public void setPopulation(Long population) {
-				this.population = population;
-			}
+            /**
+             * @return String
+             */
+            public String getName() {
+                return name;
+            }
 
-			/**
-			 * @return Long
-			 */
-			public Long getPopulation() {
-				return population;
-			}
-		}
+            /**
+             * @param population
+             */
+            public void setPopulation(Long population) {
+                this.population = population;
+            }
 
-		/**
-		 * @param states
-		 */
-		public void setStates(java.util.Collection<State> states) {
-			this.states = states;
-		}
+            /**
+             * @return Long
+             */
+            public Long getPopulation() {
+                return population;
+            }
+        }
 
-		/**
-		 * @return java.util.Collection<State>
-		 */
-		public java.util.Collection<State> getStates() {
-			return states;
-		}
-	}
+        /**
+         * @param states
+         */
+        public void setStates(java.util.Collection<State> states) {
+            this.states = states;
+        }
 
-	/**
-	 * @param population
-	 */
-	public void setPopulation(Integer population) {
-		this.population = population;
-	}
+        /**
+         * @return java.util.Collection<State>
+         */
+        public java.util.Collection<State> getStates() {
+            return states;
+        }
+    }
 
-	/**
-	 * @return String
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * @param population
+     */
+    public void setPopulation(Integer population) {
+        this.population = population;
+    }
 
-	/**
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * @return String
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @return Integer
-	 */
-	public Integer getPopulation() {
-		return population;
-	}
+    /**
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return Integer
+     */
+    public Integer getPopulation() {
+        return population;
+    }
 }

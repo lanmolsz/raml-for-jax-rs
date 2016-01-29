@@ -23,8 +23,7 @@ import java.io.InputStream;
  * @author kor
  * @version $Id: $Id
  */
-public class CompositeResourceLoader implements ResourceLoader
-{
+public class CompositeResourceLoader implements ResourceLoader {
 
     private ResourceLoader[] resourceLoaders;
 
@@ -33,21 +32,19 @@ public class CompositeResourceLoader implements ResourceLoader
      *
      * @param resourceLoaders a {@link org.raml.parser.loader.ResourceLoader} object.
      */
-    public CompositeResourceLoader(ResourceLoader... resourceLoaders)
-    {
+    public CompositeResourceLoader(ResourceLoader... resourceLoaders) {
         this.resourceLoaders = resourceLoaders;
     }
 
-    
-    /** {@inheritDoc} */
-    public InputStream fetchResource(String resourceName)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public InputStream fetchResource(String resourceName) {
         InputStream inputStream = null;
-        for (ResourceLoader loader : resourceLoaders)
-        {
+        for (ResourceLoader loader : resourceLoaders) {
             inputStream = loader.fetchResource(resourceName);
-            if (inputStream != null)
-            {
+            if (inputStream != null) {
                 break;
             }
         }

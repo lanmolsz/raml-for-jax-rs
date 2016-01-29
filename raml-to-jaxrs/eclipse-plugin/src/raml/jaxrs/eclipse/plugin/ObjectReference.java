@@ -16,21 +16,22 @@
 package raml.jaxrs.eclipse.plugin;
 
 public class ObjectReference<T> {
-	
-	public ObjectReference(){}	
-	
-	public ObjectReference(T object) {
-		this.object = object;
-	}
 
-	T object ;
+    public ObjectReference() {
+    }
 
-	public T get() {
-		return object;
-	}
+    public ObjectReference(T object) {
+        this.object = object;
+    }
 
-	public void set(T object) {
-		this.object = object;
-	}
+    T object;
+
+    public T get() {
+        return object;
+    }
+
+    public void set(T object) {
+        this.object = object;
+    }
 
 }

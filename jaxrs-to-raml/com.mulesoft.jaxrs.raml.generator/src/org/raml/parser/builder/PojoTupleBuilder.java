@@ -37,8 +37,7 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class PojoTupleBuilder extends DefaultTupleBuilder<ScalarNode, Node>
-{
+public class PojoTupleBuilder extends DefaultTupleBuilder<ScalarNode, Node> {
 
     private Class<?> pojoClass;
     private String fieldName;
@@ -49,8 +48,7 @@ public class PojoTupleBuilder extends DefaultTupleBuilder<ScalarNode, Node>
      * @param fieldName a {@link java.lang.String} object.
      * @param pojoClass a {@link java.lang.Class} object.
      */
-    public PojoTupleBuilder(String fieldName, Class<?> pojoClass)
-    {
+    public PojoTupleBuilder(String fieldName, Class<?> pojoClass) {
         super(new DefaultScalarTupleHandler(fieldName));
         this.fieldName = fieldName;
         this.pojoClass = pojoClass;
@@ -62,15 +60,15 @@ public class PojoTupleBuilder extends DefaultTupleBuilder<ScalarNode, Node>
      *
      * @param pojoClass a {@link java.lang.Class} object.
      */
-    public PojoTupleBuilder(Class<?> pojoClass)
-    {
+    public PojoTupleBuilder(Class<?> pojoClass) {
         this(null, pojoClass);
     }
 
-    
-    /** {@inheritDoc} */
-    public NodeBuilder getBuilderForTuple(NodeTuple tuple)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public NodeBuilder getBuilderForTuple(NodeTuple tuple) {
         if (builders.isEmpty())     //Do it lazzy so it support recursive structures
         {
             addBuildersFor(pojoClass);
@@ -79,70 +77,52 @@ public class PojoTupleBuilder extends DefaultTupleBuilder<ScalarNode, Node>
     }
 
 
-    
-    /** {@inheritDoc} */
-    public Object buildValue(Object parent, Node node)
-    {
-        try
-        {
+    /**
+     * {@inheritDoc}
+     */
+    public Object buildValue(Object parent, Node node) {
+        try {
             Object newValue;
-            if (pojoClass.isEnum())
-            {
+            if (pojoClass.isEnum()) {
                 newValue = ConvertUtils.convertTo((String) NodeUtils.getNodeValue(node), pojoClass);
-            }
-            else if (pojoClass.getDeclaredConstructors().length > 0)
-            {
+            } else if (pojoClass.getDeclaredConstructors().length > 0) {
                 List<Object> arguments = new ArrayList<Object>();
                 Constructor<?> declaredConstructor = pojoClass.getDeclaredConstructors()[0];
                 Annotation[][] parameterAnnotations = declaredConstructor.getParameterAnnotations();
-                for (Annotation[] parameterAnnotation : parameterAnnotations)
-                {
+                for (Annotation[] parameterAnnotation : parameterAnnotations) {
 
-                    if (parameterAnnotation[0].annotationType().equals(Value.class))
-                    {
+                    if (parameterAnnotation[0].annotationType().equals(Value.class)) {
                         arguments.add(NodeUtils.getNodeValue(node));
-                    }
-                    else if (parameterAnnotation[0].annotationType().equals(Key.class))
-                    {
+                    } else if (parameterAnnotation[0].annotationType().equals(Key.class)) {
                         arguments.add(fieldName);
                     }
 
                 }
 
                 newValue = declaredConstructor.newInstance(arguments.toArray(new Object[arguments.size()]));
-            }
-            else
-            {
+            } else {
                 newValue = pojoClass.newInstance();
             }
             ReflectionUtils.setProperty(parent, fieldName, newValue);
             processPojoAnnotations(newValue, fieldName, parent);
             return newValue;
-        }
-        catch (InstantiationException e)
-        {
+        } catch (InstantiationException e) {
             throw new RuntimeException(e);
-        }
-        catch (IllegalAccessException e)
-        {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
-        }
-        catch (InvocationTargetException e)
-        {
+        } catch (InvocationTargetException e) {
             throw new RuntimeException(e);
         }
     }
 
 
-    
     /**
      * <p>buildKey.</p>
      *
      * @param parent a {@link java.lang.Object} object.
-     * @param node a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
+     * @param node   a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      */
-    public void buildKey(Object parent, ScalarNode node)
-    {
+    public void buildKey(Object parent, ScalarNode node) {
         fieldName = node.getValue();
     }
 
@@ -151,8 +131,7 @@ public class PojoTupleBuilder extends DefaultTupleBuilder<ScalarNode, Node>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getFieldName()
-    {
+    public String getFieldName() {
         return fieldName;
     }
 
@@ -161,8 +140,7 @@ public class PojoTupleBuilder extends DefaultTupleBuilder<ScalarNode, Node>
      *
      * @return a {@link java.lang.Class} object.
      */
-    public Class<?> getPojoClass()
-    {
+    public Class<?> getPojoClass() {
         return pojoClass;
     }
 
@@ -171,8 +149,7 @@ public class PojoTupleBuilder extends DefaultTupleBuilder<ScalarNode, Node>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String toString()
-    {
+    public String toString() {
         return fieldName;
     }
 }

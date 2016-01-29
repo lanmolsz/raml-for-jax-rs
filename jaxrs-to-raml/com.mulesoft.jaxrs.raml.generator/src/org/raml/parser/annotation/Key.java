@@ -25,7 +25,6 @@ import java.lang.annotation.RetentionPolicy;
  * @version $Id: $Id
  */
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface Key
-{
+public @interface Key {
 
 }

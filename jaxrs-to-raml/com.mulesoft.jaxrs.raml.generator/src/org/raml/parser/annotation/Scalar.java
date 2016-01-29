@@ -29,14 +29,13 @@ import org.raml.parser.rule.TupleRule;
  * @version $Id: $Id
  */
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface Scalar
-{
+public @interface Scalar {
 
     boolean required() default false;
 
     Class<? extends TupleRule> rule() default TupleRule.class;
 
-    Class<? extends  TupleBuilder> builder() default TupleBuilder.class;
+    Class<? extends TupleBuilder> builder() default TupleBuilder.class;
 
     Class<? extends TupleHandler> handler() default TupleHandler.class;
 

@@ -40,8 +40,7 @@ import org.yaml.snakeyaml.nodes.Tag;
  * @author kor
  * @version $Id: $Id
  */
-public class ScalarTupleBuilder extends DefaultTupleBuilder<ScalarNode, ScalarNode>
-{
+public class ScalarTupleBuilder extends DefaultTupleBuilder<ScalarNode, ScalarNode> {
 
     private String fieldName;
     private Class<?> type;
@@ -50,70 +49,65 @@ public class ScalarTupleBuilder extends DefaultTupleBuilder<ScalarNode, ScalarNo
     /**
      * <p>Constructor for ScalarTupleBuilder.</p>
      *
-     * @param field a {@link java.lang.String} object.
-     * @param type a {@link java.lang.Class} object.
+     * @param field        a {@link java.lang.String} object.
+     * @param type         a {@link java.lang.Class} object.
      * @param includeField a {@link java.lang.String} object.
      */
-    public ScalarTupleBuilder(String field, Class<?> type,String includeField)
-    {
+    public ScalarTupleBuilder(String field, Class<?> type, String includeField) {
         super(new DefaultScalarTupleHandler(field));
         this.type = type;
-        this.includeField=includeField;
+        this.includeField = includeField;
     }
 
-    
+
     /**
      * <p>getHandler.</p>
      *
      * @return a {@link org.raml.parser.resolver.TupleHandler} object.
      */
     public TupleHandler getHandler() {
-    	return super.getHandler();
+        return super.getHandler();
     }
-    
 
-    
+
     /**
      * <p>buildValue.</p>
      *
      * @param parent a {@link java.lang.Object} object.
-     * @param node a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
+     * @param node   a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      * @return a {@link java.lang.Object} object.
      */
-    public Object buildValue(Object parent, ScalarNode node)
-    {
+    public Object buildValue(Object parent, ScalarNode node) {
 
         final String value = node.getValue();
         final Object converted = ConvertUtils.convertTo(value, type);
         String unalias = unalias(parent, fieldName);
         ReflectionUtils.setProperty(parent, unalias, converted);
-        if (includeField!=null&&includeField.length()>0){
-        	if (node instanceof IncludeScalarNode)
-        	{
-        		IncludeScalarNode sc=(IncludeScalarNode) node;
-        		ReflectionUtils.setProperty(parent, includeField, sc.getIncludeName());
-        	}
+        if (includeField != null && includeField.length() > 0) {
+            if (node instanceof IncludeScalarNode) {
+                IncludeScalarNode sc = (IncludeScalarNode) node;
+                ReflectionUtils.setProperty(parent, includeField, sc.getIncludeName());
+            }
         }
-        if (fieldName!=null&&fieldName.equals("type")){
-        	if (parent instanceof Resource){
-        	List<Node> nm=new ArrayList<Node>();
-        	nm.add(node);
-			//FIXME;
-        	new TypeExtraHandler().handle(parent,new SequenceNode(Tag.BOOL, nm, null));
-        	}
+        if (fieldName != null && fieldName.equals("type")) {
+            if (parent instanceof Resource) {
+                List<Node> nm = new ArrayList<Node>();
+                nm.add(node);
+                //FIXME;
+                new TypeExtraHandler().handle(parent, new SequenceNode(Tag.BOOL, nm, null));
+            }
         }
         return parent;
     }
 
-    
+
     /**
      * <p>buildKey.</p>
      *
      * @param parent a {@link java.lang.Object} object.
-     * @param tuple a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
+     * @param tuple  a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      */
-    public void buildKey(Object parent, ScalarNode tuple)
-    {
+    public void buildKey(Object parent, ScalarNode tuple) {
         fieldName = tuple.getValue();
     }
 }

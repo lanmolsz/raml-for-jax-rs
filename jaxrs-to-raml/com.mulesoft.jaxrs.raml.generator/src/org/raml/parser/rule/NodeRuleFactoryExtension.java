@@ -24,13 +24,12 @@ import java.lang.reflect.Field;
  * @author kor
  * @version $Id: $Id
  */
-public interface NodeRuleFactoryExtension
-{
+public interface NodeRuleFactoryExtension {
 
     /**
      * <p>handles.</p>
      *
-     * @param field a {@link java.lang.reflect.Field} object.
+     * @param field      a {@link java.lang.reflect.Field} object.
      * @param annotation a {@link java.lang.annotation.Annotation} object.
      * @return a boolean.
      */
@@ -39,10 +38,10 @@ public interface NodeRuleFactoryExtension
     /**
      * <p>createRule.</p>
      *
-     * @param field a {@link java.lang.reflect.Field} object.
+     * @param field      a {@link java.lang.reflect.Field} object.
      * @param annotation a {@link java.lang.annotation.Annotation} object.
      * @return a {@link org.raml.parser.rule.TupleRule} object.
      */
-    TupleRule<?,?> createRule(Field field,Annotation annotation);
+    TupleRule<?, ?> createRule(Field field, Annotation annotation);
 
 }

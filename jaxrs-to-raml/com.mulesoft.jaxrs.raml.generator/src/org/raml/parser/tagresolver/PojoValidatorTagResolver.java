@@ -31,32 +31,29 @@ import org.yaml.snakeyaml.nodes.Tag;
  * @author kor
  * @version $Id: $Id
  */
-public class PojoValidatorTagResolver implements TagResolver
-{
+public class PojoValidatorTagResolver implements TagResolver {
 
-    
-    /** {@inheritDoc} */
-    public boolean handles(Tag tag)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean handles(Tag tag) {
         return JACKSON_TAG.equals(tag) || JAXB_TAG.equals(tag);
     }
 
-    
-    /** {@inheritDoc} */
-    public Node resolve(Node node, ResourceLoader resourceLoader, NodeHandler nodeHandler)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public Node resolve(Node node, ResourceLoader resourceLoader, NodeHandler nodeHandler) {
         String className = ((ScalarNode) node).getValue();
-        try
-        {
+        try {
             Thread.currentThread().getContextClassLoader().loadClass(className);
         }
         //error thrown when class name differ in case
-        catch (NoClassDefFoundError e)
-        {
+        catch (NoClassDefFoundError e) {
             nodeHandler.onCustomTagError(node.getTag(), node, "Class not found " + className);
-        }
-        catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
             nodeHandler.onCustomTagError(node.getTag(), node, "Class not found " + className);
         }
         return node;

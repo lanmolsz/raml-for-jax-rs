@@ -27,8 +27,7 @@ import java.io.InputStream;
  * @author kor
  * @version $Id: $Id
  */
-public class FileResourceLoader implements ResourceLoader
-{
+public class FileResourceLoader implements ResourceLoader {
 
     //protected final Logger logger = LoggerFactory.getLogger(getClass());
     private File parentPath;
@@ -38,8 +37,7 @@ public class FileResourceLoader implements ResourceLoader
      *
      * @param path a {@link java.lang.String} object.
      */
-    public FileResourceLoader(String path)
-    {
+    public FileResourceLoader(String path) {
         this(new File(path));
     }
 
@@ -48,27 +46,24 @@ public class FileResourceLoader implements ResourceLoader
      *
      * @param path a {@link java.io.File} object.
      */
-    public FileResourceLoader(File path)
-    {
+    public FileResourceLoader(File path) {
         this.parentPath = path;
     }
 
-    
-    /** {@inheritDoc} */
-    public InputStream fetchResource(String resourceName)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public InputStream fetchResource(String resourceName) {
         File includedFile = new File(parentPath, resourceName);
         FileInputStream inputStream = null;
         /*if (logger.isDebugEnabled())
         {
             logger.debug(String.format("Looking for resource: %s on directory: %s...", resourceName, parentPath));
         }*/
-        try
-        {
+        try {
             return new FileInputStream(includedFile);
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             //ignore
         }
         return inputStream;

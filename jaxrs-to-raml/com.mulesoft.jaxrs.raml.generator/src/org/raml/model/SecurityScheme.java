@@ -28,8 +28,7 @@ import org.raml.parser.annotation.Scalar;
  * @author kor
  * @version $Id: $Id
  */
-public class SecurityScheme
-{
+public class SecurityScheme {
 
     @Scalar
     private String description;
@@ -48,8 +47,7 @@ public class SecurityScheme
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
@@ -58,8 +56,7 @@ public class SecurityScheme
      *
      * @param description a {@link java.lang.String} object.
      */
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -68,8 +65,7 @@ public class SecurityScheme
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getType()
-    {
+    public String getType() {
         return type;
     }
 
@@ -78,8 +74,7 @@ public class SecurityScheme
      *
      * @param type a {@link java.lang.String} object.
      */
-    public void setType(String type)
-    {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -88,8 +83,7 @@ public class SecurityScheme
      *
      * @return a {@link org.raml.model.SecuritySchemeDescriptor} object.
      */
-    public SecuritySchemeDescriptor getDescribedBy()
-    {
+    public SecuritySchemeDescriptor getDescribedBy() {
         return describedBy;
     }
 
@@ -98,8 +92,7 @@ public class SecurityScheme
      *
      * @param describedBy a {@link org.raml.model.SecuritySchemeDescriptor} object.
      */
-    public void setDescribedBy(SecuritySchemeDescriptor describedBy)
-    {
+    public void setDescribedBy(SecuritySchemeDescriptor describedBy) {
         this.describedBy = describedBy;
     }
 
@@ -108,8 +101,7 @@ public class SecurityScheme
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, List<String>> getSettings()
-    {
+    public Map<String, List<String>> getSettings() {
         return settings;
     }
 
@@ -118,8 +110,7 @@ public class SecurityScheme
      *
      * @param settings a {@link java.util.Map} object.
      */
-    public void setSettings(Map<String, List<String>> settings)
-    {
+    public void setSettings(Map<String, List<String>> settings) {
         this.settings = settings;
     }
 }

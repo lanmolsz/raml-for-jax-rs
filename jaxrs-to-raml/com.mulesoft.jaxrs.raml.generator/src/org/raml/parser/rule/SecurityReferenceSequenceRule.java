@@ -23,25 +23,22 @@ import org.raml.model.SecurityReference;
  * @author kor
  * @version $Id: $Id
  */
-public class SecurityReferenceSequenceRule extends SequenceTupleRule
-{
+public class SecurityReferenceSequenceRule extends SequenceTupleRule {
 
     /**
      * <p>Constructor for SecurityReferenceSequenceRule.</p>
      */
-    public SecurityReferenceSequenceRule()
-    {
+    public SecurityReferenceSequenceRule() {
         super("securedBy", SecurityReference.class);
     }
 
-    
+
     /**
      * <p>getItemRule.</p>
      *
      * @return a {@link org.raml.parser.rule.NodeRule} object.
      */
-    public NodeRule<?> getItemRule()
-    {
+    public NodeRule<?> getItemRule() {
         return new SecurityReferenceRule(getNodeRuleFactory());
     }
 }

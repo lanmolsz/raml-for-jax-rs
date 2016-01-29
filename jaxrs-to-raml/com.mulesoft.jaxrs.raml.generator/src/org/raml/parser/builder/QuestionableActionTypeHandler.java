@@ -12,14 +12,16 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  */
 public class QuestionableActionTypeHandler implements TupleHandler {
 
-	
-	/** {@inheritDoc} */
-	public boolean handles(NodeTuple tuple) {
-		if (tuple.getKeyNode() instanceof ScalarNode) {
-			ScalarNode keyNode = (ScalarNode) tuple.getKeyNode();
-			return keyNode.getValue().endsWith("?");
-		} else {
-			return false;
-		}
-	}
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean handles(NodeTuple tuple) {
+        if (tuple.getKeyNode() instanceof ScalarNode) {
+            ScalarNode keyNode = (ScalarNode) tuple.getKeyNode();
+            return keyNode.getValue().endsWith("?");
+        } else {
+            return false;
+        }
+    }
 }

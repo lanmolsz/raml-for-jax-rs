@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -15,20 +16,17 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * A collection of product Presentations
- * 
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "size",
-    "presentations"
+        "size",
+        "presentations"
 })
 public class Presentations {
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("size")
     private Integer size;
@@ -37,9 +35,7 @@ public class Presentations {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("size")
     public Integer getSize() {
@@ -47,9 +43,7 @@ public class Presentations {
     }
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("size")
     public void setSize(Integer size) {

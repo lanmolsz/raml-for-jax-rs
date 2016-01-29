@@ -1,1 +1,1 @@
-package swaggerresponses;import javax.xml.bind.annotation.XmlAttribute;public class TestInnerObject {	@XmlAttribute()	String name;}
+package swaggerresponses;import javax.xml.bind.annotation.XmlAttribute;public class TestInnerObject {    @XmlAttribute()    String name;}

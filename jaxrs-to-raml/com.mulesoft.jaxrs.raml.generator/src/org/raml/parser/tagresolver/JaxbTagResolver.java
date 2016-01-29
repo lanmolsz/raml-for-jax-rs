@@ -37,34 +37,34 @@ import org.yaml.snakeyaml.nodes.Tag;
  * @author kor
  * @version $Id: $Id
  */
-public class JaxbTagResolver implements TagResolver
-{
+public class JaxbTagResolver implements TagResolver {
 
-    /** Constant <code>JAXB_TAG</code> */
+    /**
+     * Constant <code>JAXB_TAG</code>
+     */
     public static final Tag JAXB_TAG = new Tag("!jaxb");
 
-    
-    /** {@inheritDoc} */
-    public boolean handles(Tag tag)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean handles(Tag tag) {
         return JAXB_TAG.equals(tag);
     }
 
-    
-    /** {@inheritDoc} */
-    public Node resolve(Node node, ResourceLoader resourceLoader, NodeHandler nodeHandler)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public Node resolve(Node node, ResourceLoader resourceLoader, NodeHandler nodeHandler) {
         String className = ((ScalarNode) node).getValue();
-        try
-        {
+        try {
             Class<?> clazz = Thread.currentThread().getContextClassLoader().loadClass(className);
             JAXBContext context = JAXBContext.newInstance(clazz);
             final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            context.generateSchema(new SchemaOutputResolver()
-            {
-                
-                public Result createOutput(String namespaceURI, String suggestedFileName) throws IOException
-                {
+            context.generateSchema(new SchemaOutputResolver() {
+
+                public Result createOutput(String namespaceURI, String suggestedFileName) throws IOException {
                     StreamResult result = new StreamResult(baos);
                     result.setSystemId("001");
                     return result;
@@ -72,9 +72,7 @@ public class JaxbTagResolver implements TagResolver
             });
             String schema = baos.toString();
             return new ScalarNode(Tag.STR, schema, node.getStartMark(), node.getEndMark(), ((ScalarNode) node).getStyle());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new YAMLException(e);
         }
     }

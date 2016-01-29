@@ -23,16 +23,15 @@ import java.io.InputStream;
  * @author kor
  * @version $Id: $Id
  */
-public class ClassPathResourceLoader implements ResourceLoader
-{
+public class ClassPathResourceLoader implements ResourceLoader {
 
-    
-    /** {@inheritDoc} */
-    public InputStream fetchResource(String resourceName)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public InputStream fetchResource(String resourceName) {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(resourceName);
-        if (inputStream == null)
-        {
+        if (inputStream == null) {
             inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceName);
         }
         return inputStream;

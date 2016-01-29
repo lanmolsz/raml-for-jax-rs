@@ -10,42 +10,35 @@ import javax.persistence.ManyToOne;
  * @version $Revision: 1 $
  */
 @Entity(name = "LineItem")
-public class LineItemEntity
-{
-   protected int id;
-   protected int quantity;
-   protected ProductEntity product;
+public class LineItemEntity {
+    protected int id;
+    protected int quantity;
+    protected ProductEntity product;
 
-   @Id
-   @GeneratedValue
-   public int getId()
-   {
-      return id;
-   }
+    @Id
+    @GeneratedValue
+    public int getId() {
+        return id;
+    }
 
-   public void setId(int id)
-   {
-      this.id = id;
-   }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-   @ManyToOne
-   public ProductEntity getProduct()
-   {
-      return product;
-   }
+    @ManyToOne
+    public ProductEntity getProduct() {
+        return product;
+    }
 
-   public void setProduct(ProductEntity product)
-   {
-      this.product = product;
-   }
+    public void setProduct(ProductEntity product) {
+        this.product = product;
+    }
 
-   public int getQuantity()
-   {
-      return quantity;
-   }
+    public int getQuantity() {
+        return quantity;
+    }
 
-   public void setQuantity(int quantity)
-   {
-      this.quantity = quantity;
-   }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

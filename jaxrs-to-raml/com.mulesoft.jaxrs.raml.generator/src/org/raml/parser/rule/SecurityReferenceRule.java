@@ -25,14 +25,12 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class SecurityReferenceRule extends PojoTupleRule
-{
+public class SecurityReferenceRule extends PojoTupleRule {
 
     /**
      * <p>Constructor for SecurityReferenceRule.</p>
      */
-    public SecurityReferenceRule()
-    {
+    public SecurityReferenceRule() {
         this(null);
     }
 
@@ -41,19 +39,17 @@ public class SecurityReferenceRule extends PojoTupleRule
      *
      * @param nodeRuleFactory a {@link org.raml.parser.rule.NodeRuleFactory} object.
      */
-    public SecurityReferenceRule(NodeRuleFactory nodeRuleFactory)
-    {
+    public SecurityReferenceRule(NodeRuleFactory nodeRuleFactory) {
         super("securedBy", SecurityReference.class, nodeRuleFactory);
     }
 
-    
+
     /**
      * <p>getValueNodeType.</p>
      *
      * @return an array of {@link java.lang.Class} objects.
      */
-    public Class<?>[] getValueNodeType()
-    {
-        return new Class[] {ScalarNode.class, MappingNode.class};
+    public Class<?>[] getValueNodeType() {
+        return new Class[]{ScalarNode.class, MappingNode.class};
     }
 }

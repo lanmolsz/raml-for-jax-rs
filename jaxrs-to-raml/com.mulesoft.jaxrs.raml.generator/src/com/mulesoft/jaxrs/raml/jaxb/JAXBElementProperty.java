@@ -21,65 +21,63 @@ import com.mulesoft.jaxrs.raml.annotation.model.reflection.ReflectionType;
  * @author kor
  * @version $Id: $Id
  */
-public class JAXBElementProperty extends JAXBProperty{
+public class JAXBElementProperty extends JAXBProperty {
 
-	/**
-	 * <p>Constructor for JAXBElementProperty.</p>
-	 *
-	 * @param model a {@link com.mulesoft.jaxrs.raml.annotation.model.IBasicModel} object.
-	 * @param r a {@link com.mulesoft.jaxrs.raml.jaxb.JAXBRegistry} object.
-	 * @param name a {@link java.lang.String} object.
-	 */
-	public JAXBElementProperty(IMember model,IMethodModel setter,ITypeModel ownerType,JAXBRegistry r, String name) {
-		super(model,setter,ownerType,r,name);			
-	}
+    /**
+     * <p>Constructor for JAXBElementProperty.</p>
+     *
+     * @param model a {@link com.mulesoft.jaxrs.raml.annotation.model.IBasicModel} object.
+     * @param r     a {@link com.mulesoft.jaxrs.raml.jaxb.JAXBRegistry} object.
+     * @param name  a {@link java.lang.String} object.
+     */
+    public JAXBElementProperty(IMember model, IMethodModel setter, ITypeModel ownerType, JAXBRegistry r, String name) {
+        super(model, setter, ownerType, r, name);
+    }
 
-	/**
-	 * <p>asJavaType.</p>
-	 *
-	 * @return a {@link java.lang.Class} object.
-	 */
-	public Class<?> asJavaType() {
-		if (originalModel instanceof IMember){
-			IMember or=(IMember) originalModel;
-			return or.getJavaType();
-		}
-		return null;
-	}
+    /**
+     * <p>asJavaType.</p>
+     *
+     * @return a {@link java.lang.Class} object.
+     */
+    public Class<?> asJavaType() {
+        if (originalModel instanceof IMember) {
+            IMember or = (IMember) originalModel;
+            return or.getJavaType();
+        }
+        return null;
+    }
 
-	/**
-	 * <p>getJAXBType.</p>
-	 *
-	 * @return a {@link com.mulesoft.jaxrs.raml.jaxb.JAXBType} object.
-	 */
-	public List<JAXBType> getJAXBTypes() {
-		if(this.originalModel.hasAnnotation(XmlJavaTypeAdapter.class.getSimpleName())){
-			ArrayList<JAXBType> list = new ArrayList<JAXBType>();
-			if(this.getStructureType()==StructureType.MAP){
-				list.add(registry.getJAXBModel(new ReflectionType(String.class)));
-				list.add(registry.getJAXBModel(new ReflectionType(Object.class)));
-			}
-			else{
-				String adapter = originalModel.getAnnotationValue(XmlJavaTypeAdapter.class.getSimpleName());
-				ITypeModel adapterClass = this.ownerType.resolveClass(adapter);
-				if(adapterClass==null){
-					list.add(registry.getJAXBModel(new ReflectionType(Object.class)));
-				}
-				else{
-					IMethodModel[] methods = adapterClass.getMethods();
-					for(IMethodModel m : methods){
-						if(m.getName().equals("marshal")){
-							ITypeModel returnedType = m.getReturnedType();
-							if(returnedType!=null){
-								list.add(registry.getJAXBModel(returnedType));
-								break;
-							}
-						}
-					}
-				}
-			}
-			return list;
-		}
+    /**
+     * <p>getJAXBType.</p>
+     *
+     * @return a {@link com.mulesoft.jaxrs.raml.jaxb.JAXBType} object.
+     */
+    public List<JAXBType> getJAXBTypes() {
+        if (this.originalModel.hasAnnotation(XmlJavaTypeAdapter.class.getSimpleName())) {
+            ArrayList<JAXBType> list = new ArrayList<JAXBType>();
+            if (this.getStructureType() == StructureType.MAP) {
+                list.add(registry.getJAXBModel(new ReflectionType(String.class)));
+                list.add(registry.getJAXBModel(new ReflectionType(Object.class)));
+            } else {
+                String adapter = originalModel.getAnnotationValue(XmlJavaTypeAdapter.class.getSimpleName());
+                ITypeModel adapterClass = this.ownerType.resolveClass(adapter);
+                if (adapterClass == null) {
+                    list.add(registry.getJAXBModel(new ReflectionType(Object.class)));
+                } else {
+                    IMethodModel[] methods = adapterClass.getMethods();
+                    for (IMethodModel m : methods) {
+                        if (m.getName().equals("marshal")) {
+                            ITypeModel returnedType = m.getReturnedType();
+                            if (returnedType != null) {
+                                list.add(registry.getJAXBModel(returnedType));
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            return list;
+        }
 //		else if(this.originalType.hasAnnotation(XmlAnyAttribute.class.getSimpleName())){
 //			ArrayList<JAXBType> list = new ArrayList<JAXBType>();
 //			list.add(registry.getJAXBModel(new ReflectionType(String.class)));
@@ -91,13 +89,15 @@ public class JAXBElementProperty extends JAXBProperty{
 //			list.add(registry.getJAXBModel(new ReflectionType(Object.class)));
 //			return list;
 //		}
-		return registry.getJAXBModels(((IMember)originalModel).getJAXBTypes());		
-	}
+        return registry.getJAXBModels(((IMember) originalModel).getJAXBTypes());
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	protected String getPropertyAnnotation() {
-		return XmlElement.class.getSimpleName();
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String getPropertyAnnotation() {
+        return XmlElement.class.getSimpleName();
+    }
 
 }

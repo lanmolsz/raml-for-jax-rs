@@ -23,14 +23,12 @@ import static org.raml.model.ParamType.STRING;
  * @author kor
  * @version $Id: $Id
  */
-public class UriParameter extends AbstractParam
-{
+public class UriParameter extends AbstractParam {
 
     /**
      * <p>Constructor for UriParameter.</p>
      */
-    public UriParameter()
-    {
+    public UriParameter() {
     }
 
     /**
@@ -38,8 +36,7 @@ public class UriParameter extends AbstractParam
      *
      * @param name a {@link java.lang.String} object.
      */
-    public UriParameter(String name)
-    {
+    public UriParameter(String name) {
         super(name, STRING, true);
     }
 }

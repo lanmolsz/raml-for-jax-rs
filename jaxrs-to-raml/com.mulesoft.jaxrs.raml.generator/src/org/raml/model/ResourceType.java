@@ -13,9 +13,9 @@ import org.raml.parser.builder.QuestionableActionTypeHandler;
  * @author kor
  * @version $Id: $Id
  */
-public class ResourceType extends Resource{
+public class ResourceType extends Resource {
 
-	@Mapping(handler = QuestionableActionTypeHandler.class, implicit = true)
+    @Mapping(handler = QuestionableActionTypeHandler.class, implicit = true)
     private Map<String, Action> questionedActions = new LinkedHashMap<String, Action>();
 
     /**
@@ -24,38 +24,37 @@ public class ResourceType extends Resource{
      * @return a {@link java.util.Map} object.
      */
     public Map<String, Action> getQuestionedActions() {
-		return questionedActions;
-	}
+        return questionedActions;
+    }
 
-	/**
-	 * <p>Setter for the field <code>questionedActions</code>.</p>
-	 *
-	 * @param questionedActions a {@link java.util.Map} object.
-	 */
-	public void setQuestionedActions(Map<String, Action> questionedActions) {
-		this.questionedActions = questionedActions;
-	}
-	
-	
-	
-	@Scalar
-	String usage;
+    /**
+     * <p>Setter for the field <code>questionedActions</code>.</p>
+     *
+     * @param questionedActions a {@link java.util.Map} object.
+     */
+    public void setQuestionedActions(Map<String, Action> questionedActions) {
+        this.questionedActions = questionedActions;
+    }
 
-	/**
-	 * <p>Getter for the field <code>usage</code>.</p>
-	 *
-	 * @return a {@link java.lang.String} object.
-	 */
-	public String getUsage() {
-		return usage;
-	}
 
-	/**
-	 * <p>Setter for the field <code>usage</code>.</p>
-	 *
-	 * @param usage a {@link java.lang.String} object.
-	 */
-	public void setUsage(String usage) {
-		this.usage = usage;
-	}
+    @Scalar
+    String usage;
+
+    /**
+     * <p>Getter for the field <code>usage</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getUsage() {
+        return usage;
+    }
+
+    /**
+     * <p>Setter for the field <code>usage</code>.</p>
+     *
+     * @param usage a {@link java.lang.String} object.
+     */
+    public void setUsage(String usage) {
+        this.usage = usage;
+    }
 }

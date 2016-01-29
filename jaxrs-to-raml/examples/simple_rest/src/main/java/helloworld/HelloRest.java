@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class HelloRest {
 
 
-//    @Path("/composite/contacts")
+    //    @Path("/composite/contacts")
 //    @GET
 //    @Produces({"application/xml","application/json"})
 //    public Contacts getContacts1() {
@@ -47,21 +47,21 @@ public class HelloRest {
 //    }
     @Path("/array/entity")
     @GET
-    @Produces({"application/xml","application/json"})
+    @Produces({"application/xml", "application/json"})
     public CollectionEntity[] getArray() {
         return null;
     }
 
     @Path("/collection/entity")
     @GET
-    @Produces({"application/xml","application/json"})
+    @Produces({"application/xml", "application/json"})
     public Collection<CollectionEntity> getCollection() {
         return null;
     }
 
     @Path("/collection-entity")
     @GET
-    @Produces({"application/xml","application/json"})
+    @Produces({"application/xml", "application/json"})
     public CollectionEntity getCollectionEntity() {
         return null;
     }

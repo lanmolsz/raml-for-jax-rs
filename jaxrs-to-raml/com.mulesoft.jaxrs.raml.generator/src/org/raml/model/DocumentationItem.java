@@ -23,14 +23,13 @@ import org.raml.parser.annotation.Scalar;
  * @author kor
  * @version $Id: $Id
  */
-public class DocumentationItem
-{
+public class DocumentationItem {
     @Scalar(required = true)
     private String title;
 
     @Scalar(required = true)
     private String content;
-    
+
     private String origin;
 
     /**
@@ -38,8 +37,7 @@ public class DocumentationItem
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 
@@ -48,8 +46,7 @@ public class DocumentationItem
      *
      * @param title a {@link java.lang.String} object.
      */
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -58,8 +55,7 @@ public class DocumentationItem
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getContent()
-    {
+    public String getContent() {
         return content;
     }
 
@@ -68,17 +64,16 @@ public class DocumentationItem
      *
      * @param content a {@link java.lang.String} object.
      */
-    public void setContent(String content)
-    {
+    public void setContent(String content) {
         this.content = content;
     }
 
-	/**
-	 * <p>Getter for the field <code>origin</code>.</p>
-	 *
-	 * @return name of the file where item is stored (null if in the same file)
-	 */
-	public String getOrigin() {
-		return origin;
-	}
+    /**
+     * <p>Getter for the field <code>origin</code>.</p>
+     *
+     * @return name of the file where item is stored (null if in the same file)
+     */
+    public String getOrigin() {
+        return origin;
+    }
 }

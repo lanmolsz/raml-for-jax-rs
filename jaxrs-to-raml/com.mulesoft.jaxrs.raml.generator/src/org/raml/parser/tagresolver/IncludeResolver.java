@@ -35,109 +35,96 @@ import org.yaml.snakeyaml.nodes.Tag;
  * @author kor
  * @version $Id: $Id
  */
-public class IncludeResolver implements TagResolver
-{
+public class IncludeResolver implements TagResolver {
 
-    /** Constant <code>INCLUDE_TAG</code> */
+    /**
+     * Constant <code>INCLUDE_TAG</code>
+     */
     public static final Tag INCLUDE_TAG = new Tag("!include");
-    /** Constant <code>SEPARATOR="_"</code> */
+    /**
+     * Constant <code>SEPARATOR="_"</code>
+     */
     public static final String SEPARATOR = "_";
-    /** Constant <code>INCLUDE_APPLIED_TAG="!include-applied + SEPARATOR"</code> */
+    /**
+     * Constant <code>INCLUDE_APPLIED_TAG="!include-applied + SEPARATOR"</code>
+     */
     public static final String INCLUDE_APPLIED_TAG = "!include-applied" + SEPARATOR;
 
-    
-    /** {@inheritDoc} */
-    public boolean handles(Tag tag)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean handles(Tag tag) {
         return INCLUDE_TAG.equals(tag) || tag.startsWith(INCLUDE_APPLIED_TAG);
     }
 
-    
-    /** {@inheritDoc} */
-    public Node resolve(Node node, ResourceLoader resourceLoader, NodeHandler nodeHandler)
-    {
-        if (node.getTag().startsWith(INCLUDE_APPLIED_TAG))
-        {
+
+    /**
+     * {@inheritDoc}
+     */
+    public Node resolve(Node node, ResourceLoader resourceLoader, NodeHandler nodeHandler) {
+        if (node.getTag().startsWith(INCLUDE_APPLIED_TAG)) {
             //already resolved
             return node;
         }
 
         Node includeNode;
         InputStream inputStream = null;
-        try
-        {
-            if (node.getNodeId() != scalar)
-            {
+        try {
+            if (node.getNodeId() != scalar) {
                 nodeHandler.onCustomTagError(INCLUDE_TAG, node, "Include cannot be non-scalar");
                 return mockInclude(node);
             }
-            ScalarNode scalarNode = (ScalarNode) node;            
+            ScalarNode scalarNode = (ScalarNode) node;
             String resourceName = scalarNode.getValue();
             inputStream = resourceLoader.fetchResource(resourceName);
 
-            if (inputStream == null)
-            {
+            if (inputStream == null) {
                 nodeHandler.onCustomTagError(INCLUDE_TAG, node, "Include cannot be resolved " + resourceName);
                 return mockInclude(node);
-            }
-            else if (resourceName.endsWith(".raml") || resourceName.endsWith(".yaml") || resourceName.endsWith(".yml"))
-            {
+            } else if (resourceName.endsWith(".raml") || resourceName.endsWith(".yaml") || resourceName.endsWith(".yml")) {
                 Yaml yamlParser = new Yaml();
                 includeNode = yamlParser.compose(new InputStreamReader(inputStream));
-            }
-            else //scalar value
+            } else //scalar value
             {
                 String newValue = IOUtils.toString(inputStream, "UTF-8");
                 includeNode = new IncludeScalarNode(resourceName, newValue, scalarNode);
             }
-            if (includeNode == null)
-            {
+            if (includeNode == null) {
                 nodeHandler.onCustomTagError(INCLUDE_TAG, node, "Include file is empty " + resourceName);
                 return mockInclude(node);
             }
             //retag node with included resource info
             String markInfo = node.getStartMark().getLine() + SEPARATOR + node.getStartMark().getColumn()
-                              + SEPARATOR + node.getEndMark().getColumn();
+                    + SEPARATOR + node.getEndMark().getColumn();
             includeNode.setTag(new Tag(INCLUDE_APPLIED_TAG + resourceName + SEPARATOR + markInfo));
             return includeNode;
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-        finally
-        {
-            try
-            {
-                if (inputStream != null)
-                {
+        } finally {
+            try {
+                if (inputStream != null) {
                     inputStream.close();
                 }
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 //ignore
             }
         }
     }
 
-    private Node mockInclude(Node node)
-    {
+    private Node mockInclude(Node node) {
         return new ScalarNode(Tag.STR, "invalid", node.getStartMark(), node.getEndMark(), null);
     }
 
-    public static class IncludeScalarNode extends ScalarNode
-    {
+    public static class IncludeScalarNode extends ScalarNode {
         private String includeName;
 
-        public IncludeScalarNode(String includeName, String value, ScalarNode node)
-        {
+        public IncludeScalarNode(String includeName, String value, ScalarNode node) {
             super(Tag.STR, value, node.getStartMark(), node.getEndMark(), node.getStyle());
             this.includeName = includeName;
         }
 
-        public String getIncludeName()
-        {
+        public String getIncludeName() {
             return includeName;
         }
     }

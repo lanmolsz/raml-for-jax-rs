@@ -28,14 +28,13 @@ import org.yaml.snakeyaml.nodes.Tag;
  * @author kor
  * @version $Id: $Id
  */
-public interface NodeHandler
-{
+public interface NodeHandler {
 
     /**
      * <p>onMappingNodeStart.</p>
      *
      * @param mappingNode a {@link org.yaml.snakeyaml.nodes.MappingNode} object.
-     * @param tupleType a {@link org.raml.parser.visitor.TupleType} object.
+     * @param tupleType   a {@link org.raml.parser.visitor.TupleType} object.
      */
     void onMappingNodeStart(MappingNode mappingNode, TupleType tupleType);
 
@@ -43,14 +42,14 @@ public interface NodeHandler
      * <p>onMappingNodeEnd.</p>
      *
      * @param mappingNode a {@link org.yaml.snakeyaml.nodes.MappingNode} object.
-     * @param tupleType a {@link org.raml.parser.visitor.TupleType} object.
+     * @param tupleType   a {@link org.raml.parser.visitor.TupleType} object.
      */
     void onMappingNodeEnd(MappingNode mappingNode, TupleType tupleType);
 
     /**
      * <p>onSequenceStart.</p>
      *
-     * @param node a {@link org.yaml.snakeyaml.nodes.SequenceNode} object.
+     * @param node      a {@link org.yaml.snakeyaml.nodes.SequenceNode} object.
      * @param tupleType a {@link org.raml.parser.visitor.TupleType} object.
      */
     void onSequenceStart(SequenceNode node, TupleType tupleType);
@@ -58,7 +57,7 @@ public interface NodeHandler
     /**
      * <p>onSequenceEnd.</p>
      *
-     * @param node a {@link org.yaml.snakeyaml.nodes.SequenceNode} object.
+     * @param node      a {@link org.yaml.snakeyaml.nodes.SequenceNode} object.
      * @param tupleType a {@link org.raml.parser.visitor.TupleType} object.
      */
     void onSequenceEnd(SequenceNode node, TupleType tupleType);
@@ -66,7 +65,7 @@ public interface NodeHandler
     /**
      * <p>onScalar.</p>
      *
-     * @param node a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
+     * @param node      a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      * @param tupleType a {@link org.raml.parser.visitor.TupleType} object.
      */
     void onScalar(ScalarNode node, TupleType tupleType);
@@ -116,26 +115,26 @@ public interface NodeHandler
     /**
      * <p>onCustomTagStart.</p>
      *
-     * @param tag a {@link org.yaml.snakeyaml.nodes.Tag} object.
+     * @param tag               a {@link org.yaml.snakeyaml.nodes.Tag} object.
      * @param originalValueNode a {@link org.yaml.snakeyaml.nodes.Node} object.
-     * @param node a {@link org.yaml.snakeyaml.nodes.Node} object.
+     * @param node              a {@link org.yaml.snakeyaml.nodes.Node} object.
      */
     void onCustomTagStart(Tag tag, Node originalValueNode, Node node);
 
     /**
      * <p>onCustomTagEnd.</p>
      *
-     * @param tag a {@link org.yaml.snakeyaml.nodes.Tag} object.
+     * @param tag               a {@link org.yaml.snakeyaml.nodes.Tag} object.
      * @param originalValueNode a {@link org.yaml.snakeyaml.nodes.Node} object.
-     * @param node a {@link org.yaml.snakeyaml.nodes.Node} object.
+     * @param node              a {@link org.yaml.snakeyaml.nodes.Node} object.
      */
     void onCustomTagEnd(Tag tag, Node originalValueNode, Node node);
 
     /**
      * <p>onCustomTagError.</p>
      *
-     * @param tag a {@link org.yaml.snakeyaml.nodes.Tag} object.
-     * @param node a {@link org.yaml.snakeyaml.nodes.Node} object.
+     * @param tag     a {@link org.yaml.snakeyaml.nodes.Tag} object.
+     * @param node    a {@link org.yaml.snakeyaml.nodes.Node} object.
      * @param message a {@link java.lang.String} object.
      */
     void onCustomTagError(Tag tag, Node node, String message);

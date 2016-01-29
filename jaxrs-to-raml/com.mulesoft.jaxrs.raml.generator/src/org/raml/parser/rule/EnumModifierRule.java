@@ -27,8 +27,7 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class EnumModifierRule extends SimpleRule
-{
+public class EnumModifierRule extends SimpleRule {
 
     private SimpleRule enumRule;
     private List<String> enumTypes;
@@ -36,63 +35,56 @@ public class EnumModifierRule extends SimpleRule
     /**
      * <p>Constructor for EnumModifierRule.</p>
      *
-     * @param ruleName a {@link java.lang.String} object.
+     * @param ruleName  a {@link java.lang.String} object.
      * @param enumTypes a {@link java.util.List} object.
-     * @param enumRule a {@link org.raml.parser.rule.SimpleRule} object.
+     * @param enumRule  a {@link org.raml.parser.rule.SimpleRule} object.
      */
-    public EnumModifierRule(String ruleName, List<String> enumTypes, SimpleRule enumRule)
-    {
+    public EnumModifierRule(String ruleName, List<String> enumTypes, SimpleRule enumRule) {
         super(ruleName, Integer.class);
         this.enumTypes = enumTypes;
         this.enumRule = enumRule;
     }
 
-    
-    /** {@inheritDoc} */
-    public List<ValidationResult> validateKey(ScalarNode key)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<ValidationResult> validateKey(ScalarNode key) {
         List<ValidationResult> validationResults = new ArrayList<ValidationResult>();
         ScalarNode enumValueNode = enumRule.getValueNode();
         String messageTypes = generateMessageTypes();
-        if (enumValueNode == null)
-        {
+        if (enumValueNode == null) {
             validationResults.add(ValidationResult.createErrorResult(enumRule.getName() + " must exist first, and it must be of type" + messageTypes, key.getStartMark(), key.getEndMark()));
         }
-        if (enumValueNode != null && !enumTypes.contains(enumRule.getValueNode().getValue()))
-        {
+        if (enumValueNode != null && !enumTypes.contains(enumRule.getValueNode().getValue())) {
             validationResults.add(ValidationResult.createErrorResult(enumRule.getName() + " must be of type" + messageTypes, key.getStartMark(), key.getEndMark()));
         }
         validationResults.addAll(super.validateKey(key));
-        if (ValidationResult.areValid(validationResults))
-        {
+        if (ValidationResult.areValid(validationResults)) {
             setKeyNode(key);
         }
         return validationResults;
     }
 
-    private String generateMessageTypes()
-    {
+    private String generateMessageTypes() {
         StringBuilder types = new StringBuilder();
-        for (int i = 0; i < enumTypes.size() - 1; i++)
-        {
+        for (int i = 0; i < enumTypes.size() - 1; i++) {
             types.append(" " + enumTypes.get(i) + " or");
         }
         types.append(" " + enumTypes.get(enumTypes.size() - 1));
         return types.toString();
     }
 
-    
-    /** {@inheritDoc} */
-    public List<ValidationResult> doValidateValue(ScalarNode value)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<ValidationResult> doValidateValue(ScalarNode value) {
         String valueNode = value.getValue();
         List<ValidationResult> validationResults = new ArrayList<ValidationResult>();
-        try
-        {
+        try {
             Integer.parseInt(valueNode);
-        }
-        catch (NumberFormatException nfe)
-        {
+        } catch (NumberFormatException nfe) {
             validationResults.add(ValidationResult.createErrorResult(getName() + " can only contain integer values greater than zero", value.getStartMark(), value.getEndMark()));
         }
         validationResults.addAll(super.doValidateValue(value));

@@ -27,26 +27,25 @@ import org.raml.model.parameter.UriParameter;
  * @author kor
  * @version $Id: $Id
  */
-public class ParamRule extends PojoTupleRule
-{
+public class ParamRule extends PojoTupleRule {
 
 
     /**
      * <p>Constructor for ParamRule.</p>
      *
-     * @param fieldName a {@link java.lang.String} object.
+     * @param fieldName       a {@link java.lang.String} object.
      * @param nodeRuleFactory a {@link org.raml.parser.rule.NodeRuleFactory} object.
      */
-    public ParamRule(String fieldName, NodeRuleFactory nodeRuleFactory)
-    {
+    public ParamRule(String fieldName, NodeRuleFactory nodeRuleFactory) {
         super(fieldName, UriParameter.class);
         setNodeRuleFactory(nodeRuleFactory);
     }
 
-    
-    /** {@inheritDoc} */
-    public void addRulesFor(Class<?> pojoClass)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void addRulesFor(Class<?> pojoClass) {
         super.addRulesFor(pojoClass);
         SimpleRule typeRule = (SimpleRule) getRuleByFieldName("type");
 
@@ -56,14 +55,13 @@ public class ParamRule extends PojoTupleRule
         rules.put("maximum", new EnumModifierRule("maximum", Arrays.asList("integer", "number"), typeRule));
     }
 
-    
+
     /**
      * <p>onRuleEnd.</p>
      *
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> onRuleEnd()
-    {
+    public List<ValidationResult> onRuleEnd() {
         return Collections.emptyList();
     }
 

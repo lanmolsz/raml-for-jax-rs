@@ -12,16 +12,16 @@ import org.raml.emitter.RamlEmitterV2;
  */
 public interface IRAMLFieldDumper {
 
-	/**
-	 * <p>dumpField.</p>
-	 *
-	 * @param dump a {@link java.lang.StringBuilder} object.
-	 * @param depth a int.
-	 * @param declaredField a {@link java.lang.reflect.Field} object.
-	 * @param pojo a {@link java.lang.Object} object.
-	 * @param emitter a {@link org.raml.emitter.RamlEmitterV2} object.
-	 */
-	void dumpField(StringBuilder dump, int depth, Field declaredField,
-			Object pojo,RamlEmitterV2 emitter);
+    /**
+     * <p>dumpField.</p>
+     *
+     * @param dump          a {@link java.lang.StringBuilder} object.
+     * @param depth         a int.
+     * @param declaredField a {@link java.lang.reflect.Field} object.
+     * @param pojo          a {@link java.lang.Object} object.
+     * @param emitter       a {@link org.raml.emitter.RamlEmitterV2} object.
+     */
+    void dumpField(StringBuilder dump, int depth, Field declaredField,
+                   Object pojo, RamlEmitterV2 emitter);
 
 }

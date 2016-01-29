@@ -43,21 +43,20 @@ import org.raml.parser.rule.SecurityReferenceSequenceRule;
  * @author kor
  * @version $Id: $Id
  */
-public class Action
-{
+public class Action {
 
     @Key
     @TransformHandler(QuestionedActionTypeHandler.class)
     private ActionType type;
-    
-    @Sequence(extraHandler=TraitsExtraHandler.class)
+
+    @Sequence(extraHandler = TraitsExtraHandler.class)
     @Dumper(TraitsDumper.class)
     private List<String> is = new ArrayList<String>();
-    
+
     protected boolean isQuestioned;
 
 
-	@Scalar
+    @Scalar
     private String description;
 
     @Mapping
@@ -75,28 +74,27 @@ public class Action
     @Parent
     private Resource resource;
 
-    
 
-	private List<TemplateUse> isModel=new ArrayList<TemplateUse>();
-    
+    private List<TemplateUse> isModel = new ArrayList<TemplateUse>();
+
     /**
      * <p>Getter for the field <code>isModel</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<TemplateUse> getIsModel() {
-		return isModel;
-	}
+        return isModel;
+    }
 
-    
-	/**
-	 * <p>Setter for the field <code>isModel</code>.</p>
-	 *
-	 * @param isModel a {@link java.util.List} object.
-	 */
-	public void setIsModel(List<TemplateUse> isModel) {
-		this.isModel = isModel;
-	}
+
+    /**
+     * <p>Setter for the field <code>isModel</code>.</p>
+     *
+     * @param isModel a {@link java.util.List} object.
+     */
+    public void setIsModel(List<TemplateUse> isModel) {
+        this.isModel = isModel;
+    }
 
     @Sequence
     private List<Protocol> protocols = new ArrayList<Protocol>();
@@ -110,8 +108,7 @@ public class Action
     /**
      * <p>Constructor for Action.</p>
      */
-    public Action()
-    {
+    public Action() {
     }
 
     /**
@@ -119,8 +116,7 @@ public class Action
      *
      * @return a {@link org.raml.model.ActionType} object.
      */
-    public ActionType getType()
-    {
+    public ActionType getType() {
         return type;
     }
 
@@ -129,8 +125,7 @@ public class Action
      *
      * @param type a {@link org.raml.model.ActionType} object.
      */
-    public void setType(ActionType type)
-    {
+    public void setType(ActionType type) {
         this.type = type;
     }
 
@@ -139,8 +134,7 @@ public class Action
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
@@ -149,8 +143,7 @@ public class Action
      *
      * @param description a {@link java.lang.String} object.
      */
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -159,8 +152,7 @@ public class Action
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, Header> getHeaders()
-    {
+    public Map<String, Header> getHeaders() {
         return headers;
     }
 
@@ -169,8 +161,7 @@ public class Action
      *
      * @param headers a {@link java.util.Map} object.
      */
-    public void setHeaders(Map<String, Header> headers)
-    {
+    public void setHeaders(Map<String, Header> headers) {
         this.headers = headers;
     }
 
@@ -179,8 +170,7 @@ public class Action
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, QueryParameter> getQueryParameters()
-    {
+    public Map<String, QueryParameter> getQueryParameters() {
         return queryParameters;
     }
 
@@ -189,8 +179,7 @@ public class Action
      *
      * @param queryParameters a {@link java.util.Map} object.
      */
-    public void setQueryParameters(Map<String, QueryParameter> queryParameters)
-    {
+    public void setQueryParameters(Map<String, QueryParameter> queryParameters) {
         this.queryParameters = queryParameters;
     }
 
@@ -199,8 +188,7 @@ public class Action
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, MimeType> getBody()
-    {
+    public Map<String, MimeType> getBody() {
         return body;
     }
 
@@ -209,8 +197,7 @@ public class Action
      *
      * @param body a {@link java.util.Map} object.
      */
-    public void setBody(Map<String, MimeType> body)
-    {
+    public void setBody(Map<String, MimeType> body) {
         this.body = body;
     }
 
@@ -219,8 +206,7 @@ public class Action
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, Response> getResponses()
-    {
+    public Map<String, Response> getResponses() {
         return responses;
     }
 
@@ -229,8 +215,7 @@ public class Action
      *
      * @param responses a {@link java.util.Map} object.
      */
-    public void setResponses(Map<String, Response> responses)
-    {
+    public void setResponses(Map<String, Response> responses) {
         this.responses = responses;
     }
 
@@ -239,8 +224,7 @@ public class Action
      *
      * @return a {@link org.raml.model.Resource} object.
      */
-    public Resource getResource()
-    {
+    public Resource getResource() {
         return resource;
     }
 
@@ -249,8 +233,7 @@ public class Action
      *
      * @param resource a {@link org.raml.model.Resource} object.
      */
-    public void setResource(Resource resource)
-    {
+    public void setResource(Resource resource) {
         this.resource = resource;
     }
 
@@ -259,8 +242,7 @@ public class Action
      *
      * @return a {@link java.util.List} object.
      */
-    public List<String> getIs()
-    {
+    public List<String> getIs() {
         return is;
     }
 
@@ -269,8 +251,7 @@ public class Action
      *
      * @param is a {@link java.util.List} object.
      */
-    public void setIs(List<String> is)
-    {
+    public void setIs(List<String> is) {
         this.is = is;
     }
 
@@ -279,8 +260,7 @@ public class Action
      *
      * @return a {@link java.util.List} object.
      */
-    public List<Protocol> getProtocols()
-    {
+    public List<Protocol> getProtocols() {
         return protocols;
     }
 
@@ -289,8 +269,7 @@ public class Action
      *
      * @param protocols a {@link java.util.List} object.
      */
-    public void setProtocols(List<Protocol> protocols)
-    {
+    public void setProtocols(List<Protocol> protocols) {
         this.protocols = protocols;
     }
 
@@ -299,8 +278,7 @@ public class Action
      *
      * @return a {@link java.util.List} object.
      */
-    public List<SecurityReference> getSecuredBy()
-    {
+    public List<SecurityReference> getSecuredBy() {
         return securedBy;
     }
 
@@ -309,8 +287,7 @@ public class Action
      *
      * @param securedBy a {@link java.util.List} object.
      */
-    public void setSecuredBy(List<SecurityReference> securedBy)
-    {
+    public void setSecuredBy(List<SecurityReference> securedBy) {
         this.securedBy = securedBy;
     }
 
@@ -319,8 +296,7 @@ public class Action
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, List<UriParameter>> getBaseUriParameters()
-    {
+    public Map<String, List<UriParameter>> getBaseUriParameters() {
         return baseUriParameters;
     }
 
@@ -329,40 +305,38 @@ public class Action
      *
      * @param baseUriParameters a {@link java.util.Map} object.
      */
-    public void setBaseUriParameters(Map<String, List<UriParameter>> baseUriParameters)
-    {
+    public void setBaseUriParameters(Map<String, List<UriParameter>> baseUriParameters) {
         this.baseUriParameters = baseUriParameters;
     }
 
-    
+
     /**
      * <p>toString.</p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String toString()
-    {
+    public String toString() {
         return "Action{" +
-               "type='" + type + '\'' +
-               ", resource=" + (resource != null ? resource.getUri() : "-") + '}';
+                "type='" + type + '\'' +
+                ", resource=" + (resource != null ? resource.getUri() : "-") + '}';
     }
-    
+
     /**
      * <p>isQuestioned.</p>
      *
      * @return a boolean.
      */
     public boolean isQuestioned() {
-		return isQuestioned;
-	}
+        return isQuestioned;
+    }
 
-	/**
-	 * <p>setQuestioned.</p>
-	 *
-	 * @param isQuestioned a boolean.
-	 */
-	public void setQuestioned(boolean isQuestioned) {
-		this.isQuestioned = isQuestioned;
-	}
+    /**
+     * <p>setQuestioned.</p>
+     *
+     * @param isQuestioned a boolean.
+     */
+    public void setQuestioned(boolean isQuestioned) {
+        this.isQuestioned = isQuestioned;
+    }
 
 }

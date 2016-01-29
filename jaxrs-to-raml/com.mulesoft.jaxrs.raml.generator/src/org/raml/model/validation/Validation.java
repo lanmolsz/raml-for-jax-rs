@@ -21,8 +21,7 @@ package org.raml.model.validation;
  * @author kor
  * @version $Id: $Id
  */
-public interface Validation
-{
+public interface Validation {
 
     /**
      * <p>check.</p>

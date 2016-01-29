@@ -33,38 +33,36 @@ import org.yaml.snakeyaml.nodes.MappingNode;
  * @author kor
  * @version $Id: $Id
  */
-public class RamlValidationService extends YamlValidationService
-{
+public class RamlValidationService extends YamlValidationService {
 
     private RamlDocumentValidator validator;
 
     /**
      * <p>Constructor for RamlValidationService.</p>
      *
-     * @param resourceLoader a {@link org.raml.parser.loader.ResourceLoader} object.
+     * @param resourceLoader        a {@link org.raml.parser.loader.ResourceLoader} object.
      * @param ramlDocumentValidator a {@link org.raml.parser.visitor.RamlDocumentValidator} object.
-     * @param tagResolvers a {@link org.raml.parser.tagresolver.TagResolver} object.
+     * @param tagResolvers          a {@link org.raml.parser.tagresolver.TagResolver} object.
      */
-    public RamlValidationService(ResourceLoader resourceLoader, RamlDocumentValidator ramlDocumentValidator, TagResolver... tagResolvers)
-    {
+    public RamlValidationService(ResourceLoader resourceLoader, RamlDocumentValidator ramlDocumentValidator, TagResolver... tagResolvers) {
         super(resourceLoader, ramlDocumentValidator, defaultResolver(tagResolvers));
         validator = ramlDocumentValidator;
         validator.setResourceLoader(resourceLoader);
     }
 
-    private static TagResolver[] defaultResolver(TagResolver[] tagResolvers)
-    {
-        TagResolver[] defaultResolvers = new TagResolver[] {
+    private static TagResolver[] defaultResolver(TagResolver[] tagResolvers) {
+        TagResolver[] defaultResolvers = new TagResolver[]{
                 new IncludeResolver(),
                 new PojoValidatorTagResolver()
         };
         return (TagResolver[]) ArrayUtils.addAll(defaultResolvers, tagResolvers);
     }
 
-    
-    /** {@inheritDoc} */
-    protected List<ValidationResult> preValidation(MappingNode root)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    protected List<ValidationResult> preValidation(MappingNode root) {
         List<ValidationResult> validationResults = validator.getTemplateResolver().init(root);
         validationResults.addAll(validator.getMediaTypeResolver().beforeDocumentStart(root));
         return validationResults;
@@ -75,33 +73,30 @@ public class RamlValidationService extends YamlValidationService
      *
      * @return a {@link org.raml.parser.visitor.RamlValidationService} object.
      */
-    public static RamlValidationService createDefault()
-    {
+    public static RamlValidationService createDefault() {
         return createDefault(new DefaultResourceLoader());
     }
 
     /**
      * <p>createDefault.</p>
      *
-     * @param loader a {@link org.raml.parser.loader.ResourceLoader} object.
+     * @param loader       a {@link org.raml.parser.loader.ResourceLoader} object.
      * @param tagResolvers a {@link org.raml.parser.tagresolver.TagResolver} object.
      * @return a {@link org.raml.parser.visitor.RamlValidationService} object.
      */
-    public static RamlValidationService createDefault(ResourceLoader loader, TagResolver... tagResolvers)
-    {
+    public static RamlValidationService createDefault(ResourceLoader loader, TagResolver... tagResolvers) {
         return createDefault(loader, new NodeRuleFactory(), tagResolvers);
     }
 
     /**
      * <p>createDefault.</p>
      *
-     * @param loader a {@link org.raml.parser.loader.ResourceLoader} object.
+     * @param loader          a {@link org.raml.parser.loader.ResourceLoader} object.
      * @param nodeRuleFactory a {@link org.raml.parser.rule.NodeRuleFactory} object.
-     * @param tagResolvers a {@link org.raml.parser.tagresolver.TagResolver} object.
+     * @param tagResolvers    a {@link org.raml.parser.tagresolver.TagResolver} object.
      * @return a {@link org.raml.parser.visitor.RamlValidationService} object.
      */
-    public static RamlValidationService createDefault(ResourceLoader loader, NodeRuleFactory nodeRuleFactory, TagResolver... tagResolvers)
-    {
+    public static RamlValidationService createDefault(ResourceLoader loader, NodeRuleFactory nodeRuleFactory, TagResolver... tagResolvers) {
         return new RamlValidationService(loader, new RamlDocumentValidator(nodeRuleFactory), tagResolvers);
     }
 

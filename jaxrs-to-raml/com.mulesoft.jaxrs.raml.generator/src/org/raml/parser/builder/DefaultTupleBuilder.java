@@ -41,8 +41,7 @@ import org.yaml.snakeyaml.nodes.NodeTuple;
  * @author kor
  * @version $Id: $Id
  */
-public class DefaultTupleBuilder<K extends Node, V extends Node> implements TupleBuilder<K, V>
-{
+public class DefaultTupleBuilder<K extends Node, V extends Node> implements TupleBuilder<K, V> {
 
     protected Map<String, TupleBuilder<?, ?>> builders;
     private NodeBuilder<?> parent;
@@ -55,83 +54,80 @@ public class DefaultTupleBuilder<K extends Node, V extends Node> implements Tupl
      *
      * @param tupleHandler a {@link org.raml.parser.resolver.TupleHandler} object.
      */
-    public DefaultTupleBuilder(TupleHandler tupleHandler)
-    {
+    public DefaultTupleBuilder(TupleHandler tupleHandler) {
         builders = new HashMap<String, TupleBuilder<?, ?>>();
         this.setHandler(tupleHandler);
     }
 
-    
-    /** {@inheritDoc} */
-    public NodeBuilder getBuilderForTuple(NodeTuple tuple)
-    {
-        if (builders == null || builders.isEmpty())
-        {
+
+    /**
+     * {@inheritDoc}
+     */
+    public NodeBuilder getBuilderForTuple(NodeTuple tuple) {
+        if (builders == null || builders.isEmpty()) {
             return new DefaultTupleBuilder(new DefaultTupleHandler());
         }
-        for (TupleBuilder tupleBuilder : builders.values())
-        {
-            if (tupleBuilder.getHandler().handles(tuple))
-            {
+        for (TupleBuilder tupleBuilder : builders.values()) {
+            if (tupleBuilder.getHandler().handles(tuple)) {
                 return tupleBuilder;
             }
         }
         throw new RuntimeException("Builder not found for " + tuple);
     }
 
-    
+
     /**
      * <p>buildValue.</p>
      *
      * @param parent a {@link java.lang.Object} object.
-     * @param node a V object.
+     * @param node   a V object.
      * @return a {@link java.lang.Object} object.
      */
-    public Object buildValue(Object parent, V node)
-    {
+    public Object buildValue(Object parent, V node) {
         return parent;
     }
 
-    /** {@inheritDoc} */
-    public void setHandler(TupleHandler handler)
-    {
+    /**
+     * {@inheritDoc}
+     */
+    public void setHandler(TupleHandler handler) {
         this.handler = handler;
     }
 
-    
+
     /**
      * <p>Getter for the field <code>handler</code>.</p>
      *
      * @return a {@link org.raml.parser.resolver.TupleHandler} object.
      */
-    public TupleHandler getHandler()
-    {
+    public TupleHandler getHandler() {
         return handler;
     }
 
-    
+
     /**
      * <p>buildKey.</p>
      *
      * @param parent a {@link java.lang.Object} object.
-     * @param tuple a K object.
+     * @param tuple  a K object.
      */
-    public void buildKey(Object parent, K tuple)
-    {
+    public void buildKey(Object parent, K tuple) {
 
     }
 
-    
-    /** {@inheritDoc} */
-    public void setParentNodeBuilder(NodeBuilder parentBuilder)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setParentNodeBuilder(NodeBuilder parentBuilder) {
         parent = parentBuilder;
     }
 
-    
-    /** {@inheritDoc} */
-    public void setNestedBuilders(Map<String, TupleBuilder<?, ?>> nestedBuilders)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setNestedBuilders(Map<String, TupleBuilder<?, ?>> nestedBuilders) {
         builders = nestedBuilders;
     }
 
@@ -141,8 +137,7 @@ public class DefaultTupleBuilder<K extends Node, V extends Node> implements Tupl
      *
      * @param documentClass a {@link java.lang.Class} object.
      */
-    public void addBuildersFor(Class<?> documentClass)
-    {
+    public void addBuildersFor(Class<?> documentClass) {
         new TupleBuilderFactory().addBuildersTo(documentClass, this);
     }
 
@@ -152,31 +147,28 @@ public class DefaultTupleBuilder<K extends Node, V extends Node> implements Tupl
      *
      * @return a {@link org.raml.parser.builder.NodeBuilder} object.
      */
-    public NodeBuilder getParent()
-    {
+    public NodeBuilder getParent() {
         return parent;
     }
 
     //TODO rethink location
+
     /**
      * <p>unalias.</p>
      *
-     * @param pojo a {@link java.lang.Object} object.
+     * @param pojo      a {@link java.lang.Object} object.
      * @param fieldName a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
-    protected String unalias(Object pojo, String fieldName)
-    {
+    protected String unalias(Object pojo, String fieldName) {
         List<Field> declaredFields = ReflectionUtils.getInheritedFields(pojo.getClass());
-        for (Field declaredField : declaredFields)
-        {
+        for (Field declaredField : declaredFields) {
             Scalar scalar = declaredField.getAnnotation(Scalar.class);
             Mapping mapping = declaredField.getAnnotation(Mapping.class);
             Sequence sequence = declaredField.getAnnotation(Sequence.class);
             if ((scalar != null && scalar.alias() != null && scalar.alias().equals(fieldName)) ||
-                (mapping != null && mapping.alias() != null && mapping.alias().equals(fieldName)) ||
-                (sequence != null && sequence.alias() != null && sequence.alias().equals(fieldName)))
-            {
+                    (mapping != null && mapping.alias() != null && mapping.alias().equals(fieldName)) ||
+                    (sequence != null && sequence.alias() != null && sequence.alias().equals(fieldName))) {
                 return declaredField.getName();
             }
         }
@@ -186,58 +178,43 @@ public class DefaultTupleBuilder<K extends Node, V extends Node> implements Tupl
     /**
      * <p>processPojoAnnotations.</p>
      *
-     * @param pojo a {@link java.lang.Object} object.
+     * @param pojo         a {@link java.lang.Object} object.
      * @param keyFieldName a {@link java.lang.Object} object.
-     * @param parent a {@link java.lang.Object} object.
+     * @param parent       a {@link java.lang.Object} object.
      */
-    protected void processPojoAnnotations(Object pojo, Object keyFieldName, Object parent)
-    {
+    protected void processPojoAnnotations(Object pojo, Object keyFieldName, Object parent) {
         List<Field> declaredFields = ReflectionUtils.getInheritedFields(pojo.getClass());
-        for (Field declaredField : declaredFields)
-        {
+        for (Field declaredField : declaredFields) {
             Key keyAnnotation = declaredField.getAnnotation(Key.class);
             Parent parentAnnotation = declaredField.getAnnotation(Parent.class);
-            if (keyAnnotation != null)
-            {
-            	TransformHandler annotation = declaredField.getAnnotation(TransformHandler.class);
-				if (annotation!=null){
-					try{
-					ITransformHandler newInstance = annotation.value().newInstance();
-					keyFieldName=newInstance.handle(keyFieldName, pojo);
-					}catch (Exception e) {
-						throw new RuntimeException(e);
-					}
-            	}
+            if (keyAnnotation != null) {
+                TransformHandler annotation = declaredField.getAnnotation(TransformHandler.class);
+                if (annotation != null) {
+                    try {
+                        ITransformHandler newInstance = annotation.value().newInstance();
+                        keyFieldName = newInstance.handle(keyFieldName, pojo);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
                 ReflectionUtils.setProperty(pojo, declaredField.getName(), keyFieldName);
             }
-            if (parentAnnotation != null)
-            {
+            if (parentAnnotation != null) {
                 Object value = parent;
-                if (!parentAnnotation.property().isEmpty())
-                {
-                    try
-                    {
+                if (!parentAnnotation.property().isEmpty()) {
+                    try {
                         value = PropertyUtils.getProperty(parent, parentAnnotation.property());
-                    }
-                    catch (IllegalAccessException e)
-                    {
+                    } catch (IllegalAccessException e) {
                         throw new RuntimeException(e);
-                    }
-                    catch (InvocationTargetException e)
-                    {
+                    } catch (InvocationTargetException e) {
                         throw new RuntimeException(e);
-                    }
-                    catch (NoSuchMethodException e)
-                    {
+                    } catch (NoSuchMethodException e) {
                         throw new RuntimeException(e);
                     }
                 }
-                if (declaredField.getType().isAssignableFrom(value.getClass()))
-                {
+                if (declaredField.getType().isAssignableFrom(value.getClass())) {
                     ReflectionUtils.setProperty(pojo, declaredField.getName(), value);
-                }
-                else
-                {
+                } else {
                     /*logger.info(String.format("parent reference field '%s' could not be set with %s onto %s",
                                               declaredField.getName(), value.getClass(), pojo.getClass()));*/
                 }

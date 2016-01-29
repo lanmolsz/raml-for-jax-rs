@@ -39,95 +39,94 @@ import org.raml.jaxrs.codegen.core.Configuration.JaxrsVersion;
 import org.raml.jaxrs.codegen.core.Generator;
 import org.raml.jaxrs.codegen.core.GeneratorProxy;
 
-public class GenerationHandler extends AbstractHandler{
+public class GenerationHandler extends AbstractHandler {
 
-	
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		
-		ISelection selection = Workbench.getInstance().getActiveWorkbenchWindow().getActivePage().getSelection();
-		if(selection instanceof IStructuredSelection){
-			IStructuredSelection sSelection = (IStructuredSelection) selection;
-			Object element = sSelection.getFirstElement();
-			if(element instanceof IFile){
-				IFile file = (IFile) element;
-				process(file);
-			}
-			return null;
-			
-		}
-		return null;
-	}
 
-	private void process(IFile file) {
-		
-		Shell activeShell = Display.getCurrent().getActiveShell();
-		UIConfiguration uiConfig = prepareUIConfiguration(file);
-		ConfigurationDialog dialog = new ConfigurationDialog(activeShell, uiConfig);
-		
-		if(dialog.open() != Dialog.OK ){
-			return ;
-		}
-		
-		if(!uiConfig.isValid()){
-			return;
-		}
-		
-		Configuration configuration = prepareConfiguraton(uiConfig);
-		
-		try {
-			File ramlOSFile = uiConfig.getRamlFile().getLocation().toFile();
-			InputStreamReader ramlReader = new InputStreamReader( new FileInputStream(ramlOSFile) );
-			new GeneratorProxy().run(ramlReader, configuration,ramlOSFile.getAbsolutePath());
-			uiConfig.getDstFolder().refreshLocal( IResource.DEPTH_ONE, new NullProgressMonitor() );
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    public Object execute(ExecutionEvent event) throws ExecutionException {
 
-	private Configuration prepareConfiguraton(UIConfiguration uiConfig)
-	{
-		IContainer srcFolder = uiConfig.getSrcFolder();
-		if(srcFolder == null){
-			srcFolder = uiConfig.getRamlFile().getParent();
-		}
-		File srcOSFolder = srcFolder.getLocation().toFile();		
-		File dstOSFolder = uiConfig.getDstFolder().getLocation().toFile();
-		
-		Configuration configuration = new Configuration();
-		configuration.setOutputDirectory(dstOSFolder);
-		configuration.setSourceDirectory(srcOSFolder);
-		configuration.setBasePackageName(uiConfig.getBasePackageName());
-		configuration.setGenerateClientInterface(uiConfig.getGenerateClientProxy());
-		JaxrsVersion jaxrsVersion = JaxrsVersion.valueOf(uiConfig.getJaxrsVersion());
-		if(jaxrsVersion!=null){
-			configuration.setJaxrsVersion(jaxrsVersion);
-		}
-		
-		AnnotationStyle jsonMapper = AnnotationStyle.valueOf(uiConfig.getJsonMapper());
-		if(jsonMapper!=null){
-			configuration.setJsonMapper(jsonMapper);
-		}
-		
-		configuration.setUseJsr303Annotations(uiConfig.getUseJsr303Annotations());
-		configuration.setEmptyResponseReturnVoid(uiConfig.getEmptyResponseUsesVoid());
-		return configuration;
-	}
+        ISelection selection = Workbench.getInstance().getActiveWorkbenchWindow().getActivePage().getSelection();
+        if (selection instanceof IStructuredSelection) {
+            IStructuredSelection sSelection = (IStructuredSelection) selection;
+            Object element = sSelection.getFirstElement();
+            if (element instanceof IFile) {
+                IFile file = (IFile) element;
+                process(file);
+            }
+            return null;
 
-	private UIConfiguration prepareUIConfiguration(IFile file) {
-		
-		UIConfiguration uiConfig = new UIConfiguration();
-		uiConfig.setRamlFile(file);
-		uiConfig.setSrcFolder(file.getParent());
-		uiConfig.setDstFolder(null);
-		uiConfig.setBasePackageName("org.raml.jaxrs.test");
-		
-		Configuration config = new Configuration();
-		uiConfig.setJaxrsVersion(config.getJaxrsVersion().name());
-		uiConfig.setEmptyResponseUsesVoid(config.isEmptyResponseReturnVoid());
-		uiConfig.setJsonMapper(config.getJsonMapper().name());
-		uiConfig.setUseJsr303Annotations(config.isUseJsr303Annotations());
-		
-		return uiConfig;
-	}
+        }
+        return null;
+    }
+
+    private void process(IFile file) {
+
+        Shell activeShell = Display.getCurrent().getActiveShell();
+        UIConfiguration uiConfig = prepareUIConfiguration(file);
+        ConfigurationDialog dialog = new ConfigurationDialog(activeShell, uiConfig);
+
+        if (dialog.open() != Dialog.OK) {
+            return;
+        }
+
+        if (!uiConfig.isValid()) {
+            return;
+        }
+
+        Configuration configuration = prepareConfiguraton(uiConfig);
+
+        try {
+            File ramlOSFile = uiConfig.getRamlFile().getLocation().toFile();
+            InputStreamReader ramlReader = new InputStreamReader(new FileInputStream(ramlOSFile));
+            new GeneratorProxy().run(ramlReader, configuration, ramlOSFile.getAbsolutePath());
+            uiConfig.getDstFolder().refreshLocal(IResource.DEPTH_ONE, new NullProgressMonitor());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Configuration prepareConfiguraton(UIConfiguration uiConfig) {
+        IContainer srcFolder = uiConfig.getSrcFolder();
+        if (srcFolder == null) {
+            srcFolder = uiConfig.getRamlFile().getParent();
+        }
+        File srcOSFolder = srcFolder.getLocation().toFile();
+        File dstOSFolder = uiConfig.getDstFolder().getLocation().toFile();
+
+        Configuration configuration = new Configuration();
+        configuration.setOutputDirectory(dstOSFolder);
+        configuration.setSourceDirectory(srcOSFolder);
+        configuration.setBasePackageName(uiConfig.getBasePackageName());
+        configuration.setGenerateClientInterface(uiConfig.getGenerateClientProxy());
+        JaxrsVersion jaxrsVersion = JaxrsVersion.valueOf(uiConfig.getJaxrsVersion());
+        if (jaxrsVersion != null) {
+            configuration.setJaxrsVersion(jaxrsVersion);
+        }
+
+        AnnotationStyle jsonMapper = AnnotationStyle.valueOf(uiConfig.getJsonMapper());
+        if (jsonMapper != null) {
+            configuration.setJsonMapper(jsonMapper);
+        }
+
+        configuration.setUseJsr303Annotations(uiConfig.getUseJsr303Annotations());
+        configuration.setEmptyResponseReturnVoid(uiConfig.getEmptyResponseUsesVoid());
+        return configuration;
+    }
+
+    private UIConfiguration prepareUIConfiguration(IFile file) {
+
+        UIConfiguration uiConfig = new UIConfiguration();
+        uiConfig.setRamlFile(file);
+        uiConfig.setSrcFolder(file.getParent());
+        uiConfig.setDstFolder(null);
+        uiConfig.setBasePackageName("org.raml.jaxrs.test");
+
+        Configuration config = new Configuration();
+        uiConfig.setJaxrsVersion(config.getJaxrsVersion().name());
+        uiConfig.setEmptyResponseUsesVoid(config.isEmptyResponseReturnVoid());
+        uiConfig.setJsonMapper(config.getJsonMapper().name());
+        uiConfig.setUseJsr303Annotations(config.isUseJsr303Annotations());
+
+        return uiConfig;
+    }
 }

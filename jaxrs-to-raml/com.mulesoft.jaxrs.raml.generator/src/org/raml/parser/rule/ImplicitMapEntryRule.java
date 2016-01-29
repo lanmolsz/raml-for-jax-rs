@@ -34,8 +34,7 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class ImplicitMapEntryRule extends DefaultTupleRule<ScalarNode, MappingNode>
-{
+public class ImplicitMapEntryRule extends DefaultTupleRule<ScalarNode, MappingNode> {
 
     private Class valueType;
     private final Set<String> keys = new HashSet<String>();
@@ -46,71 +45,65 @@ public class ImplicitMapEntryRule extends DefaultTupleRule<ScalarNode, MappingNo
      * @param fieldName a {@link java.lang.String} object.
      * @param valueType a {@link java.lang.Class} object.
      */
-    public ImplicitMapEntryRule(String fieldName, Class valueType)
-    {
+    public ImplicitMapEntryRule(String fieldName, Class valueType) {
         super(fieldName, new DefaultScalarTupleHandler(fieldName));
         this.valueType = valueType;
 
     }
 
-    
-    /** {@inheritDoc} */
-    public TupleRule<?, ?> getRuleForTuple(NodeTuple nodeTuple)
-    {
-        if (rules.isEmpty())
-        {
+
+    /**
+     * {@inheritDoc}
+     */
+    public TupleRule<?, ?> getRuleForTuple(NodeTuple nodeTuple) {
+        if (rules.isEmpty()) {
             addRulesFor(valueType);
         }
         return super.getRuleForTuple(nodeTuple);
     }
 
-    
+
     /**
      * <p>onRuleEnd.</p>
      *
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> onRuleEnd()
-    {
+    public List<ValidationResult> onRuleEnd() {
         List<ValidationResult> validationResults = super.onRuleEnd();
         rules.clear();
         return validationResults;
     }
 
-    
+
     /**
      * <p>getValueNodeType.</p>
      *
      * @return an array of {@link java.lang.Class} objects.
      */
-    public Class<?>[] getValueNodeType()
-    {
-        return new Class[] {MappingNode.class};
+    public Class<?>[] getValueNodeType() {
+        return new Class[]{MappingNode.class};
     }
 
-    
-    /** {@inheritDoc} */
-    public void setValueType(Type valueType)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setValueType(Type valueType) {
         this.valueType = (Class) valueType;
     }
 
-    
+
     /**
      * <p>validateKey.</p>
      *
      * @param key a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> validateKey(ScalarNode key)
-    {
+    public List<ValidationResult> validateKey(ScalarNode key) {
         List<ValidationResult> validationResults = super.validateKey(key);
-        if (keys.contains(key.getValue()))
-        {
+        if (keys.contains(key.getValue())) {
             validationResults.add(createErrorResult(getDuplicateRuleMessage(getName()), key));
-        }
-        else
-        {
+        } else {
             keys.add(key.getValue());
         }
         return validationResults;

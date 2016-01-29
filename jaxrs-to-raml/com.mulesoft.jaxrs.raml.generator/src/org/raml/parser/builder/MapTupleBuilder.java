@@ -30,8 +30,7 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class MapTupleBuilder extends DefaultTupleBuilder<ScalarNode, Node>
-{
+public class MapTupleBuilder extends DefaultTupleBuilder<ScalarNode, Node> {
 
     private Class valueClass;
     private String fieldName;
@@ -41,42 +40,39 @@ public class MapTupleBuilder extends DefaultTupleBuilder<ScalarNode, Node>
      *
      * @param valueClass a {@link java.lang.Class} object.
      */
-    public MapTupleBuilder(Class<?> valueClass)
-    {
+    public MapTupleBuilder(Class<?> valueClass) {
         this(null, valueClass);
     }
 
     /**
      * <p>Constructor for MapTupleBuilder.</p>
      *
-     * @param fieldName a {@link java.lang.String} object.
+     * @param fieldName  a {@link java.lang.String} object.
      * @param valueClass a {@link java.lang.Class} object.
      */
-    public MapTupleBuilder(String fieldName, Class<?> valueClass)
-    {
+    public MapTupleBuilder(String fieldName, Class<?> valueClass) {
         super(new DefaultScalarTupleHandler(fieldName));
         this.fieldName = fieldName;
         this.valueClass = valueClass;
     }
 
-    
-    /** {@inheritDoc} */
-    public TupleBuilder getBuilderForTuple(NodeTuple tuple)
-    {
-        if (ReflectionUtils.isPojo(getValueClass()))
-        {
+
+    /**
+     * {@inheritDoc}
+     */
+    public TupleBuilder getBuilderForTuple(NodeTuple tuple) {
+        if (ReflectionUtils.isPojo(getValueClass())) {
             return new PojoTupleBuilder(getValueClass());
-        }
-        else
-        {
-            return new ScalarTupleBuilder(null, getValueClass(),null);
+        } else {
+            return new ScalarTupleBuilder(null, getValueClass(), null);
         }
     }
 
-    
-    /** {@inheritDoc} */
-    public Object buildValue(Object parent, Node node)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public Object buildValue(Object parent, Node node) {
         final HashMap<String, Object> map = new LinkedHashMap<String, Object>();
         ReflectionUtils.setProperty(parent, getFieldName(), map);
         return map;
@@ -88,8 +84,7 @@ public class MapTupleBuilder extends DefaultTupleBuilder<ScalarNode, Node>
      *
      * @return a {@link java.lang.Class} object.
      */
-    public Class getValueClass()
-    {
+    public Class getValueClass() {
         return valueClass;
     }
 
@@ -98,19 +93,17 @@ public class MapTupleBuilder extends DefaultTupleBuilder<ScalarNode, Node>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getFieldName()
-    {
+    public String getFieldName() {
         return fieldName;
     }
 
-    
+
     /**
      * <p>toString.</p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String toString()
-    {
+    public String toString() {
         return fieldName;
     }
 }

@@ -9,11 +9,11 @@ package org.raml.emitter;
  */
 public interface IFilter<A> {
 
-	/**
-	 * <p>accept.</p>
-	 *
-	 * @param element a A object.
-	 * @return a boolean.
-	 */
-	boolean accept(A element);
+    /**
+     * <p>accept.</p>
+     *
+     * @param element a A object.
+     * @return a boolean.
+     */
+    boolean accept(A element);
 }

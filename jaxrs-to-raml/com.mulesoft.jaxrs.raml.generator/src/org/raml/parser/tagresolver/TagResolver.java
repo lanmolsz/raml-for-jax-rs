@@ -26,8 +26,7 @@ import org.yaml.snakeyaml.nodes.Tag;
  * @author kor
  * @version $Id: $Id
  */
-public interface TagResolver
-{
+public interface TagResolver {
 
     /**
      * <p>handles.</p>
@@ -40,9 +39,9 @@ public interface TagResolver
     /**
      * <p>resolve.</p>
      *
-     * @param valueNode a {@link org.yaml.snakeyaml.nodes.Node} object.
+     * @param valueNode      a {@link org.yaml.snakeyaml.nodes.Node} object.
      * @param resourceLoader a {@link org.raml.parser.loader.ResourceLoader} object.
-     * @param nodeHandler a {@link org.raml.parser.visitor.NodeHandler} object.
+     * @param nodeHandler    a {@link org.raml.parser.visitor.NodeHandler} object.
      * @return a {@link org.yaml.snakeyaml.nodes.Node} object.
      */
     Node resolve(Node valueNode, ResourceLoader resourceLoader, NodeHandler nodeHandler);

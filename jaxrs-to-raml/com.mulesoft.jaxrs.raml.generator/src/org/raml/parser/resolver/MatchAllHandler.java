@@ -23,13 +23,13 @@ import org.yaml.snakeyaml.nodes.NodeTuple;
  * @author kor
  * @version $Id: $Id
  */
-public class MatchAllHandler implements TupleHandler
-{
+public class MatchAllHandler implements TupleHandler {
 
-    
-    /** {@inheritDoc} */
-    public boolean handles(NodeTuple tuple)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean handles(NodeTuple tuple) {
         return true;
     }
 }

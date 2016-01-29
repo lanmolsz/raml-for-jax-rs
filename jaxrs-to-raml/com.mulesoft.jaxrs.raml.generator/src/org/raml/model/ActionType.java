@@ -21,8 +21,7 @@ package org.raml.model;
  * @author kor
  * @version $Id: $Id
  */
-public enum ActionType
-{
+public enum ActionType {
 
     GET, POST, PUT, DELETE, HEAD, PATCH, OPTIONS, TRACE
 }

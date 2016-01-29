@@ -10,76 +10,76 @@ import com.mulesoft.jaxrs.raml.annotation.model.IAnnotationModel;
 import com.mulesoft.jaxrs.raml.annotation.model.StructureType;
 
 public class PropertyModelImpl extends SchemaModelElement implements ISchemaProperty {
-	
-	public PropertyModelImpl(
-			String name,
-			ISchemaType type,
-			boolean required,
-			boolean isAttribute,
-			StructureType structureType,
-			String namespace,
-			List<IAnnotationModel> annotations) {
-		super(annotations);
-		this.name = name;
-		this.type = type;
-		this.required = required;
-		this.isAttribute = isAttribute;
-		this.structureType = structureType;
-		this.namespace = namespace;
-	}
-	
-	private String namespace;
-	
-	private ISchemaType type;
 
-	private boolean required;
-	
-	private String name;
-	
-	private boolean isAttribute;
-	
-	private StructureType structureType;
-	
-	private boolean isGeneric;
-	
-	@Override
-	public String getName() {
-		return this.name;
-	}
+    public PropertyModelImpl(
+            String name,
+            ISchemaType type,
+            boolean required,
+            boolean isAttribute,
+            StructureType structureType,
+            String namespace,
+            List<IAnnotationModel> annotations) {
+        super(annotations);
+        this.name = name;
+        this.type = type;
+        this.required = required;
+        this.isAttribute = isAttribute;
+        this.structureType = structureType;
+        this.namespace = namespace;
+    }
 
-	@Override
-	public ISchemaType getType() {
-		return this.type;
-	}
+    private String namespace;
 
-	@Override
-	public boolean isRequired() {
-		return this.required;
-	}
+    private ISchemaType type;
 
-	@Override
-	public boolean isAttribute() {
-		return this.isAttribute;
-	}
-	
-	public StructureType getStructureType() {
-		return structureType;
-	}
+    private boolean required;
 
-	public String getNamespace() {
-		return namespace;
-	}
+    private String name;
 
-	public boolean isGeneric() {
-		return isGeneric;
-	}
+    private boolean isAttribute;
 
-	public void setGeneric(boolean isGeneric) {
-		this.isGeneric = isGeneric;
-	}
+    private StructureType structureType;
 
-	@Override
-	public String getDefaultValue() {
-		return null;
-	}
+    private boolean isGeneric;
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public ISchemaType getType() {
+        return this.type;
+    }
+
+    @Override
+    public boolean isRequired() {
+        return this.required;
+    }
+
+    @Override
+    public boolean isAttribute() {
+        return this.isAttribute;
+    }
+
+    public StructureType getStructureType() {
+        return structureType;
+    }
+
+    public String getNamespace() {
+        return namespace;
+    }
+
+    public boolean isGeneric() {
+        return isGeneric;
+    }
+
+    public void setGeneric(boolean isGeneric) {
+        this.isGeneric = isGeneric;
+    }
+
+    @Override
+    public String getDefaultValue() {
+        return null;
+    }
 }

@@ -36,14 +36,14 @@ public class Stuff {
     @Path("{version}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("version") String version, MuleVersionExtDTO versionExtDTO) {
-            return Response.ok().build();
+        return Response.ok().build();
     }
 
-    
+
     @PUT
     @Path("{version}/w")
     @Consumes(MediaType.APPLICATION_JSON)
     public MuleVersionExtDTO update2(@PathParam("version") String version) {
-           return null;
+        return null;
     }
 }

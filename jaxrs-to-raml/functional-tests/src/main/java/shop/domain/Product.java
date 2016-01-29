@@ -8,40 +8,33 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @version $Revision: 1 $
  */
 @XmlRootElement(name = "product")
-public class Product
-{
-   private int id;
-   private String name;
-   private double cost;
+public class Product {
+    private int id;
+    private String name;
+    private double cost;
 
-   @XmlAttribute
-   public int getId()
-   {
-      return id;
-   }
+    @XmlAttribute
+    public int getId() {
+        return id;
+    }
 
-   public void setId(int id)
-   {
-      this.id = id;
-   }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-   public String getName()
-   {
-      return name;
-   }
+    public String getName() {
+        return name;
+    }
 
-   public void setName(String name)
-   {
-      this.name = name;
-   }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-   public double getCost()
-   {
-      return cost;
-   }
+    public double getCost() {
+        return cost;
+    }
 
-   public void setCost(double cost)
-   {
-      this.cost = cost;
-   }
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
 }

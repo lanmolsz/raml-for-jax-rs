@@ -30,14 +30,14 @@ import org.yaml.snakeyaml.nodes.Node;
  * @author kor
  * @version $Id: $Id
  */
-public class ValidationResult
-{
+public class ValidationResult {
 
-    /** Constant <code>UNKNOWN=-1</code> */
+    /**
+     * Constant <code>UNKNOWN=-1</code>
+     */
     public static int UNKNOWN = -1;
 
-    public enum Level
-    {
+    public enum Level {
         ERROR, WARN, INFO
     }
 
@@ -48,8 +48,7 @@ public class ValidationResult
     private int endColumn;
     private Deque<IncludeInfo> includeContext = new ArrayDeque<IncludeInfo>();
 
-    private ValidationResult(Level level, String message, int line, int startColumn, int endColumn)
-    {
+    private ValidationResult(Level level, String message, int line, int startColumn, int endColumn) {
         this.level = level;
         this.message = message;
         this.line = line;
@@ -62,8 +61,7 @@ public class ValidationResult
      *
      * @return a {@link org.raml.parser.rule.ValidationResult.Level} object.
      */
-    public Level getLevel()
-    {
+    public Level getLevel() {
         return level;
     }
 
@@ -72,8 +70,7 @@ public class ValidationResult
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getMessage()
-    {
+    public String getMessage() {
         return message;
     }
 
@@ -82,8 +79,7 @@ public class ValidationResult
      *
      * @return a int.
      */
-    public int getLine()
-    {
+    public int getLine() {
         return line;
     }
 
@@ -92,8 +88,7 @@ public class ValidationResult
      *
      * @return a int.
      */
-    public int getStartColumn()
-    {
+    public int getStartColumn() {
         return startColumn;
     }
 
@@ -102,8 +97,7 @@ public class ValidationResult
      *
      * @return a int.
      */
-    public int getEndColumn()
-    {
+    public int getEndColumn() {
         return endColumn;
     }
 
@@ -112,8 +106,7 @@ public class ValidationResult
      *
      * @return a boolean.
      */
-    public boolean isValid()
-    {
+    public boolean isValid() {
         return level != Level.ERROR;
     }
 
@@ -122,10 +115,8 @@ public class ValidationResult
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getIncludeName()
-    {
-        if (includeContext.isEmpty())
-        {
+    public String getIncludeName() {
+        if (includeContext.isEmpty()) {
             return null;
         }
         return includeContext.peek().getIncludeName();
@@ -136,8 +127,7 @@ public class ValidationResult
      *
      * @return a {@link java.util.Deque} object.
      */
-    public Deque<IncludeInfo> getIncludeContext()
-    {
+    public Deque<IncludeInfo> getIncludeContext() {
         return includeContext;
     }
 
@@ -146,8 +136,7 @@ public class ValidationResult
      *
      * @param includeContext a {@link java.util.Deque} object.
      */
-    public void setIncludeContext(Deque<IncludeInfo> includeContext)
-    {
+    public void setIncludeContext(Deque<IncludeInfo> includeContext) {
         this.includeContext = new ArrayDeque<IncludeInfo>(includeContext);
     }
 
@@ -156,8 +145,7 @@ public class ValidationResult
      *
      * @param includeContext a {@link java.util.Deque} object.
      */
-    public void addIncludeContext(Deque<IncludeInfo> includeContext)
-    {
+    public void addIncludeContext(Deque<IncludeInfo> includeContext) {
         this.includeContext.addAll(includeContext);
     }
 
@@ -167,12 +155,9 @@ public class ValidationResult
      * @param validationResults a {@link java.util.List} object.
      * @return a boolean.
      */
-    public static boolean areValid(List<ValidationResult> validationResults)
-    {
-        for (ValidationResult result : validationResults)
-        {
-            if (!result.isValid())
-            {
+    public static boolean areValid(List<ValidationResult> validationResults) {
+        for (ValidationResult result : validationResults) {
+            if (!result.isValid()) {
                 return false;
             }
         }
@@ -182,67 +167,61 @@ public class ValidationResult
     /**
      * <p>Getter for the field <code>level</code>.</p>
      *
-     * @param level a {@link org.raml.parser.rule.ValidationResult.Level} object.
+     * @param level   a {@link org.raml.parser.rule.ValidationResult.Level} object.
      * @param results a {@link java.util.List} object.
      * @return a {@link java.util.List} object.
      */
-    public static List<ValidationResult> getLevel(Level level, List<ValidationResult> results)
-    {
+    public static List<ValidationResult> getLevel(Level level, List<ValidationResult> results) {
         List<ValidationResult> filtered = new ArrayList<ValidationResult>();
-        for (ValidationResult result : results)
-        {
-            if (result.level == level)
-            {
+        for (ValidationResult result : results) {
+            if (result.level == level) {
                 filtered.add(result);
             }
         }
         return filtered;
     }
 
-    
+
     /**
      * <p>toString.</p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String toString()
-    {
+    public String toString() {
         return "ValidationResult{" +
-               "level=" + level +
-               ", message='" + message + '\'' +
-               '}';
+                "level=" + level +
+                ", message='" + message + '\'' +
+                '}';
     }
 
     /**
      * <p>createErrorResult.</p>
      *
-     * @param message a {@link java.lang.String} object.
-     * @param line a int.
+     * @param message    a {@link java.lang.String} object.
+     * @param line       a int.
      * @param startIndex a int.
-     * @param endIndex a int.
+     * @param endIndex   a int.
      * @return a {@link org.raml.parser.rule.ValidationResult} object.
      */
-    public static ValidationResult createErrorResult(String message, int line, int startIndex, int endIndex)
-    {
+    public static ValidationResult createErrorResult(String message, int line, int startIndex, int endIndex) {
         return new ValidationResult(Level.ERROR, message, line, startIndex, endIndex);
     }
 
     /**
      * <p>createErrorResult.</p>
      *
-     * @param message a {@link java.lang.String} object.
+     * @param message   a {@link java.lang.String} object.
      * @param startMark a {@link org.yaml.snakeyaml.error.Mark} object.
-     * @param endMark a {@link org.yaml.snakeyaml.error.Mark} object.
+     * @param endMark   a {@link org.yaml.snakeyaml.error.Mark} object.
      * @return a {@link org.raml.parser.rule.ValidationResult} object.
      */
-    public static ValidationResult createErrorResult(String message, Mark startMark, Mark endMark)
-    {
-    	if (startMark==null){
-    		startMark=new Mark("", -1, -1, -1, "", 1);
-    	}
-    	if (endMark==null){
-    		endMark=new Mark("", -1, -1, -1, "", 1);
-    	}
+    public static ValidationResult createErrorResult(String message, Mark startMark, Mark endMark) {
+        if (startMark == null) {
+            startMark = new Mark("", -1, -1, -1, "", 1);
+        }
+        if (endMark == null) {
+            endMark = new Mark("", -1, -1, -1, "", 1);
+        }
         return createErrorResult(message, startMark.getLine(), startMark.getColumn(), endMark.getColumn());
     }
 
@@ -250,11 +229,10 @@ public class ValidationResult
      * <p>createErrorResult.</p>
      *
      * @param message a {@link java.lang.String} object.
-     * @param node a {@link org.yaml.snakeyaml.nodes.Node} object.
+     * @param node    a {@link org.yaml.snakeyaml.nodes.Node} object.
      * @return a {@link org.raml.parser.rule.ValidationResult} object.
      */
-    public static ValidationResult createErrorResult(String message, Node node)
-    {
+    public static ValidationResult createErrorResult(String message, Node node) {
         return createErrorResult(message, node.getStartMark(), node.getEndMark());
     }
 
@@ -264,20 +242,18 @@ public class ValidationResult
      * @param message a {@link java.lang.String} object.
      * @return a {@link org.raml.parser.rule.ValidationResult} object.
      */
-    public static ValidationResult createErrorResult(String message)
-    {
+    public static ValidationResult createErrorResult(String message) {
         return createErrorResult(message, UNKNOWN, UNKNOWN, UNKNOWN);
     }
 
     /**
      * <p>create.</p>
      *
-     * @param level a {@link org.raml.parser.rule.ValidationResult.Level} object.
+     * @param level   a {@link org.raml.parser.rule.ValidationResult.Level} object.
      * @param message a {@link java.lang.String} object.
      * @return a {@link org.raml.parser.rule.ValidationResult} object.
      */
-    public static ValidationResult create(Level level, String message)
-    {
+    public static ValidationResult create(Level level, String message) {
         return new ValidationResult(level, message, UNKNOWN, UNKNOWN, UNKNOWN);
     }
 }

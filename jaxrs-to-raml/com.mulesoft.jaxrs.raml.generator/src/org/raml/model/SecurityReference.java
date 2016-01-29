@@ -29,8 +29,7 @@ import org.raml.parser.resolver.MatchAllHandler;
  * @author kor
  * @version $Id: $Id
  */
-public class SecurityReference
-{
+public class SecurityReference {
 
 
     private String name;
@@ -44,8 +43,7 @@ public class SecurityReference
      *
      * @param name a {@link java.lang.String} object.
      */
-    public SecurityReference(@Value String name)
-    {
+    public SecurityReference(@Value String name) {
         this.name = name;
     }
 
@@ -54,8 +52,7 @@ public class SecurityReference
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
@@ -64,8 +61,7 @@ public class SecurityReference
      *
      * @param name a {@link java.lang.String} object.
      */
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -74,8 +70,7 @@ public class SecurityReference
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, List<String>> getParameters()
-    {
+    public Map<String, List<String>> getParameters() {
         return parameters;
     }
 
@@ -84,8 +79,7 @@ public class SecurityReference
      *
      * @param parameters a {@link java.util.Map} object.
      */
-    public void setParameters(Map<String, List<String>> parameters)
-    {
+    public void setParameters(Map<String, List<String>> parameters) {
         this.parameters = parameters;
     }
 }

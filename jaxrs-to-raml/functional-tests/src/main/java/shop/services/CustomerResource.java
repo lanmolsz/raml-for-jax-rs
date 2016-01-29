@@ -21,22 +21,21 @@ import shop.domain.Customers;
  * @version $Revision: 1 $
  */
 @Path("/customers")
-public interface CustomerResource
-{
-   @POST
-   @Consumes("application/xml")
-   Response createCustomer(Customer customer, @Context UriInfo uriInfo);
+public interface CustomerResource {
+    @POST
+    @Consumes("application/xml")
+    Response createCustomer(Customer customer, @Context UriInfo uriInfo);
 
-   @GET
-   @Produces("application/xml")
-   Customers getCustomers(@QueryParam("start") int start,
-                          @QueryParam("size") @DefaultValue("2") int size,
-                          @QueryParam("firstName") String firstName,
-                          @QueryParam("lastName") String lastName,
-                          @Context UriInfo uriInfo);
+    @GET
+    @Produces("application/xml")
+    Customers getCustomers(@QueryParam("start") int start,
+                           @QueryParam("size") @DefaultValue("2") int size,
+                           @QueryParam("firstName") String firstName,
+                           @QueryParam("lastName") String lastName,
+                           @Context UriInfo uriInfo);
 
-   @GET
-   @Path("{id}")
-   @Produces({"application/xml", "application/json"})
-   Customer getCustomer(@PathParam("id") int id);
+    @GET
+    @Path("{id}")
+    @Produces({"application/xml", "application/json"})
+    Customer getCustomer(@PathParam("id") int id);
 }

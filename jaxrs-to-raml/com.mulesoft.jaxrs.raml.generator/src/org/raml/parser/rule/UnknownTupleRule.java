@@ -27,37 +27,31 @@ import org.yaml.snakeyaml.nodes.Node;
  * @author kor
  * @version $Id: $Id
  */
-public class UnknownTupleRule<K extends Node, V extends Node> extends DefaultTupleRule<K, V>
-{
+public class UnknownTupleRule<K extends Node, V extends Node> extends DefaultTupleRule<K, V> {
 
     /**
      * <p>Constructor for UnknownTupleRule.</p>
      *
      * @param fieldName a {@link java.lang.String} object.
      */
-    public UnknownTupleRule(String fieldName)
-    {
+    public UnknownTupleRule(String fieldName) {
         super(fieldName, new DefaultTupleHandler());
     }
 
-    
+
     /**
      * <p>onRuleEnd.</p>
      *
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> onRuleEnd()
-    {       
+    public List<ValidationResult> onRuleEnd() {
         final List<ValidationResult> result = new ArrayList<ValidationResult>();
-        if (getKey() != null)
-        {
-            result.add(ValidationResult.createErrorResult("Unknown key: "+ getName().replaceAll("(.*value=?)(\\w+)(.*)", "$2"),getKey().getStartMark() , getKey().getEndMark()));
-        }
-        else
-        {
+        if (getKey() != null) {
+            result.add(ValidationResult.createErrorResult("Unknown key: " + getName().replaceAll("(.*value=?)(\\w+)(.*)", "$2"), getKey().getStartMark(), getKey().getEndMark()));
+        } else {
             //error already reported as invalid key type
         }
         return result;
     }
-    
+
 }

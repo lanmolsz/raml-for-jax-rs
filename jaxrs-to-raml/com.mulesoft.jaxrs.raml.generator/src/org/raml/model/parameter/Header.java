@@ -21,6 +21,5 @@ package org.raml.model.parameter;
  * @author kor
  * @version $Id: $Id
  */
-public class Header extends AbstractParam
-{
+public class Header extends AbstractParam {
 }

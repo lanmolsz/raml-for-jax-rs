@@ -21,7 +21,6 @@ package org.raml.parser.visitor;
  * @author kor
  * @version $Id: $Id
  */
-public enum TupleType
-{
+public enum TupleType {
     KEY, VALUE
 }

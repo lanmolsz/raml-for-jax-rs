@@ -32,15 +32,20 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class BaseUriRule extends SimpleRule
-{
+public class BaseUriRule extends SimpleRule {
 
-    /** Constant <code>URI_NOT_VALID_MESSAGE="The baseUri element is not a valid URI"</code> */
+    /**
+     * Constant <code>URI_NOT_VALID_MESSAGE="The baseUri element is not a valid URI"</code>
+     */
     public static final String URI_NOT_VALID_MESSAGE = "The baseUri element is not a valid URI";
-    /** Constant <code>VERSION_NOT_PRESENT_MESSAGE="version parameter must exist in the API"{trunked}</code> */
+    /**
+     * Constant <code>VERSION_NOT_PRESENT_MESSAGE="version parameter must exist in the API"{trunked}</code>
+     */
     public static final String VERSION_NOT_PRESENT_MESSAGE = "version parameter must exist in the API definition";
 
-    /** Constant <code>URI_PATTERN="[.*]?\\{(\\w+)?\\}[.*]*"</code> */
+    /**
+     * Constant <code>URI_PATTERN="[.*]?\\{(\\w+)?\\}[.*]*"</code>
+     */
     public static final String URI_PATTERN = "[.*]?\\{(\\w+)?\\}[.*]*";
     private String baseUri;
     private Set<String> parameters;
@@ -50,8 +55,7 @@ public class BaseUriRule extends SimpleRule
     /**
      * <p>Constructor for BaseUriRule.</p>
      */
-    public BaseUriRule()
-    {
+    public BaseUriRule() {
         super("baseUri", String.class);
 
         parameters = new HashSet<String>();
@@ -64,8 +68,7 @@ public class BaseUriRule extends SimpleRule
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getBaseUri()
-    {
+    public String getBaseUri() {
         return baseUri;
     }
 
@@ -74,50 +77,41 @@ public class BaseUriRule extends SimpleRule
      *
      * @return a {@link java.util.Set} object.
      */
-    public Set<String> getParameters()
-    {
+    public Set<String> getParameters() {
         return parameters;
     }
 
 
-    
-    /** {@inheritDoc} */
-    public List<ValidationResult> doValidateValue(ScalarNode node)
-    {
+    /**
+     * {@inheritDoc}
+     */
+    public List<ValidationResult> doValidateValue(ScalarNode node) {
         String value = node.getValue();
         Matcher matcher = pattern.matcher(value);
         List<ValidationResult> validationResults = new ArrayList<ValidationResult>(super.doValidateValue(node));
-        while (matcher.find())
-        {
+        while (matcher.find()) {
             String paramValue = matcher.group(1);
             value = value.replace("{" + paramValue + "}", "temp");
             parameters.add(paramValue);
         }
-        if (getVersionRule().getKeyNode() == null && parameters.contains(getVersionRule().getName()))
-        {
+        if (getVersionRule().getKeyNode() == null && parameters.contains(getVersionRule().getName())) {
             validationResults.add(ValidationResult.createErrorResult(VERSION_NOT_PRESENT_MESSAGE, node.getStartMark(), node.getEndMark()));
         }
         //validate uri only when no parameters are defined
-        if (parameters.isEmpty() && !isValid(value))
-        {
+        if (parameters.isEmpty() && !isValid(value)) {
             validationResults.add(ValidationResult.createErrorResult(URI_NOT_VALID_MESSAGE, getKeyNode().getStartMark(), getKeyNode().getEndMark()));
         }
-        if (ValidationResult.areValid(validationResults))
-        {
+        if (ValidationResult.areValid(validationResults)) {
             baseUri = node.getValue();
         }
         return validationResults;
     }
 
-    private boolean isValid(String value)
-    {
-        try
-        {
+    private boolean isValid(String value) {
+        try {
             new URL(value);
             return true;
-        }
-        catch (MalformedURLException e)
-        {
+        } catch (MalformedURLException e) {
             return false;
         }
     }
@@ -127,8 +121,7 @@ public class BaseUriRule extends SimpleRule
      *
      * @return a {@link org.raml.parser.rule.SimpleRule} object.
      */
-    public SimpleRule getVersionRule()
-    {
+    public SimpleRule getVersionRule() {
         return (SimpleRule) getParentTupleRule().getRuleByFieldName("version");
     }
 

@@ -12,53 +12,44 @@ import java.util.List;
  * @version $Revision: 1 $
  */
 @XmlRootElement(name = "customers")
-public class Customers
-{
-   protected Collection<Customer> customers = new ArrayList<Customer>();
-   protected List<Link> links;
+public class Customers {
+    protected Collection<Customer> customers = new ArrayList<Customer>();
+    protected List<Link> links;
 
-   @XmlElementRef
-   public Collection<Customer> getCustomers()
-   {
-      return customers;
-   }
+    @XmlElementRef
+    public Collection<Customer> getCustomers() {
+        return customers;
+    }
 
-   public void setCustomers(Collection<Customer> customers)
-   {
-      this.customers = customers;
-   }
+    public void setCustomers(Collection<Customer> customers) {
+        this.customers = customers;
+    }
 
-   @XmlElementRef
-   public List<Link> getLinks()
-   {
-      return links;
-   }
+    @XmlElementRef
+    public List<Link> getLinks() {
+        return links;
+    }
 
-   public void setLinks(List<Link> links)
-   {
-      this.links = links;
-   }
+    public void setLinks(List<Link> links) {
+        this.links = links;
+    }
 
-   @XmlTransient
-   public String getNext()
-   {
-      if (links == null) return null;
-      for (Link link : links)
-      {
-         if ("next".equals(link.getRelationship())) return link.getHref();
-      }
-      return null;
-   }
+    @XmlTransient
+    public String getNext() {
+        if (links == null) return null;
+        for (Link link : links) {
+            if ("next".equals(link.getRelationship())) return link.getHref();
+        }
+        return null;
+    }
 
-   @XmlTransient
-   public String getPrevious()
-   {
-      if (links == null) return null;
-      for (Link link : links)
-      {
-         if ("previous".equals(link.getRelationship())) return link.getHref();
-      }
-      return null;
-   }
+    @XmlTransient
+    public String getPrevious() {
+        if (links == null) return null;
+        for (Link link : links) {
+            if ("previous".equals(link.getRelationship())) return link.getHref();
+        }
+        return null;
+    }
 
 }

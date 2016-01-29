@@ -12,53 +12,44 @@ import java.util.List;
  * @version $Revision: 1 $
  */
 @XmlRootElement(name = "orders")
-public class Orders
-{
-   protected Collection<Order> orders = new ArrayList<Order>();
-   protected List<Link> links;
+public class Orders {
+    protected Collection<Order> orders = new ArrayList<Order>();
+    protected List<Link> links;
 
-   @XmlElementRef
-   public Collection<Order> getOrders()
-   {
-      return orders;
-   }
+    @XmlElementRef
+    public Collection<Order> getOrders() {
+        return orders;
+    }
 
-   public void setOrders(Collection<Order> orders)
-   {
-      this.orders = orders;
-   }
+    public void setOrders(Collection<Order> orders) {
+        this.orders = orders;
+    }
 
-   @XmlElementRef
-   public List<Link> getLinks()
-   {
-      return links;
-   }
+    @XmlElementRef
+    public List<Link> getLinks() {
+        return links;
+    }
 
-   public void setLinks(List<Link> links)
-   {
-      this.links = links;
-   }
+    public void setLinks(List<Link> links) {
+        this.links = links;
+    }
 
-   @XmlTransient
-   public String getNext()
-   {
-      if (links == null) return null;
-      for (Link link : links)
-      {
-         if ("next".equals(link.getRelationship())) return link.getHref();
-      }
-      return null;
-   }
+    @XmlTransient
+    public String getNext() {
+        if (links == null) return null;
+        for (Link link : links) {
+            if ("next".equals(link.getRelationship())) return link.getHref();
+        }
+        return null;
+    }
 
-   @XmlTransient
-   public String getPrevious()
-   {
-      if (links == null) return null;
-      for (Link link : links)
-      {
-         if ("previous".equals(link.getRelationship())) return link.getHref();
-      }
-      return null;
-   }
+    @XmlTransient
+    public String getPrevious() {
+        if (links == null) return null;
+        for (Link link : links) {
+            if ("previous".equals(link.getRelationship())) return link.getHref();
+        }
+        return null;
+    }
 
 }

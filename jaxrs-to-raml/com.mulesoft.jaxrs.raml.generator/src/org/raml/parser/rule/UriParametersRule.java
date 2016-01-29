@@ -33,8 +33,7 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class UriParametersRule extends DefaultTupleRule<ScalarNode, MappingNode>
-{
+public class UriParametersRule extends DefaultTupleRule<ScalarNode, MappingNode> {
 
     private List<ValidationResult> errors;
     private ScalarNode keyNode;
@@ -42,71 +41,59 @@ public class UriParametersRule extends DefaultTupleRule<ScalarNode, MappingNode>
     /**
      * <p>Constructor for UriParametersRule.</p>
      */
-    public UriParametersRule()
-    {
+    public UriParametersRule() {
         super("baseUriParameters", new DefaultScalarTupleHandler("baseUriParameters"));
 
         this.errors = new ArrayList<ValidationResult>();
     }
 
-    
+
     /**
      * <p>onRuleEnd.</p>
      *
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> onRuleEnd()
-    {
+    public List<ValidationResult> onRuleEnd() {
         return errors;
     }
 
-    
+
     /**
      * <p>validateKey.</p>
      *
      * @param key a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> validateKey(ScalarNode key)
-    {
+    public List<ValidationResult> validateKey(ScalarNode key) {
         List<ValidationResult> validationResults = new ArrayList<ValidationResult>();
-        if (wasAlreadyDefined())
-        {
+        if (wasAlreadyDefined()) {
             validationResults.add(ValidationResult.createErrorResult(getDuplicateRuleMessage("uriParameters"), key));
         }
         validationResults.addAll(super.validateKey(key));
-        if (ValidationResult.areValid(validationResults))
-        {
+        if (ValidationResult.areValid(validationResults)) {
             setKeyNode(key);
         }
         return validationResults;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("rawtypes")
-    
-    public TupleRule<?, ?> getRuleForTuple(NodeTuple nodeTuple)
-    {
+
+    public TupleRule<?, ?> getRuleForTuple(NodeTuple nodeTuple) {
         Node keyNode = nodeTuple.getKeyNode();
         String paramName;
-        if (keyNode instanceof ScalarNode)
-        {
+        if (keyNode instanceof ScalarNode) {
             paramName = ((ScalarNode) keyNode).getValue();
-            if (paramName.equals("version"))
-            {
+            if (paramName.equals("version")) {
                 errors.add(ValidationResult.createErrorResult("'" + paramName + "'" + " can not be declared, it is a reserved URI parameter.", keyNode));
-            }
-            else if (getUriRule().getParameters().contains(paramName))
-            {
+            } else if (getUriRule().getParameters().contains(paramName)) {
                 return new ParamRule(paramName, getNodeRuleFactory());
-            }
-            else
-            {
+            } else {
                 errors.add(ValidationResult.createErrorResult("Parameter '" + paramName + "' not declared in baseUri", keyNode));
             }
-        }
-        else
-        {
+        } else {
             errors.add(ValidationResult.createErrorResult("Invalid element", keyNode));
         }
 
@@ -118,8 +105,7 @@ public class UriParametersRule extends DefaultTupleRule<ScalarNode, MappingNode>
      *
      * @return a boolean.
      */
-    public boolean wasAlreadyDefined()
-    {
+    public boolean wasAlreadyDefined() {
         return keyNode != null;
     }
 
@@ -128,8 +114,7 @@ public class UriParametersRule extends DefaultTupleRule<ScalarNode, MappingNode>
      *
      * @param rulePresent a {@link org.yaml.snakeyaml.nodes.ScalarNode} object.
      */
-    public void setKeyNode(ScalarNode rulePresent)
-    {
+    public void setKeyNode(ScalarNode rulePresent) {
         this.keyNode = rulePresent;
     }
 
@@ -138,8 +123,7 @@ public class UriParametersRule extends DefaultTupleRule<ScalarNode, MappingNode>
      *
      * @return a {@link org.raml.parser.rule.BaseUriRule} object.
      */
-    public BaseUriRule getUriRule()
-    {
+    public BaseUriRule getUriRule() {
         return (BaseUriRule) getRootTupleRule().getRuleByFieldName("baseUri");
     }
 

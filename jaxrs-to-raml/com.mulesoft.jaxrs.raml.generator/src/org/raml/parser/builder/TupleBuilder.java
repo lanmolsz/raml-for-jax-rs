@@ -27,8 +27,7 @@ import org.yaml.snakeyaml.nodes.NodeTuple;
  * @author kor
  * @version $Id: $Id
  */
-public interface TupleBuilder<K extends Node, V extends Node> extends NodeBuilder<V>
-{
+public interface TupleBuilder<K extends Node, V extends Node> extends NodeBuilder<V> {
 
     /**
      * Returns the
@@ -42,7 +41,7 @@ public interface TupleBuilder<K extends Node, V extends Node> extends NodeBuilde
      * <p>buildKey.</p>
      *
      * @param parent a {@link java.lang.Object} object.
-     * @param tuple a K object.
+     * @param tuple  a K object.
      */
     void buildKey(Object parent, K tuple);
 
@@ -65,6 +64,6 @@ public interface TupleBuilder<K extends Node, V extends Node> extends NodeBuilde
      *
      * @param nestedBuilders a {@link java.util.Map} object.
      */
-    void setNestedBuilders(Map<String, TupleBuilder<?,?>> nestedBuilders);
+    void setNestedBuilders(Map<String, TupleBuilder<?, ?>> nestedBuilders);
 
 }

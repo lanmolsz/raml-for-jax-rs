@@ -23,8 +23,7 @@ import java.util.regex.Pattern;
  * @author kor
  * @version $Id: $Id
  */
-public class PatternValidation implements Validation
-{
+public class PatternValidation implements Validation {
 
     private Pattern pattern;
 
@@ -33,15 +32,15 @@ public class PatternValidation implements Validation
      *
      * @param pattern a {@link java.lang.String} object.
      */
-    public PatternValidation(String pattern)
-    {
+    public PatternValidation(String pattern) {
         this.pattern = Pattern.compile(pattern);
     }
 
-    
-    /** {@inheritDoc} */
-    public boolean check(String input)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean check(String input) {
         return pattern.matcher(input).matches();
     }
 }

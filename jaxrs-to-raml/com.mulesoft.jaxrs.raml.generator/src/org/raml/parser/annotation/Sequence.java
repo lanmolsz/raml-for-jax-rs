@@ -29,8 +29,7 @@ import org.raml.parser.rule.TupleRule;
  * @version $Id: $Id
  */
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface Sequence
-{
+public @interface Sequence {
 
     boolean required() default false;
 
@@ -41,6 +40,6 @@ public @interface Sequence
     Class<? extends TupleHandler> handler() default TupleHandler.class;
 
     String alias() default "";
-    
-    Class<? extends ExtraHandler>extraHandler() default ExtraHandler.class;
+
+    Class<? extends ExtraHandler> extraHandler() default ExtraHandler.class;
 }

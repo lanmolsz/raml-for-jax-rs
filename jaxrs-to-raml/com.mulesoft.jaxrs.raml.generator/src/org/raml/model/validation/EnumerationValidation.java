@@ -25,8 +25,7 @@ import java.util.Set;
  * @author kor
  * @version $Id: $Id
  */
-public class EnumerationValidation implements Validation
-{
+public class EnumerationValidation implements Validation {
 
     private Set<String> enumeration;
 
@@ -35,19 +34,18 @@ public class EnumerationValidation implements Validation
      *
      * @param enumeration a {@link java.util.List} object.
      */
-    public EnumerationValidation(List<String> enumeration)
-    {
-        if (enumeration == null)
-        {
+    public EnumerationValidation(List<String> enumeration) {
+        if (enumeration == null) {
             throw new IllegalArgumentException("enumeration argument cannot be null");
         }
         this.enumeration = new HashSet<String>(enumeration);
     }
 
-    
-    /** {@inheritDoc} */
-    public boolean check(String input)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean check(String input) {
         return enumeration.contains(input);
     }
 }

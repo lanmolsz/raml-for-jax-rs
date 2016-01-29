@@ -22,7 +22,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 
-
 @XmlRootElement(name = "contact")
 @Entity
 @Table(name = "Contact")
@@ -90,14 +89,14 @@ public class Contact {
     }
 
 
-//    @GET
+    //    @GET
     @Produces("application/xml")
     @Transient
     public Contact get() {
         return this;
     }
 
-//    @GET
+    //    @GET
     @Path("/contacts")
     @Produces("application/xml")
     @XmlTransient

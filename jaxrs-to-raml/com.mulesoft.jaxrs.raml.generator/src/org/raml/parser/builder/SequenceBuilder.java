@@ -25,8 +25,7 @@ package org.raml.parser.builder;
  * @author kor
  * @version $Id: $Id
  */
-public interface SequenceBuilder
-{
+public interface SequenceBuilder {
 
     /**
      * Returns the builder for the items of this sequence

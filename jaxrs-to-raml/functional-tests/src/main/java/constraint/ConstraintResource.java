@@ -8,9 +8,9 @@ import javax.ws.rs.core.Response;
 @Path("/")
 public class ConstraintResource {
 
-	@Path("busUnit/retail/{unitID}/status/{enabled : (?i)(true)|(false)}")
-	@GET
-	public Response setZZZZ(@PathParam("unitID") int unitId,@PathParam("enabled")int enabled) {
-	    return null;
-	}
+    @Path("busUnit/retail/{unitID}/status/{enabled : (?i)(true)|(false)}")
+    @GET
+    public Response setZZZZ(@PathParam("unitID") int unitId, @PathParam("enabled") int enabled) {
+        return null;
+    }
 }

@@ -23,8 +23,7 @@ import org.yaml.snakeyaml.nodes.NodeTuple;
  * @author kor
  * @version $Id: $Id
  */
-public interface TupleHandler
-{
+public interface TupleHandler {
 
     /**
      * <p>handles.</p>

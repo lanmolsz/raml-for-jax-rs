@@ -27,8 +27,7 @@ import org.yaml.snakeyaml.nodes.Node;
  * @author kor
  * @version $Id: $Id
  */
-public interface NodeBuilder<V extends Node>
-{
+public interface NodeBuilder<V extends Node> {
 
     /**
      * Builds the java model for the given node and set it to the parent object

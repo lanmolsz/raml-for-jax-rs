@@ -23,24 +23,23 @@ import java.io.InputStream;
  * @author kor
  * @version $Id: $Id
  */
-public class DefaultResourceLoader implements ResourceLoader
-{
+public class DefaultResourceLoader implements ResourceLoader {
 
     private ResourceLoader resourceLoader;
 
     /**
      * <p>Constructor for DefaultResourceLoader.</p>
      */
-    public DefaultResourceLoader()
-    {
+    public DefaultResourceLoader() {
         resourceLoader = new CompositeResourceLoader(
                 new UrlResourceLoader(), new ClassPathResourceLoader());
     }
 
-    
-    /** {@inheritDoc} */
-    public InputStream fetchResource(String resourceName)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public InputStream fetchResource(String resourceName) {
         return resourceLoader.fetchResource(resourceName);
     }
 }

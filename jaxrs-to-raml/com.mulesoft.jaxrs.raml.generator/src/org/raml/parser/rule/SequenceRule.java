@@ -21,8 +21,7 @@ package org.raml.parser.rule;
  * @author kor
  * @version $Id: $Id
  */
-public interface SequenceRule
-{
+public interface SequenceRule {
 
     /**
      * <p>getItemRule.</p>

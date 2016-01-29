@@ -33,32 +33,30 @@ import org.yaml.snakeyaml.nodes.SequenceNode;
  * @author kor
  * @version $Id: $Id
  */
-public class SequenceTupleBuilder extends DefaultTupleBuilder<Node, SequenceNode> implements SequenceBuilder
-{
+public class SequenceTupleBuilder extends DefaultTupleBuilder<Node, SequenceNode> implements SequenceBuilder {
 
 
     private String fieldName;
     private Type itemType;
-	private ExtraHandler additionalHandler;
+    private ExtraHandler additionalHandler;
 
     /**
      * <p>Constructor for SequenceTupleBuilder.</p>
      *
-     * @param fieldName a {@link java.lang.String} object.
-     * @param itemType a {@link java.lang.reflect.Type} object.
+     * @param fieldName    a {@link java.lang.String} object.
+     * @param itemType     a {@link java.lang.reflect.Type} object.
      * @param extraHandler a {@link java.lang.Class} object.
      */
-    public SequenceTupleBuilder(String fieldName, Type itemType, Class<? extends ExtraHandler> extraHandler)
-    {
+    public SequenceTupleBuilder(String fieldName, Type itemType, Class<? extends ExtraHandler> extraHandler) {
         super(new DefaultScalarTupleHandler(fieldName));
         this.itemType = itemType;
         this.fieldName = fieldName;
-        if (extraHandler!=null&&extraHandler!=ExtraHandler.class){
-        	try{
-        	this.additionalHandler=extraHandler.newInstance();
-        	}catch (Exception e) {
-        		throw new RuntimeException(e);
-			}
+        if (extraHandler != null && extraHandler != ExtraHandler.class) {
+            try {
+                this.additionalHandler = extraHandler.newInstance();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -67,41 +65,36 @@ public class SequenceTupleBuilder extends DefaultTupleBuilder<Node, SequenceNode
      *
      * @return a {@link java.lang.String} object.
      */
-    protected String getFieldName()
-    {
+    protected String getFieldName() {
         return fieldName;
     }
 
-    
+
     /**
      * <p>buildValue.</p>
      *
      * @param parent a {@link java.lang.Object} object.
-     * @param node a {@link org.yaml.snakeyaml.nodes.SequenceNode} object.
+     * @param node   a {@link org.yaml.snakeyaml.nodes.SequenceNode} object.
      * @return a {@link java.lang.Object} object.
      */
-    public Object buildValue(Object parent, SequenceNode node)
-    {
+    public Object buildValue(Object parent, SequenceNode node) {
         List<?> list = new ArrayList();
-        if (additionalHandler!=null){
-        	additionalHandler.handle(parent, node);
+        if (additionalHandler != null) {
+            additionalHandler.handle(parent, node);
         }
         ReflectionUtils.setProperty(parent, fieldName, list);
         return list;
     }
 
-    
+
     /**
      * <p>getItemBuilder.</p>
      *
      * @return a {@link org.raml.parser.builder.NodeBuilder} object.
      */
-    public NodeBuilder getItemBuilder()
-    {
-        if (itemType instanceof Class<?>)
-        {
-            if (ReflectionUtils.isWrapperOrString((Class<?>) itemType))
-            {
+    public NodeBuilder getItemBuilder() {
+        if (itemType instanceof Class<?>) {
+            if (ReflectionUtils.isWrapperOrString((Class<?>) itemType)) {
                 //sequence of scalars
                 return new ScalarTupleBuilder(fieldName, (Class<?>) itemType, null);
             }
@@ -109,11 +102,9 @@ public class SequenceTupleBuilder extends DefaultTupleBuilder<Node, SequenceNode
             return new PojoTupleBuilder((Class<?>) itemType);
         }
 
-        if (itemType instanceof ParameterizedType)
-        {
+        if (itemType instanceof ParameterizedType) {
             ParameterizedType pItemType = (ParameterizedType) itemType;
-            if (Map.class.isAssignableFrom((Class<?>) pItemType.getRawType()))
-            {
+            if (Map.class.isAssignableFrom((Class<?>) pItemType.getRawType())) {
                 //sequence of maps
                 return new MapTupleBuilder((Class<?>) pItemType.getActualTypeArguments()[1]);
             }

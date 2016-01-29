@@ -12,5 +12,5 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Dumper {
 
-	Class<? extends IRAMLFieldDumper>value();
+    Class<? extends IRAMLFieldDumper> value();
 }

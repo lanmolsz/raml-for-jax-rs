@@ -37,14 +37,12 @@ import org.yaml.snakeyaml.nodes.Tag;
  * @author kor
  * @version $Id: $Id
  */
-public class MediaTypeResolver
-{
+public class MediaTypeResolver {
 
     private static Set<String> MEDIA_TYPE_KEYS;
     private String mediaType;
 
-    static
-    {
+    static {
         String[] keys = {"schema", "example", "formParameters"};
         MEDIA_TYPE_KEYS = new HashSet<String>(Arrays.asList(keys));
     }
@@ -55,34 +53,27 @@ public class MediaTypeResolver
      * @param rootNode a {@link org.yaml.snakeyaml.nodes.MappingNode} object.
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> beforeDocumentStart(MappingNode rootNode)
-    {
+    public List<ValidationResult> beforeDocumentStart(MappingNode rootNode) {
         List<ValidationResult> validationResults = new ArrayList<ValidationResult>();
 
-        if (rootNode == null)
-        {
+        if (rootNode == null) {
             validationResults.add(createErrorResult("Invalid Root Node"));
             return validationResults;
         }
 
-        for (NodeTuple tuple : rootNode.getValue())
-        {
-            if (tuple.getKeyNode().getNodeId() != scalar)
-            {
+        for (NodeTuple tuple : rootNode.getValue()) {
+            if (tuple.getKeyNode().getNodeId() != scalar) {
                 continue;
             }
             String key = ((ScalarNode) tuple.getKeyNode()).getValue();
-            if (key.equals("mediaType"))
-            {
+            if (key.equals("mediaType")) {
                 Node valueNode = tuple.getValueNode();
-                if (valueNode.getNodeId() != scalar)
-                {
+                if (valueNode.getNodeId() != scalar) {
                     validationResults.add(createErrorResult("Invalid mediaType", valueNode.getStartMark(), valueNode.getEndMark()));
                     break;
                 }
                 String value = ((ScalarNode) valueNode).getValue();
-                if (!isValidMediaType(value))
-                {
+                if (!isValidMediaType(value)) {
                     validationResults.add(createErrorResult("Invalid mediaType", valueNode.getStartMark(), valueNode.getEndMark()));
                     break;
                 }
@@ -93,8 +84,7 @@ public class MediaTypeResolver
         return validationResults;
     }
 
-    private boolean isValidMediaType(String value)
-    {
+    private boolean isValidMediaType(String value) {
         return value.matches(".+/.+");
     }
 
@@ -104,17 +94,13 @@ public class MediaTypeResolver
      * @param bodyNode a {@link org.yaml.snakeyaml.nodes.MappingNode} object.
      * @return a {@link java.util.List} object.
      */
-    public List<ValidationResult> resolve(MappingNode bodyNode)
-    {
+    public List<ValidationResult> resolve(MappingNode bodyNode) {
         List<ValidationResult> validationResults = new ArrayList<ValidationResult>();
-        if (mediaType == null)
-        {
+        if (mediaType == null) {
             return validationResults;
         }
-        for (NodeTuple tuple : bodyNode.getValue())
-        {
-            if (!MEDIA_TYPE_KEYS.contains(((ScalarNode) tuple.getKeyNode()).getValue()))
-            {
+        for (NodeTuple tuple : bodyNode.getValue()) {
+            if (!MEDIA_TYPE_KEYS.contains(((ScalarNode) tuple.getKeyNode()).getValue())) {
                 return validationResults;
             }
         }

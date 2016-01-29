@@ -8,19 +8,21 @@ import org.yaml.snakeyaml.nodes.SequenceNode;
  * @author kor
  * @version $Id: $Id
  */
-public class TypeExtraHandler extends TemplatesExtraHandler{
+public class TypeExtraHandler extends TemplatesExtraHandler {
 
-	/**
-	 * <p>Constructor for TypeExtraHandler.</p>
-	 */
-	public TypeExtraHandler() {
-		super("typeModel");
-	}
-	
-	
-	/** {@inheritDoc} */
-	public void handle(Object pojo, SequenceNode node) {
-		super.handle(pojo, node);
-	}
+    /**
+     * <p>Constructor for TypeExtraHandler.</p>
+     */
+    public TypeExtraHandler() {
+        super("typeModel");
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public void handle(Object pojo, SequenceNode node) {
+        super.handle(pojo, node);
+    }
 
 }

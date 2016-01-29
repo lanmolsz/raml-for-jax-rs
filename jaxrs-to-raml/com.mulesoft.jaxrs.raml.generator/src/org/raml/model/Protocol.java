@@ -21,7 +21,6 @@ package org.raml.model;
  * @author kor
  * @version $Id: $Id
  */
-public enum Protocol
-{
+public enum Protocol {
     HTTP, HTTPS
 }

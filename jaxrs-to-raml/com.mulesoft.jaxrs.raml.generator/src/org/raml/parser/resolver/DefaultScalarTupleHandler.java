@@ -24,8 +24,7 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class DefaultScalarTupleHandler implements TupleHandler
-{
+public class DefaultScalarTupleHandler implements TupleHandler {
 
 
     private String fieldName;
@@ -35,17 +34,16 @@ public class DefaultScalarTupleHandler implements TupleHandler
      *
      * @param fieldName a {@link java.lang.String} object.
      */
-    public DefaultScalarTupleHandler(String fieldName)
-    {
+    public DefaultScalarTupleHandler(String fieldName) {
         this.fieldName = fieldName;
     }
 
-    
-    /** {@inheritDoc} */
-    public boolean handles(NodeTuple tuple)
-    {
-        if (tuple.getKeyNode() instanceof ScalarNode)
-        {
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean handles(NodeTuple tuple) {
+        if (tuple.getKeyNode() instanceof ScalarNode) {
             return fieldName == null || fieldName.equals(((ScalarNode) tuple.getKeyNode()).getValue());
         }
         return false;

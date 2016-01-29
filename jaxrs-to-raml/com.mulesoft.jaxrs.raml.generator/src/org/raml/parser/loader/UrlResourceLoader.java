@@ -26,21 +26,18 @@ import java.net.URL;
  * @author kor
  * @version $Id: $Id
  */
-public class UrlResourceLoader implements ResourceLoader
-{
+public class UrlResourceLoader implements ResourceLoader {
 
-    
-    /** {@inheritDoc} */
-    public InputStream fetchResource(String resourceName)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public InputStream fetchResource(String resourceName) {
         InputStream inputStream = null;
-        try
-        {
+        try {
             URL url = new URL(resourceName);
             inputStream = new BufferedInputStream(url.openStream());
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             //ignore on resource not found
         }
         return inputStream;

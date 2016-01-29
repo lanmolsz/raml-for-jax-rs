@@ -25,8 +25,7 @@ import org.raml.parser.rule.ValidationResult;
  * @author kor
  * @version $Id: $Id
  */
-public interface YamlValidator extends NodeHandler
-{
+public interface YamlValidator extends NodeHandler {
 
     /**
      * <p>getMessages.</p>

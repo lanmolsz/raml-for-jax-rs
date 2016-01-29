@@ -4,6 +4,7 @@ package org.raml.jaxrs.example.model;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,55 +14,44 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * A single product Presentation
- * 
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "id",
-    "title",
-    "description",
-    "fileUrl",
-    "productId"
+        "id",
+        "title",
+        "description",
+        "fileUrl",
+        "productId"
 })
 public class Presentation {
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("id")
     private String id;
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("title")
     private String title;
     @JsonProperty("description")
     private String description;
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("fileUrl")
     private String fileUrl;
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("productId")
     private String productId;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("id")
     public String getId() {
@@ -69,9 +59,7 @@ public class Presentation {
     }
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("id")
     public void setId(String id) {
@@ -84,9 +72,7 @@ public class Presentation {
     }
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("title")
     public String getTitle() {
@@ -94,9 +80,7 @@ public class Presentation {
     }
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("title")
     public void setTitle(String title) {
@@ -124,9 +108,7 @@ public class Presentation {
     }
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("fileUrl")
     public String getFileUrl() {
@@ -134,9 +116,7 @@ public class Presentation {
     }
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("fileUrl")
     public void setFileUrl(String fileUrl) {
@@ -149,9 +129,7 @@ public class Presentation {
     }
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("productId")
     public String getProductId() {
@@ -159,9 +137,7 @@ public class Presentation {
     }
 
     /**
-     * 
      * (Required)
-     * 
      */
     @JsonProperty("productId")
     public void setProductId(String productId) {

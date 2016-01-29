@@ -187,9 +187,7 @@ public class JaxrsRamlCodegenMojo extends AbstractMojo {
             config.getExtensions().add(DefaultSchemaModelBuilderExtension.getDefaultExt());
         }
         ResourceVisitor rv = new MavenResourceVisitor(outputFile, classLoader, config);
-        for (ITypeModel type : spoonProcessor.getRegistry().getTargetTypes()) {
-            rv.visit(type);
-        }
+        for (ITypeModel type : spoonProcessor.getRegistry().getTargetTypes()) rv.visit(type);
 
         saveRaml(rv.getRaml(), packages);
 
@@ -233,7 +231,7 @@ public class JaxrsRamlCodegenMojo extends AbstractMojo {
         } else {
             outputDirectory = outputFile.getParentFile();
         }
-        outputDirectory.mkdirs();
+        boolean success = outputDirectory.mkdirs();
         if (removeOldOutput) {
             try {
                 FileUtils.cleanDirectory(outputDirectory);
@@ -261,8 +259,7 @@ public class JaxrsRamlCodegenMojo extends AbstractMojo {
             lst.add("--source-classpath");
             lst.add(sourceClasspath);
         }
-        String[] arr = lst.toArray(new String[lst.size()]);
-        return arr;
+        return lst.toArray(new String[lst.size()]);
     }
 
     private String getInputValue() {
@@ -272,11 +269,9 @@ public class JaxrsRamlCodegenMojo extends AbstractMojo {
             for (File f : sourcePaths) {
                 bld.append(f.getAbsolutePath()).append(pathSeparator);
             }
-            String result = bld.substring(0, bld.length() - pathSeparator.length());
-            return result;
+            return bld.substring(0, bld.length() - pathSeparator.length());
         }
-        String result = sourceDirectory.getAbsolutePath();
-        return result;
+        return sourceDirectory.getAbsolutePath();
     }
 
     private String getSourceClassPath() {
@@ -295,8 +290,7 @@ public class JaxrsRamlCodegenMojo extends AbstractMojo {
             bld.append(obj.toString());
             bld.append(pathSeparator);
         }
-        String result = bld.substring(0, bld.length() - pathSeparator.length());
-        return result;
+        return bld.substring(0, bld.length() - pathSeparator.length());
     }
 
     private boolean isEmptyString(String str) {

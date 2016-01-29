@@ -11,8 +11,7 @@ import javax.ws.rs.core.UriInfo;
  * @version $Revision: 1 $
  */
 @Path("/shop")
-public interface StoreResource
-{
-   @HEAD
-   Response head(@Context UriInfo uriInfo);
+public interface StoreResource {
+    @HEAD
+    Response head(@Context UriInfo uriInfo);
 }

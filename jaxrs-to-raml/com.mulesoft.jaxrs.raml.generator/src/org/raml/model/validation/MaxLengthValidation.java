@@ -21,8 +21,7 @@ package org.raml.model.validation;
  * @author kor
  * @version $Id: $Id
  */
-public class MaxLengthValidation implements Validation
-{
+public class MaxLengthValidation implements Validation {
 
     private int maxLength;
 
@@ -31,15 +30,15 @@ public class MaxLengthValidation implements Validation
      *
      * @param maxLength a int.
      */
-    public MaxLengthValidation(int maxLength)
-    {
+    public MaxLengthValidation(int maxLength) {
         this.maxLength = maxLength;
     }
 
-    
-    /** {@inheritDoc} */
-    public boolean check(String input)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean check(String input) {
         return input.length() <= maxLength;
     }
 }

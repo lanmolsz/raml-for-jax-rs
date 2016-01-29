@@ -10,11 +10,9 @@ import javax.ws.rs.ext.Provider;
  * @version $Revision: 1 $
  */
 @Provider
-public class EntityNotFoundExceptionMapper implements ExceptionMapper<EntityNotFoundException>
-{
-   public Response toResponse(EntityNotFoundException exception)
-   {
-      System.out.println("*** EntityNotFoundExceptionMapper!!!!");
-      return Response.status(Response.Status.NOT_FOUND).build();
-   }
+public class EntityNotFoundExceptionMapper implements ExceptionMapper<EntityNotFoundException> {
+    public Response toResponse(EntityNotFoundException exception) {
+        System.out.println("*** EntityNotFoundExceptionMapper!!!!");
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
 }

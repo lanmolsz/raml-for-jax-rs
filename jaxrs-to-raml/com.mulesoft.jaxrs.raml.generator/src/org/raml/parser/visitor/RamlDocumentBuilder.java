@@ -41,8 +41,7 @@ import org.yaml.snakeyaml.nodes.MappingNode;
  * @author kor
  * @version $Id: $Id
  */
-public class RamlDocumentBuilder extends YamlDocumentBuilder<Raml>
-{
+public class RamlDocumentBuilder extends YamlDocumentBuilder<Raml> {
 
     protected TemplateResolver templateResolver;
     private MediaTypeResolver mediaTypeResolver;
@@ -50,8 +49,7 @@ public class RamlDocumentBuilder extends YamlDocumentBuilder<Raml>
     /**
      * <p>Constructor for RamlDocumentBuilder.</p>
      */
-    public RamlDocumentBuilder()
-    {
+    public RamlDocumentBuilder() {
         this(new DefaultResourceLoader());
     }
 
@@ -59,28 +57,26 @@ public class RamlDocumentBuilder extends YamlDocumentBuilder<Raml>
      * <p>Constructor for RamlDocumentBuilder.</p>
      *
      * @param resourceLoader a {@link org.raml.parser.loader.ResourceLoader} object.
-     * @param tagResolvers a {@link org.raml.parser.tagresolver.TagResolver} object.
+     * @param tagResolvers   a {@link org.raml.parser.tagresolver.TagResolver} object.
      */
-    public RamlDocumentBuilder(ResourceLoader resourceLoader, TagResolver... tagResolvers)
-    {
+    public RamlDocumentBuilder(ResourceLoader resourceLoader, TagResolver... tagResolvers) {
         super(Raml.class, resourceLoader, defaultResolver(tagResolvers));
     }
 
     /**
      * <p>Constructor for RamlDocumentBuilder.</p>
      *
-     * @param class1 a {@link java.lang.Class} object.
+     * @param class1         a {@link java.lang.Class} object.
      * @param resourceLoader a {@link org.raml.parser.loader.ResourceLoader} object.
-     * @param tagResolvers an array of {@link org.raml.parser.tagresolver.TagResolver} objects.
+     * @param tagResolvers   an array of {@link org.raml.parser.tagresolver.TagResolver} objects.
      */
     public RamlDocumentBuilder(Class<? extends Raml> class1,
-			ResourceLoader resourceLoader, TagResolver[] tagResolvers) {
-    	super((Class)class1,resourceLoader,tagResolvers);
-	}
+                               ResourceLoader resourceLoader, TagResolver[] tagResolvers) {
+        super((Class) class1, resourceLoader, tagResolvers);
+    }
 
-	private static TagResolver[] defaultResolver(TagResolver[] tagResolvers)
-    {
-        TagResolver[] defaultResolvers = new TagResolver[] {
+    private static TagResolver[] defaultResolver(TagResolver[] tagResolvers) {
+        TagResolver[] defaultResolvers = new TagResolver[]{
                 new IncludeResolver(),
                 new JacksonTagResolver(),
                 new JaxbTagResolver()
@@ -88,58 +84,48 @@ public class RamlDocumentBuilder extends YamlDocumentBuilder<Raml>
         return (TagResolver[]) ArrayUtils.addAll(defaultResolvers, tagResolvers);
     }
 
-    
-    /** {@inheritDoc} */
-    public void onMappingNodeStart(MappingNode mappingNode, TupleType tupleType)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onMappingNodeStart(MappingNode mappingNode, TupleType tupleType) {
         super.onMappingNodeStart(mappingNode, tupleType);
-        if (getDocumentContext().peek() instanceof Resource)
-        {
+        if (getDocumentContext().peek() instanceof Resource) {
             Resource resource = (Resource) getDocumentContext().peek();
             getTemplateResolver().resolve(mappingNode, resource.getRelativeUri(), resource.getUri());
-        }
-        else if (isBodyBuilder(getBuilderContext().peek()))
-        {
+        } else if (isBodyBuilder(getBuilderContext().peek())) {
             getMediaTypeResolver().resolve(mappingNode);
         }
     }
 
-    
-    /** {@inheritDoc} */
-    public void onMappingNodeEnd(MappingNode mappingNode, TupleType tupleType)
-    {
-        if (getDocumentContext().peek() instanceof Resource)
-        {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onMappingNodeEnd(MappingNode mappingNode, TupleType tupleType) {
+        if (getDocumentContext().peek() instanceof Resource) {
             Resource resource = (Resource) getDocumentContext().peek();
             populateDefaultUriParameters(resource);
         }
         super.onMappingNodeEnd(mappingNode, tupleType);
     }
 
-    private String toString(Stack<NodeBuilder<?>> builderContext)
-    {
+    private String toString(Stack<NodeBuilder<?>> builderContext) {
         StringBuilder builder = new StringBuilder(">>> BuilderContext >>> ");
-        for (NodeBuilder nb : builderContext)
-        {
+        for (NodeBuilder nb : builderContext) {
             builder.append(nb).append(" ->- ");
         }
         return builder.toString();
     }
 
-    private boolean isBodyBuilder(NodeBuilder builder)
-    {
-        try
-        {
+    private boolean isBodyBuilder(NodeBuilder builder) {
+        try {
             Field valueType = builder.getClass().getDeclaredField("valueClass");
             valueType.setAccessible(true);
             return valueType.get(builder) != null && ((Class) valueType.get(builder)).getName().equals("org.raml.model.MimeType");
-        }
-        catch (NoSuchFieldException e)
-        {
+        } catch (NoSuchFieldException e) {
             return false;
-        }
-        catch (IllegalAccessException e)
-        {
+        } catch (IllegalAccessException e) {
             return false;
         }
     }
@@ -149,11 +135,9 @@ public class RamlDocumentBuilder extends YamlDocumentBuilder<Raml>
      *
      * @return a {@link org.raml.parser.visitor.TemplateResolver} object.
      */
-    public TemplateResolver getTemplateResolver()
-    {
-        if (templateResolver == null)
-        {
-            templateResolver = new TemplateResolver(getResourceLoader(), this,true);
+    public TemplateResolver getTemplateResolver() {
+        if (templateResolver == null) {
+            templateResolver = new TemplateResolver(getResourceLoader(), this, true);
         }
         return templateResolver;
     }
@@ -163,42 +147,35 @@ public class RamlDocumentBuilder extends YamlDocumentBuilder<Raml>
      *
      * @return a {@link org.raml.parser.visitor.MediaTypeResolver} object.
      */
-    public MediaTypeResolver getMediaTypeResolver()
-    {
-        if (mediaTypeResolver == null)
-        {
+    public MediaTypeResolver getMediaTypeResolver() {
+        if (mediaTypeResolver == null) {
             mediaTypeResolver = new MediaTypeResolver();
         }
         return mediaTypeResolver;
     }
 
-    
+
     /**
      * <p>preBuildProcess.</p>
      */
-    protected void preBuildProcess()
-    {
+    protected void preBuildProcess() {
         getTemplateResolver().init(getRootNode());
         getMediaTypeResolver().beforeDocumentStart(getRootNode());
     }
 
-    
+
     /**
      * <p>postBuildProcess.</p>
      */
-    protected void postBuildProcess()
-    {
+    protected void postBuildProcess() {
     }
 
-    private void populateDefaultUriParameters(Resource resource)
-    {
+    private void populateDefaultUriParameters(Resource resource) {
         Pattern pattern = Pattern.compile(URI_PATTERN);
         Matcher matcher = pattern.matcher(resource.getRelativeUri());
-        while (matcher.find())
-        {
+        while (matcher.find()) {
             String paramName = matcher.group(1);
-            if (!resource.getUriParameters().containsKey(paramName))
-            {
+            if (!resource.getUriParameters().containsKey(paramName)) {
                 resource.getUriParameters().put(paramName, new UriParameter(paramName));
             }
         }

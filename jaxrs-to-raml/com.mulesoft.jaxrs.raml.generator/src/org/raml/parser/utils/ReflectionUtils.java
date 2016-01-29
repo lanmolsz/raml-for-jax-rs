@@ -34,13 +34,11 @@ import org.apache.commons.beanutils.PropertyUtilsBean;
  * @author kor
  * @version $Id: $Id
  */
-public class ReflectionUtils
-{
+public class ReflectionUtils {
 
     private static final Set<Class<?>> WRAPPERS_PLUS_STRING = new HashSet<Class<?>>();
 
-    static
-    {
+    static {
         WRAPPERS_PLUS_STRING.add(Boolean.class);
         WRAPPERS_PLUS_STRING.add(Character.class);
         WRAPPERS_PLUS_STRING.add(Byte.class);
@@ -60,8 +58,7 @@ public class ReflectionUtils
      * @param type a {@link java.lang.Class} object.
      * @return a boolean.
      */
-    public static boolean isWrapperOrString(Class<?> type)
-    {
+    public static boolean isWrapperOrString(Class<?> type) {
         return WRAPPERS_PLUS_STRING.contains(type);
     }
 
@@ -71,11 +68,9 @@ public class ReflectionUtils
      * @param type a {@link java.lang.Class} object.
      * @return a {@link java.util.List} object.
      */
-    public static List<Field> getInheritedFields(Class<?> type)
-    {
+    public static List<Field> getInheritedFields(Class<?> type) {
         List<Field> fields = new ArrayList<Field>();
-        for (Class<?> c = type; c != null; c = c.getSuperclass())
-        {
+        for (Class<?> c = type; c != null; c = c.getSuperclass()) {
             fields.addAll(Arrays.asList(c.getDeclaredFields()));
         }
         return fields;
@@ -84,37 +79,24 @@ public class ReflectionUtils
     /**
      * <p>setProperty.</p>
      *
-     * @param parent a {@link java.lang.Object} object.
+     * @param parent    a {@link java.lang.Object} object.
      * @param fieldName a {@link java.lang.String} object.
-     * @param value a {@link java.lang.Object} object.
+     * @param value     a {@link java.lang.Object} object.
      */
     @SuppressWarnings("unchecked")
-    public static void setProperty(Object parent, String fieldName, Object value)
-    {
-        if (parent instanceof List)
-        {
+    public static void setProperty(Object parent, String fieldName, Object value) {
+        if (parent instanceof List) {
             ((List) parent).add(value);
-        }
-        else if (parent instanceof Map)
-        {
+        } else if (parent instanceof Map) {
             ((Map) parent).put(fieldName, value);
-        }
-        else
-        {
-            try
-            {
+        } else {
+            try {
                 new PropertyUtilsBean().setProperty(parent, fieldName, value);
-            }
-            catch (IllegalAccessException e)
-            {
+            } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
-            }
-            catch (InvocationTargetException e)
-            {
+            } catch (InvocationTargetException e) {
                 throw new RuntimeException(e);
-            }
-            catch (NoSuchMethodException e)
-            {
+            } catch (NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -126,8 +108,7 @@ public class ReflectionUtils
      * @param type a {@link java.lang.Class} object.
      * @return a boolean.
      */
-    public static boolean isPojo(Class<?> type)
-    {
+    public static boolean isPojo(Class<?> type) {
         return !(isWrapperOrString(type) || isEnum(type) || type.isPrimitive());
     }
 
@@ -137,8 +118,7 @@ public class ReflectionUtils
      * @param type a {@link java.lang.Class} object.
      * @return a boolean.
      */
-    public static boolean isEnum(Class<?> type)
-    {
+    public static boolean isEnum(Class<?> type) {
         return type.isEnum() || (type.getSuperclass() != null && type.getSuperclass().isEnum());
     }
 }

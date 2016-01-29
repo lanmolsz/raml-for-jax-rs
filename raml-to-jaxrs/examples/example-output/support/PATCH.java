@@ -10,7 +10,6 @@ import javax.ws.rs.HttpMethod;
 
 /**
  * Custom JAX-RS support for HTTP PATCH.
- * 
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

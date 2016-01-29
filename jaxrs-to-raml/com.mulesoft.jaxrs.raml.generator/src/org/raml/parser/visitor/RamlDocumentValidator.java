@@ -37,8 +37,7 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class RamlDocumentValidator extends YamlDocumentValidator
-{
+public class RamlDocumentValidator extends YamlDocumentValidator {
 
     private TemplateResolver templateResolver;
     private MediaTypeResolver mediaTypeResolver = new MediaTypeResolver();
@@ -47,8 +46,7 @@ public class RamlDocumentValidator extends YamlDocumentValidator
     /**
      * <p>Constructor for RamlDocumentValidator.</p>
      */
-    public RamlDocumentValidator()
-    {
+    public RamlDocumentValidator() {
         super(Raml.class);
     }
 
@@ -57,8 +55,7 @@ public class RamlDocumentValidator extends YamlDocumentValidator
      *
      * @param nodeRuleFactory a {@link org.raml.parser.rule.NodeRuleFactory} object.
      */
-    public RamlDocumentValidator(NodeRuleFactory nodeRuleFactory)
-    {
+    public RamlDocumentValidator(NodeRuleFactory nodeRuleFactory) {
         super(Raml.class, nodeRuleFactory);
     }
 
@@ -67,10 +64,8 @@ public class RamlDocumentValidator extends YamlDocumentValidator
      *
      * @return a {@link org.raml.parser.visitor.TemplateResolver} object.
      */
-    public TemplateResolver getTemplateResolver()
-    {
-        if (templateResolver == null)
-        {
+    public TemplateResolver getTemplateResolver() {
+        if (templateResolver == null) {
             templateResolver = new TemplateResolver(resourceLoader, this, true);
         }
         return templateResolver;
@@ -81,45 +76,38 @@ public class RamlDocumentValidator extends YamlDocumentValidator
      *
      * @return a {@link org.raml.parser.visitor.MediaTypeResolver} object.
      */
-    public MediaTypeResolver getMediaTypeResolver()
-    {
+    public MediaTypeResolver getMediaTypeResolver() {
         return mediaTypeResolver;
     }
 
-    
-    /** {@inheritDoc} */
-    public void onMappingNodeStart(MappingNode mappingNode, TupleType tupleType)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void onMappingNodeStart(MappingNode mappingNode, TupleType tupleType) {
         super.onMappingNodeStart(mappingNode, tupleType);
-        if (tupleType == KEY)
-        {
+        if (tupleType == KEY) {
             return;
         }
         NodeRule<?> rule = getRuleContext().peek();
-        if (isResourceRule(rule))
-        {
+        if (isResourceRule(rule)) {
             List<ValidationResult> templateValidations = getTemplateResolver().resolve(
                     mappingNode, getResourceUri(rule), getFullUri(rule));
             getMessages().addAll(templateValidations);
-        }
-        else if (isBodyRule(rule))
-        {
+        } else if (isBodyRule(rule)) {
             List<ValidationResult> mediaTypeValidations = getMediaTypeResolver().resolve(mappingNode);
             getMessages().addAll(mediaTypeValidations);
         }
     }
 
-    private String getResourceUri(NodeRule<?> resourceRule)
-    {
+    private String getResourceUri(NodeRule<?> resourceRule) {
         Node keyNode = ((DefaultTupleRule) resourceRule).getKey();
         return ((ScalarNode) keyNode).getValue();
     }
 
-    private String getFullUri(NodeRule<?> resourceRule)
-    {
+    private String getFullUri(NodeRule<?> resourceRule) {
         String fullUri = "";
-        while (resourceRule instanceof ImplicitMapEntryRule)
-        {
+        while (resourceRule instanceof ImplicitMapEntryRule) {
             Node keyNode = ((DefaultTupleRule) resourceRule).getKey();
             fullUri = ((ScalarNode) keyNode).getValue() + fullUri;
             resourceRule = ((DefaultTupleRule) resourceRule).getParentTupleRule();
@@ -127,38 +115,26 @@ public class RamlDocumentValidator extends YamlDocumentValidator
         return fullUri;
     }
 
-    private boolean isBodyRule(NodeRule<?> rule)
-    {
-        try
-        {
+    private boolean isBodyRule(NodeRule<?> rule) {
+        try {
             Field valueType = rule.getClass().getDeclaredField("valueType");
             valueType.setAccessible(true);
             return ((Class) valueType.get(rule)).getName().equals("org.raml.model.MimeType");
-        }
-        catch (NoSuchFieldException e)
-        {
+        } catch (NoSuchFieldException e) {
             return false;
-        }
-        catch (IllegalAccessException e)
-        {
+        } catch (IllegalAccessException e) {
             return false;
         }
     }
 
-    private boolean isResourceRule(NodeRule<?> rule)
-    {
-        try
-        {
+    private boolean isResourceRule(NodeRule<?> rule) {
+        try {
             Field valueType = rule.getClass().getDeclaredField("valueType");
             valueType.setAccessible(true);
             return ((Class) valueType.get(rule)).getName().equals("org.raml.model.Resource");
-        }
-        catch (NoSuchFieldException e)
-        {
+        } catch (NoSuchFieldException e) {
             return false;
-        }
-        catch (IllegalAccessException e)
-        {
+        } catch (IllegalAccessException e) {
             return false;
         }
     }
@@ -168,8 +144,7 @@ public class RamlDocumentValidator extends YamlDocumentValidator
      *
      * @param resourceLoader a {@link org.raml.parser.loader.ResourceLoader} object.
      */
-    public void setResourceLoader(ResourceLoader resourceLoader)
-    {
+    public void setResourceLoader(ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;
     }
 }

@@ -21,8 +21,7 @@ package org.raml.model.validation;
  * @author kor
  * @version $Id: $Id
  */
-public class MinLengthValidation implements Validation
-{
+public class MinLengthValidation implements Validation {
 
     private int minLength;
 
@@ -31,15 +30,15 @@ public class MinLengthValidation implements Validation
      *
      * @param minLength a int.
      */
-    public MinLengthValidation(int minLength)
-    {
+    public MinLengthValidation(int minLength) {
         this.minLength = minLength;
     }
 
-    
-    /** {@inheritDoc} */
-    public boolean check(String input)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean check(String input) {
         return input.length() >= minLength;
     }
 }

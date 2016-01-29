@@ -30,28 +30,26 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
  * @author kor
  * @version $Id: $Id
  */
-public class SimpleNullAllowedRule extends SimpleRule
-{
+public class SimpleNullAllowedRule extends SimpleRule {
 
     /**
      * <p>Constructor for SimpleNullAllowedRule.</p>
      *
-     * @param fieldName a {@link java.lang.String} object.
+     * @param fieldName  a {@link java.lang.String} object.
      * @param fieldClass a {@link java.lang.Class} object.
      */
-    public SimpleNullAllowedRule(String fieldName, Class<?> fieldClass)
-    {
+    public SimpleNullAllowedRule(String fieldName, Class<?> fieldClass) {
         super(fieldName, fieldClass);
     }
 
-    
-    /** {@inheritDoc} */
-    public List<ValidationResult> doValidateValue(ScalarNode node)
-    {
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<ValidationResult> doValidateValue(ScalarNode node) {
         String value = node.getValue();
         List<ValidationResult> validationResults = new ArrayList<ValidationResult>();
-        if (!StringUtils.isEmpty(value) && !ConvertUtils.canBeConverted(value, getFieldClass()))
-        {
+        if (!StringUtils.isEmpty(value) && !ConvertUtils.canBeConverted(value, getFieldClass())) {
             validationResults.add(ValidationResult.createErrorResult(getRuleTypeMisMatch(getName(), getFieldClass().getSimpleName()), node));
         }
         setValueNode(node);

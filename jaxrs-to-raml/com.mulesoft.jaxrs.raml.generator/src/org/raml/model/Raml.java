@@ -40,8 +40,7 @@ import org.raml.parser.rule.SecurityReferenceSequenceRule;
  * @author kor
  * @version $Id: $Id
  */
-public class Raml
-{
+public class Raml {
 
     @Scalar(required = true)
     private String title;
@@ -60,14 +59,14 @@ public class Raml
 
     @Scalar()
     private String mediaType;
-    
+
     @Sequence
     @org.raml.emitter.Dumper(SecuritySchemeEmitter.class)
     private List<Map<String, SecurityScheme>> securitySchemes = new ArrayList<Map<String, SecurityScheme>>();
 
-    @Sequence(rule = org.raml.parser.rule.GlobalSchemasRule.class,extraHandler=GlobalSchemasHandler.class)
+    @Sequence(rule = org.raml.parser.rule.GlobalSchemasRule.class, extraHandler = GlobalSchemasHandler.class)
     @org.raml.emitter.Dumper(SchemasEmitter.class)
-	protected List<Map<String, String>> schemas = new ArrayList<Map<String, String>>();
+    protected List<Map<String, String>> schemas = new ArrayList<Map<String, String>>();
 
     @Sequence
     @org.raml.emitter.Dumper(ResourceTypeEmitter.class)
@@ -77,7 +76,6 @@ public class Raml
     @org.raml.emitter.Dumper(TraitEmitter.class)
     private List<Map<String, Template>> traits;
 
-   
 
     @Sequence(rule = SecurityReferenceSequenceRule.class)
     private List<SecurityReference> securedBy = new ArrayList<SecurityReference>();
@@ -91,8 +89,7 @@ public class Raml
     /**
      * <p>Constructor for Raml.</p>
      */
-    public Raml()
-    {
+    public Raml() {
     }
 
     /**
@@ -100,8 +97,7 @@ public class Raml
      *
      * @param documentation a {@link java.util.List} object.
      */
-    public void setDocumentation(List<DocumentationItem> documentation)
-    {
+    public void setDocumentation(List<DocumentationItem> documentation) {
         this.documentation = documentation;
     }
 
@@ -110,8 +106,7 @@ public class Raml
      *
      * @return a {@link java.util.List} object.
      */
-    public List<DocumentationItem> getDocumentation()
-    {
+    public List<DocumentationItem> getDocumentation() {
         return documentation;
     }
 
@@ -120,8 +115,7 @@ public class Raml
      *
      * @param uriParameters a {@link java.util.Map} object.
      */
-    public void setBaseUriParameters(Map<String, UriParameter> uriParameters)
-    {
+    public void setBaseUriParameters(Map<String, UriParameter> uriParameters) {
         this.baseUriParameters = uriParameters;
     }
 
@@ -130,8 +124,7 @@ public class Raml
      *
      * @param resources a {@link java.util.Map} object.
      */
-    public void setResources(Map<String, Resource> resources)
-    {
+    public void setResources(Map<String, Resource> resources) {
         this.resources = resources;
     }
 
@@ -140,8 +133,7 @@ public class Raml
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 
@@ -150,8 +142,7 @@ public class Raml
      *
      * @param title a {@link java.lang.String} object.
      */
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -160,8 +151,7 @@ public class Raml
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getVersion()
-    {
+    public String getVersion() {
         return version;
     }
 
@@ -170,8 +160,7 @@ public class Raml
      *
      * @param version a {@link java.lang.String} object.
      */
-    public void setVersion(String version)
-    {
+    public void setVersion(String version) {
         this.version = version;
     }
 
@@ -180,8 +169,7 @@ public class Raml
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getBaseUri()
-    {
+    public String getBaseUri() {
         return baseUri;
     }
 
@@ -190,8 +178,7 @@ public class Raml
      *
      * @param baseUri a {@link java.lang.String} object.
      */
-    public void setBaseUri(String baseUri)
-    {
+    public void setBaseUri(String baseUri) {
         this.baseUri = baseUri;
     }
 
@@ -200,12 +187,10 @@ public class Raml
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getBasePath()
-    {
+    public String getBasePath() {
         //skip protocol separator "//"
         int start = baseUri.indexOf("//") + 2;
-        if (start == -1)
-        {
+        if (start == -1) {
             start = 0;
         }
 
@@ -218,8 +203,7 @@ public class Raml
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getUri()
-    {
+    public String getUri() {
         return "";
     }
 
@@ -228,8 +212,7 @@ public class Raml
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getMediaType()
-    {
+    public String getMediaType() {
         return mediaType;
     }
 
@@ -238,8 +221,7 @@ public class Raml
      *
      * @param mediaType a {@link java.lang.String} object.
      */
-    public void setMediaType(String mediaType)
-    {
+    public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
     }
 
@@ -248,8 +230,7 @@ public class Raml
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, Resource> getResources()
-    {
+    public Map<String, Resource> getResources() {
         return resources;
     }
 
@@ -258,8 +239,7 @@ public class Raml
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, UriParameter> getBaseUriParameters()
-    {
+    public Map<String, UriParameter> getBaseUriParameters() {
         return baseUriParameters;
     }
 
@@ -268,8 +248,7 @@ public class Raml
      *
      * @return a {@link java.util.List} object.
      */
-    public List<Map<String, Template>> getResourceTypes()
-    {
+    public List<Map<String, Template>> getResourceTypes() {
         return resourceTypes;
     }
 
@@ -278,8 +257,7 @@ public class Raml
      *
      * @param resourceTypes a {@link java.util.List} object.
      */
-    public void setResourceTypes(List<Map<String, Template>> resourceTypes)
-    {
+    public void setResourceTypes(List<Map<String, Template>> resourceTypes) {
         this.resourceTypes = resourceTypes;
     }
 
@@ -288,8 +266,7 @@ public class Raml
      *
      * @return a {@link java.util.List} object.
      */
-    public List<Map<String, Template>> getTraits()
-    {
+    public List<Map<String, Template>> getTraits() {
         return traits;
     }
 
@@ -298,8 +275,7 @@ public class Raml
      *
      * @param traits a {@link java.util.List} object.
      */
-    public void setTraits(List<Map<String, Template>> traits)
-    {
+    public void setTraits(List<Map<String, Template>> traits) {
         this.traits = traits;
     }
 
@@ -308,19 +284,17 @@ public class Raml
      *
      * @return a {@link java.util.List} object.
      */
-    public List<Map<String, String>> getSchemas()
-    {
+    public List<Map<String, String>> getSchemas() {
         return schemas;
     }
-    
+
 
     /**
      * <p>Setter for the field <code>schemas</code>.</p>
      *
      * @param schemas a {@link java.util.List} object.
      */
-    public void setSchemas(List<Map<String, String>> schemas)
-    {
+    public void setSchemas(List<Map<String, String>> schemas) {
         this.schemas = schemas;
     }
 
@@ -329,8 +303,7 @@ public class Raml
      *
      * @return a {@link java.util.List} object.
      */
-    public List<Protocol> getProtocols()
-    {
+    public List<Protocol> getProtocols() {
         return protocols;
     }
 
@@ -339,18 +312,16 @@ public class Raml
      *
      * @param protocols a {@link java.util.List} object.
      */
-    public void setProtocols(List<Protocol> protocols)
-    {
+    public void setProtocols(List<Protocol> protocols) {
         this.protocols = protocols;
-    }	
+    }
 
     /**
      * <p>Getter for the field <code>securitySchemes</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
-    public List<Map<String, SecurityScheme>> getSecuritySchemes()
-    {
+    public List<Map<String, SecurityScheme>> getSecuritySchemes() {
         return securitySchemes;
     }
 
@@ -359,8 +330,7 @@ public class Raml
      *
      * @param securitySchemes a {@link java.util.List} object.
      */
-    public void setSecuritySchemes(List<Map<String, SecurityScheme>> securitySchemes)
-    {
+    public void setSecuritySchemes(List<Map<String, SecurityScheme>> securitySchemes) {
         this.securitySchemes = securitySchemes;
     }
 
@@ -369,8 +339,7 @@ public class Raml
      *
      * @return a {@link java.util.List} object.
      */
-    public List<SecurityReference> getSecuredBy()
-    {
+    public List<SecurityReference> getSecuredBy() {
         return securedBy;
     }
 
@@ -379,8 +348,7 @@ public class Raml
      *
      * @param securedBy a {@link java.util.List} object.
      */
-    public void setSecuredBy(List<SecurityReference> securedBy)
-    {
+    public void setSecuredBy(List<SecurityReference> securedBy) {
         this.securedBy = securedBy;
     }
 
@@ -389,11 +357,9 @@ public class Raml
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<String, String> getConsolidatedSchemas()
-    {
+    public Map<String, String> getConsolidatedSchemas() {
         Map<String, String> consolidated = new HashMap<String, String>();
-        for (Map<String, String> map : getSchemas())
-        {
+        for (Map<String, String> map : getSchemas()) {
             consolidated.putAll(map);
         }
         return consolidated;
@@ -405,24 +371,19 @@ public class Raml
      * @param path a {@link java.lang.String} object.
      * @return a {@link org.raml.model.Resource} object.
      */
-    public Resource getResource(String path)
-    {
-    	
-        for (Resource resource : resources.values())
-        {
-            if (path.startsWith(resource.getRelativeUri()))
-            {
-                if (path.length() == resource.getRelativeUri().length())
-                {
+    public Resource getResource(String path) {
+
+        for (Resource resource : resources.values()) {
+            if (path.startsWith(resource.getRelativeUri())) {
+                if (path.length() == resource.getRelativeUri().length()) {
                     return resource;
                 }
-                if (path.charAt(resource.getRelativeUri().length()) == '/')
-                {
+                if (path.charAt(resource.getRelativeUri().length()) == '/') {
                     final Resource found = resource.getResource(path.substring(resource.getRelativeUri().length()));
                     if (found != null) {
-                     return found;
+                        return found;
                     }
-                }                
+                }
             }
         }
         return null;

@@ -29,14 +29,12 @@ import java.util.regex.Pattern;
  * @author kor
  * @version $Id: $Id
  */
-public class Inflector
-{
+public class Inflector {
 
     private static List<String[]> singulars, plurals, irregulars;
     private static List<String> uncountables;
 
-    static
-    {
+    static {
         singulars = new ArrayList<String[]>();
         plurals = new ArrayList<String[]>();
         irregulars = new ArrayList<String[]>();
@@ -98,19 +96,16 @@ public class Inflector
         uncountables = Arrays.asList("equipment", "information", "rice", "money", "species", "series", "fish", "sheep");
     }
 
-    private static void addPlural(String rule, String replacement)
-    {
-        plurals.add(0, new String[] {rule, replacement});
+    private static void addPlural(String rule, String replacement) {
+        plurals.add(0, new String[]{rule, replacement});
     }
 
-    private static void addSingular(String rule, String replacement)
-    {
-        singulars.add(0, new String[] {rule, replacement});
+    private static void addSingular(String rule, String replacement) {
+        singulars.add(0, new String[]{rule, replacement});
     }
 
-    private static void addIrregular(String rule, String replacement)
-    {
-        irregulars.add(new String[] {rule, replacement});
+    private static void addIrregular(String rule, String replacement) {
+        irregulars.add(new String[]{rule, replacement});
     }
 
 
@@ -119,8 +114,7 @@ public class Inflector
      *
      * @return Replaces a found pattern in a word and returns a transformed word. Null is pattern does not match.
      */
-    private static String gsub(String word, String rule, String replacement)
-    {
+    private static String gsub(String word, String rule, String replacement) {
         Pattern pattern = Pattern.compile(rule, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(word);
         return matcher.find() ? matcher.replaceFirst(replacement) : null;
@@ -132,27 +126,21 @@ public class Inflector
      * @param word a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
-    public static String pluralize(String word)
-    {
+    public static String pluralize(String word) {
 
-        if (uncountables.contains(word))
-        {
+        if (uncountables.contains(word)) {
             return word;
         }
 
-        for (String[] irregular : irregulars)
-        {
-            if (irregular[0].equalsIgnoreCase(word))
-            {
+        for (String[] irregular : irregulars) {
+            if (irregular[0].equalsIgnoreCase(word)) {
                 return irregular[1];
             }
         }
 
-        for (String[] pair : plurals)
-        {
+        for (String[] pair : plurals) {
             String plural = gsub(word, pair[0], pair[1]);
-            if (plural != null)
-            {
+            if (plural != null) {
                 return plural;
             }
         }
@@ -167,27 +155,21 @@ public class Inflector
      * @param word a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
      */
-    public static String singularize(String word)
-    {
+    public static String singularize(String word) {
 
-        if (uncountables.contains(word))
-        {
+        if (uncountables.contains(word)) {
             return word;
         }
 
-        for (String[] irregular : irregulars)
-        {
-            if (irregular[1].equalsIgnoreCase(word))
-            {
+        for (String[] irregular : irregulars) {
+            if (irregular[1].equalsIgnoreCase(word)) {
                 return irregular[0];
             }
         }
 
-        for (String[] pair : singulars)
-        {
+        for (String[] pair : singulars) {
             String singular = gsub(word, pair[0], pair[1]);
-            if (singular != null)
-            {
+            if (singular != null) {
                 return singular;
             }
         }
@@ -197,37 +179,31 @@ public class Inflector
 
     /**
      * Converts a camel case to underscore and then pluralizes.
-     * <p/>
+     * <p>
      * Example: "GrayDuck" is converted to "gray_ducks".
      *
      * @param camelCase any CamelCase phrase.
      * @return pluralized version of underscored CamelCase.
      */
-    private static String tableize(String camelCase)
-    {
+    private static String tableize(String camelCase) {
         return pluralize(underscore(camelCase));
     }
 
-    private static String underscore(String camel)
-    {
+    private static String underscore(String camel) {
 
         List<Integer> upper = new ArrayList<Integer>();
         byte[] bytes = camel.getBytes();
-        for (int i = 0; i < bytes.length; i++)
-        {
+        for (int i = 0; i < bytes.length; i++) {
             byte b = bytes[i];
-            if (b < 97 || b > 122)
-            {
+            if (b < 97 || b > 122) {
                 upper.add(i);
             }
         }
 
         StringBuffer b = new StringBuffer(camel);
-        for (int i = upper.size() - 1; i >= 0; i--)
-        {
+        for (int i = upper.size() - 1; i >= 0; i--) {
             Integer index = upper.get(i);
-            if (index != 0)
-            {
+            if (index != 0) {
                 b.insert(index, "_");
             }
         }
@@ -242,8 +218,7 @@ public class Inflector
      * @param dash dash version of a word to converted to camel case.
      * @return camel case version of dash.
      */
-    public static String camelize(String dash)
-    {
+    public static String camelize(String dash) {
         return camelize(dash, true);
     }
 
@@ -251,16 +226,14 @@ public class Inflector
     /**
      * Generates a camel case version of a phrase from dash.
      *
-     * @param dash          dash version of a word to converted to camel case.
+     * @param dash                dash version of a word to converted to camel case.
      * @param capitalizeFirstChar set to true if first character needs to be capitalized, false if not.
      * @return camel case version of dash.
      */
-    private static String camelize(String dash, boolean capitalizeFirstChar)
-    {
+    private static String camelize(String dash, boolean capitalizeFirstChar) {
         StringBuilder result = new StringBuilder("");
         StringTokenizer st = new StringTokenizer(dash, "-");
-        while (st.hasMoreTokens())
-        {
+        while (st.hasMoreTokens()) {
             result.append(capitalize(st.nextToken()));
         }
         return capitalizeFirstChar ? result.toString() : result.substring(0, 1).toLowerCase() + result.substring(1);
@@ -272,19 +245,16 @@ public class Inflector
      * @param word word/phrase to capitalize.
      * @return same as input argument, but the first character is capitalized.
      */
-    public static String capitalize(String word)
-    {
+    public static String capitalize(String word) {
         return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
 
 
-    private static String shortName(String className)
-    {
+    private static String shortName(String className) {
         return className.substring(className.lastIndexOf('.') + 1);
     }
 
-    private static String getIdName(String tableName)
-    {
+    private static String getIdName(String tableName) {
         String idName = Inflector.singularize(tableName) + "_id";
         return idName.toLowerCase();
     }
@@ -299,26 +269,20 @@ public class Inflector
      * @param target this is a potential "join" table name.
      * @return a name of "another" table from a join table name.
      */
-    private static String getOtherName(String source, String target)
-    {
+    private static String getOtherName(String source, String target) {
 
         String other;
-        if (target.contains(source) && !target.equals(source))
-        {
+        if (target.contains(source) && !target.equals(source)) {
 
             int start = target.indexOf(source);
             other = start == 0 ? target.substring(source.length()) : target.substring(0, start);
-        }
-        else
-        {
+        } else {
             return null;
         }
-        if (other.startsWith("_"))
-        {
+        if (other.startsWith("_")) {
             other = other.replaceFirst("_", " ");
         }
-        if (other.endsWith("_"))
-        {
+        if (other.endsWith("_")) {
             byte[] otherb = other.getBytes();
             otherb[otherb.length - 1] = ' ';
             other = new String(otherb);
