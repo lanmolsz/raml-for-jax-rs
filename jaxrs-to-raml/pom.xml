@@ -60,7 +60,6 @@
 	</profiles>
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>

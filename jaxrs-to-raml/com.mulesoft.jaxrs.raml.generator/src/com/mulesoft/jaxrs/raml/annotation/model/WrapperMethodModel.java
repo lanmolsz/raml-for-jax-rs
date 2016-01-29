@@ -5,7 +5,7 @@ import java.util.List;
 import org.raml.model.ActionType;
 
 public class WrapperMethodModel implements IMethodModel{
-	
+
 	public WrapperMethodModel(ITypeModel ownerType, IMethodModel originalMethod) {
 		super();
 		this.ownerType = ownerType;
@@ -13,9 +13,9 @@ public class WrapperMethodModel implements IMethodModel{
 	}
 
 	private ITypeModel ownerType;
-	
+
 	private IMethodModel originalMethod;
-	
+
 	private IMethodModel actualMethod;
 
 	@Override
@@ -52,7 +52,7 @@ public class WrapperMethodModel implements IMethodModel{
 	public IAnnotationModel getAnnotation(String name) {
 		return this.getActualMethod().getAnnotation(name);
 	}
-	
+
 	@Override
 	public boolean hasAnnotationWithCanonicalName(String name) {
 		return this.getActualMethod().hasAnnotationWithCanonicalName(name);
@@ -95,7 +95,7 @@ public class WrapperMethodModel implements IMethodModel{
 
 	@Override
 	public IParameterModel[] getParameters() {
-		
+
 		IParameterModel[] originalParams = this.originalMethod.getParameters();
 		IParameterModel[] arr = new IParameterModel[originalParams.length];
 		for(int i = 0 ; i < originalParams.length; i++){
@@ -133,15 +133,15 @@ public class WrapperMethodModel implements IMethodModel{
 	public boolean hasGenericReturnType() {
 		return originalMethod.hasGenericReturnType();
 	}
-	
+
 	private IMethodModel getActualMethod(){
-		
+
 		if(this.actualMethod!=null){
 			return this.actualMethod;
-		}		
+		}
 		new ClassHierarchyVisitor() {
 			@Override
-			boolean checkMethod(IMethodModel m) {
+			protected boolean checkMethod(IMethodModel m) {
 				boolean isWS = m.hasAnnotation("Path");
 				if(!isWS){
 					for(ActionType at : ActionType.values()){
@@ -151,7 +151,7 @@ public class WrapperMethodModel implements IMethodModel{
 							break;
 						}
 					}
-				}				
+				}
 				return isWS;
 			}
 		}.visit(ownerType, originalMethod);
